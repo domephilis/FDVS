@@ -1,0 +1,2 @@
+/usr/bin/ar qc libimgui_renderer.a CMakeFiles/imgui_renderer.dir/extern/imgui/imgui_impl_opengl3.cpp.o
+/usr/bin/ranlib libimgui_renderer.a

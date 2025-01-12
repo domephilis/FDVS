@@ -1,0 +1,66 @@
+= Project Notes = 
+
+- Data Generation -
+
+- Config Window -
+
+- Tabulardata Window -
+
+- Graphing Window -
+
+[x]  Create FBO and a Texture
+[x]  Link FBO to Texture
+[x]  Bind to FBO and Draw into the Buffer
+[]  Use Shader Programs to Draw Each Item on Scene
+    []  Draw a Cube containing the entire viewing volume inside ImGui Window
+    []  Create a projection matrix with Perspective Division that maps
+        my coordinates (0,100 in xyz) to viewing frustrum from (-1, 1 in xyz)
+    []  Create a view matrix handling class with the following functions:
+        [] Store the following values:
+            [] Camera/Actor up vector
+            [] Camera/Actor location vector
+            [] Camera/Actor forward vector
+        [] Getter and Setter functions for vectors (Note that camera
+           transformations shall interface with the setter functions)
+        [] Keyboard input handler (Up Down Left Right for the up and forward
+           vectors and WASD for the location vector)
+        [] Push/Pop functions that store matrices at some intermediate point
+        [] Create a matrix that transforms everything into the camera/actor's 
+           frame of reference.  Ultimately the matrix is concatenated with the
+           perspective matrix and any translation/rotation matrices (which now
+           moves the camera about).
+    []  Create a camera and test the keyboard functionality 
+    []  Get rid of the cube and draw 3 axis in one VAO
+    []  Add in the output.off faces and vertices to another VAO
+    []  Use a large GL_POINT to draw a cursor on the screen; use the home row
+        hjkl keys to move the cursor on the surface (by supplying the func 
+        to be plotted with new input values); show the value at the cursor on 
+        a separate ImGui window
+    []  Use some tga images to texture over some rectangles to label the axes (optional)
+    []  Refactor code 
+        [] Create a Setup function that sets up the window, the buffers, ...
+        [] Create functions that draw each of the above elements separately
+           (These functions may be later used in a graphing window class)
+        [] The class renders to a FBO linked with a texture that is Ultimately
+           sent to the ImDrawlist.  Naturally, one may overlay multiple 
+           instances of this class on the same FBO.  The user handles the
+           windowing and the camerawork.
+           Note: this class only works with raw data and does not compute
+                 anything.  If one needs histograms, one generates data
+                 elsewhere and passes the buckets and number into this class
+                 and set the GPH_VBAR type.
+            [] Require type of graph, FBO name, texture_id in the constructor
+            [] gphSet(ENUM_FLAG);
+                The flags are: GPH_SURFACE, GPH_POINTCLOUD, GPH_WIREFRAME,
+                GPH_LINE...
+            [] gphSetValf(), gphSetVali(), ...
+            [] gphDrawAxes(gphVec4 ptMin, gphVec4 ptMax);
+            [] gphDrawTicks(m_tick_density);
+            [] gphDrawGraph();
+            [] gphUpdateData(); - Call gphDrawGraph(); after
+            [] private:
+            []    p_DrawVbarGraph();
+            []    p_DrawHbarGraph();
+            []    p_Draw3DLineGraph();
+            []    p_Draw3DSurfaceGraph();
+            []    // 2D Graphs are 3D graphs at fixed z

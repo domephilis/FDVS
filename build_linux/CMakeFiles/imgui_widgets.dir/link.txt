@@ -1,0 +1,2 @@
+/usr/bin/ar qc libimgui_widgets.a CMakeFiles/imgui_widgets.dir/extern/imgui/imgui_widgets.cpp.o
+/usr/bin/ranlib libimgui_widgets.a

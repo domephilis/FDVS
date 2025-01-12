@@ -1,0 +1,2 @@
+/usr/bin/ar qc libshader_handler.a CMakeFiles/shader_handler.dir/src/shader_handler.cpp.o
+/usr/bin/ranlib libshader_handler.a
