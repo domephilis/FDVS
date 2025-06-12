@@ -64,8 +64,9 @@ set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/imgui_tables.dir/DependInfo.cmake"
   "CMakeFiles/imgui_widgets.dir/DependInfo.cmake"
   "CMakeFiles/shader_handler.dir/DependInfo.cmake"
-  "CMakeFiles/matrix_handler.dir/DependInfo.cmake"
-  "CMakeFiles/buffer_handler.dir/DependInfo.cmake"
-  "CMakeFiles/read_data.dir/DependInfo.cmake"
+  "CMakeFiles/Buffers.dir/DependInfo.cmake"
+  "CMakeFiles/Data.dir/DependInfo.cmake"
+  "CMakeFiles/Graphics.dir/DependInfo.cmake"
+  "CMakeFiles/Application.dir/DependInfo.cmake"
   "CMakeFiles/program.out.dir/DependInfo.cmake"
   )

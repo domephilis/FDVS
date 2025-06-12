@@ -196,6 +196,8 @@ AppAcceptingEvents	extern/imgui/imgui.h	/^    bool        AppAcceptingEvents;   
 AppFocusLost	extern/imgui/imgui.h	/^    bool        AppFocusLost;                       \/\/ Only modify via AddFocusEvent()$/;"	m	struct:ImGuiIO
 AppFocused	extern/imgui/imgui_internal.h	/^        ImGuiInputEventAppFocused   AppFocused;     \/\/ if Type == ImGuiInputEventType_Focus$/;"	m	union:ImGuiInputEvent::__anon32
 Appearing	extern/imgui/imgui_internal.h	/^    bool                    Appearing;                          \/\/ Set during the frame where the window is appearing (or re-appearing)$/;"	m	struct:ImGuiWindow
+Application	src/Application.cpp	/^Application::Application() {$/;"	f	class:Application
+Application	src/Application.hpp	/^class Application {$/;"	c
 ApplyAllFn	extern/imgui/imgui_internal.h	/^    void        (*ApplyAllFn)(ImGuiContext* ctx, ImGuiSettingsHandler* handler);                                \/\/ Read: Called after reading (in registration order)$/;"	m	struct:ImGuiSettingsHandler
 ApplyDeletionPostLoop	extern/imgui/imgui_demo.cpp	/^    void ApplyDeletionPostLoop(ImGuiMultiSelectIO* ms_io, ImVector<ITEM_TYPE>& items, int item_curr_idx_to_select)$/;"	f	struct:ExampleSelectionWithDeletion
 ApplyDeletionPreLoop	extern/imgui/imgui_demo.cpp	/^    int ApplyDeletionPreLoop(ImGuiMultiSelectIO* ms_io, int items_count)$/;"	f	struct:ExampleSelectionWithDeletion
@@ -319,9 +321,17 @@ BgColor0	extern/imgui/imgui_internal.h	/^    ImU32                       BgColor
 BgColor1	extern/imgui/imgui_internal.h	/^    ImU32                       BgColor1;$/;"	m	struct:ImGuiTableHeaderData
 BgFgDrawLists	extern/imgui/imgui_internal.h	/^    ImDrawList*         BgFgDrawLists[2];       \/\/ Convenience background (0) and foreground (1) draw lists. We use them to draw software mouser cursor when io.MouseDrawCursor is set and to draw most debug overlays.$/;"	m	struct:ImGuiViewportP
 BgFgDrawListsLastFrame	extern/imgui/imgui_internal.h	/^    int                 BgFgDrawListsLastFrame[2]; \/\/ Last frame number the background (0) and foreground (1) draw lists were used$/;"	m	struct:ImGuiViewportP
+Bind	src/Buffers.hpp	/^  void Bind() { glBindBuffer(GL_ARRAY_BUFFER, vbo_buffer_id_); }$/;"	f	class:Buffers::VBO
+Bind	src/Buffers.hpp	/^  void Bind() { glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo_buffer_id_); }$/;"	f	class:Buffers::EBO
+Bind	src/Buffers.hpp	/^  void Bind() { glBindFramebuffer(GL_FRAMEBUFFER, fbo_buffer_id_); }$/;"	f	class:Buffers::FBO
+Bind	src/Buffers.hpp	/^  void Bind() { glBindRenderbuffer(GL_RENDERBUFFER, rbo_id_); }$/;"	f	class:Buffers::RBO
+Bind	src/Buffers.hpp	/^  void Bind() { glBindTexture(GL_TEXTURE_2D, texture_id_); }$/;"	f	class:Buffers::Texture2D
+Bind	src/Buffers.hpp	/^  void Bind() { glBindVertexArray(GetBufferID()); }$/;"	f	class:Buffers::VAO
 BindBuffer	extern/imgui/imgui_impl_opengl3_loader.h	/^        PFNGLBINDBUFFERPROC               BindBuffer;$/;"	m	struct:ImGL3WProcs::__anon9
+BindEBO	src/Buffers.hpp	/^  void BindEBO() { ebo_->Bind(); }$/;"	f	class:Buffers::VAO
 BindSampler	extern/imgui/imgui_impl_opengl3_loader.h	/^        PFNGLBINDSAMPLERPROC              BindSampler;$/;"	m	struct:ImGL3WProcs::__anon9
 BindTexture	extern/imgui/imgui_impl_opengl3_loader.h	/^        PFNGLBINDTEXTUREPROC              BindTexture;$/;"	m	struct:ImGL3WProcs::__anon9
+BindVBO	src/Buffers.hpp	/^  void BindVBO() { vbo_->Bind(); }$/;"	f	class:Buffers::VAO
 BindVertexArray	extern/imgui/imgui_impl_opengl3_loader.h	/^        PFNGLBINDVERTEXARRAYPROC          BindVertexArray;$/;"	m	struct:ImGL3WProcs::__anon9
 BlendEquation	extern/imgui/imgui_impl_opengl3_loader.h	/^        PFNGLBLENDEQUATIONPROC            BlendEquation;$/;"	m	struct:ImGL3WProcs::__anon9
 BlendEquationSeparate	extern/imgui/imgui_impl_opengl3_loader.h	/^        PFNGLBLENDEQUATIONSEPARATEPROC    BlendEquationSeparate;$/;"	m	struct:ImGL3WProcs::__anon9
@@ -330,6 +340,8 @@ BorderColorLight	extern/imgui/imgui_internal.h	/^    ImU32                      
 BorderColorStrong	extern/imgui/imgui_internal.h	/^    ImU32                       BorderColorStrong;$/;"	m	struct:ImGuiTable
 BorderX1	extern/imgui/imgui_internal.h	/^    float                       BorderX1;$/;"	m	struct:ImGuiTable
 BorderX2	extern/imgui/imgui_internal.h	/^    float                       BorderX2;$/;"	m	struct:ImGuiTable
+Box	src/Graphics.cpp	/^Graphics::Box::Box(std::shared_ptr<Shader> element_shader,$/;"	f	class:Graphics::Box
+Box	src/Graphics.hpp	/^class Box : public Element {$/;"	c	namespace:Graphics
 BoxSelectActivateDrag	extern/imgui/imgui_widgets.cpp	/^static void BoxSelectActivateDrag(ImGuiBoxSelectState* bs, ImGuiWindow* window)$/;"	f	file:
 BoxSelectDeactivateDrag	extern/imgui/imgui_widgets.cpp	/^static void BoxSelectDeactivateDrag(ImGuiBoxSelectState* bs)$/;"	f	file:
 BoxSelectId	extern/imgui/imgui_internal.h	/^    ImGuiID                 BoxSelectId;$/;"	m	struct:ImGuiMultiSelectTempData
@@ -353,6 +365,7 @@ BufSize	extern/imgui/imgui.h	/^    int                 BufSize;        \/\/ Buff
 BufTextLen	extern/imgui/imgui.h	/^    int                 BufTextLen;     \/\/ Text length (in bytes)               \/\/ Read-write   \/\/ [Resize,Completion,History,Always] Exclude zero-terminator storage. In C land: == strlen(some_text), in C++ land: string.length()$/;"	m	struct:ImGuiInputTextCallbackData
 BufferData	extern/imgui/imgui_impl_opengl3_loader.h	/^        PFNGLBUFFERDATAPROC               BufferData;$/;"	m	struct:ImGL3WProcs::__anon9
 BufferSubData	extern/imgui/imgui_impl_opengl3_loader.h	/^        PFNGLBUFFERSUBDATAPROC            BufferSubData;$/;"	m	struct:ImGL3WProcs::__anon9
+Buffers	src/Buffers.hpp	/^namespace Buffers {$/;"	n
 Build	extern/imgui/imgui.cpp	/^void ImGuiTextFilter::Build()$/;"	f	class:ImGuiTextFilter
 Build	extern/imgui/imgui_draw.cpp	/^bool    ImFontAtlas::Build()$/;"	f	class:ImFontAtlas
 BuildEars	extern/imgui/imgui_draw.cpp	/^void ImTriangulator::BuildEars()$/;"	f	class:ImTriangulator
@@ -371,9 +384,9 @@ Button	extern/imgui/imgui_widgets.cpp	/^bool ImGui::Button(const char* label, co
 ButtonBehavior	extern/imgui/imgui_widgets.cpp	/^bool ImGui::ButtonBehavior(const ImRect& bb, ImGuiID id, bool* out_hovered, bool* out_held, ImGuiButtonFlags flags)$/;"	f	class:ImGui
 ButtonEx	extern/imgui/imgui_widgets.cpp	/^bool ImGui::ButtonEx(const char* label, const ImVec2& size_arg, ImGuiButtonFlags flags)$/;"	f	class:ImGui
 ButtonTextAlign	extern/imgui/imgui.h	/^    ImVec2      ButtonTextAlign;            \/\/ Alignment of button text when button is larger than text. Defaults to (0.5f, 0.5f) (centered).$/;"	m	struct:ImGuiStyle
-CMAKE_BINARY_DIR	build_linux/Makefile	/^CMAKE_BINARY_DIR = "\/home\/eric\/Documents\/Learning\/Computer Science\/OpenGL\/FDVS\/build_linux"$/;"	m
+CMAKE_BINARY_DIR	build_linux/Makefile	/^CMAKE_BINARY_DIR = "\/home\/eric\/Documents\/Learning\/Computer Science\/OpenGL\/FDVS_github\/build_linux"$/;"	m
 CMAKE_COMMAND	build_linux/Makefile	/^CMAKE_COMMAND = \/home\/eric\/anaconda3\/lib\/python3.9\/site-packages\/cmake\/data\/bin\/cmake$/;"	m
-CMAKE_SOURCE_DIR	build_linux/Makefile	/^CMAKE_SOURCE_DIR = "\/home\/eric\/Documents\/Learning\/Computer Science\/OpenGL\/FDVS"$/;"	m
+CMAKE_SOURCE_DIR	build_linux/Makefile	/^CMAKE_SOURCE_DIR = "\/home\/eric\/Documents\/Learning\/Computer Science\/OpenGL\/FDVS_github"$/;"	m
 COLUMNS_HIT_RECT_HALF_THICKNESS	extern/imgui/imgui_tables.cpp	/^static const float COLUMNS_HIT_RECT_HALF_THICKNESS = 4.0f;$/;"	v	file:
 COMPILER_ID	build_linux/CMakeFiles/3.22.4/CompilerIdC/CMakeCCompilerId.c	109;"	d	file:
 COMPILER_ID	build_linux/CMakeFiles/3.22.4/CompilerIdC/CMakeCCompilerId.c	117;"	d	file:
@@ -732,6 +745,7 @@ ChannelsMerge	extern/imgui/imgui.h	/^    inline void     ChannelsMerge()        
 ChannelsSetCurrent	extern/imgui/imgui.h	/^    inline void     ChannelsSetCurrent(int n)   { _Splitter.SetCurrentChannel(this, n); }$/;"	f	struct:ImDrawList
 ChannelsSplit	extern/imgui/imgui.h	/^    inline void     ChannelsSplit(int count)    { _Splitter.Split(this, count); }$/;"	f	struct:ImDrawList
 Char	extern/imgui/imgui_internal.h	/^struct ImGuiInputEventText          { unsigned int Char; };$/;"	m	struct:ImGuiInputEventText
+CheckFboBindingStatus	src/Buffers.cpp	/^bool Buffers::FBO::CheckFboBindingStatus(std::string msg) {$/;"	f	class:Buffers::FBO
 CheckProgram	extern/imgui/imgui_impl_opengl3.cpp	/^static bool CheckProgram(GLuint handle, const char* desc)$/;"	f	file:
 CheckShader	extern/imgui/imgui_impl_opengl3.cpp	/^static bool CheckShader(GLuint handle, const char* desc)$/;"	f	file:
 Checkbox	extern/imgui/imgui_widgets.cpp	/^bool ImGui::Checkbox(const char* label, bool* v)$/;"	f	class:ImGui
@@ -815,6 +829,7 @@ ClipboardUserData	extern/imgui/imgui.h	/^    void*       ClipboardUserData;$/;"	
 ClipperTempData	extern/imgui/imgui_internal.h	/^    ImVector<ImGuiListClipperData>  ClipperTempData;$/;"	m	struct:ImGuiContext
 ClipperTempDataStacked	extern/imgui/imgui_internal.h	/^    int                             ClipperTempDataStacked;$/;"	m	struct:ImGuiContext
 CloneOutput	extern/imgui/imgui_draw.cpp	/^ImDrawList* ImDrawList::CloneOutput() const$/;"	f	class:ImDrawList
+Close	src/Application.cpp	/^void Application::Close() {$/;"	f	class:Application
 CloseButton	extern/imgui/imgui_widgets.cpp	/^bool ImGui::CloseButton(ImGuiID id, const ImVec2& pos)$/;"	f	class:ImGui
 CloseCurrentPopup	extern/imgui/imgui.cpp	/^void ImGui::CloseCurrentPopup()$/;"	f	class:ImGui
 ClosePopupToLevel	extern/imgui/imgui.cpp	/^void ImGui::ClosePopupToLevel(int remaining, bool restore_focus_to_window_under_popup)$/;"	f	class:ImGui
@@ -889,6 +904,7 @@ CompareWithContextState	extern/imgui/imgui.cpp	/^void ImGuiStackSizes::CompareWi
 CompareWithSortSpecs	extern/imgui/imgui_demo.cpp	/^    static int IMGUI_CDECL CompareWithSortSpecs(const void* lhs, const void* rhs)$/;"	f	struct:ExampleAsset
 CompareWithSortSpecs	extern/imgui/imgui_demo.cpp	/^    static int IMGUI_CDECL CompareWithSortSpecs(const void* lhs, const void* rhs)$/;"	f	struct:__anon11::MyItem
 CompileShader	extern/imgui/imgui_impl_opengl3_loader.h	/^        PFNGLCOMPILESHADERPROC            CompileShader;$/;"	m	struct:ImGL3WProcs::__anon9
+Config	src/Renderer.cpp	/^class Config : public Subpanel {$/;"	c	file:
 ConfigData	extern/imgui/imgui.h	/^    ImVector<ImFontConfig>      ConfigData;         \/\/ Configuration data$/;"	m	struct:ImFontAtlas
 ConfigData	extern/imgui/imgui.h	/^    const ImFontConfig*         ConfigData;         \/\/ 4-8   \/\/ in  \/\/            \/\/ Pointer within ContainerAtlas->ConfigData$/;"	m	struct:ImFont
 ConfigDataCount	extern/imgui/imgui.h	/^    short                       ConfigDataCount;    \/\/ 2     \/\/ in  \/\/ ~ 1        \/\/ Number of ImFontConfig involved in creating this font. Bigger than 1 when merging multiple font sources into one ImFont.$/;"	m	struct:ImFont
@@ -955,6 +971,7 @@ CreateNewWindow	extern/imgui/imgui.cpp	/^static ImGuiWindow* CreateNewWindow(con
 CreateNewWindowSettings	extern/imgui/imgui.cpp	/^ImGuiWindowSettings* ImGui::CreateNewWindowSettings(const char* name)$/;"	f	class:ImGui
 CreateProgram	extern/imgui/imgui_impl_opengl3_loader.h	/^        PFNGLCREATEPROGRAMPROC            CreateProgram;$/;"	m	struct:ImGL3WProcs::__anon9
 CreateShader	extern/imgui/imgui_impl_opengl3_loader.h	/^        PFNGLCREATESHADERPROC             CreateShader;$/;"	m	struct:ImGL3WProcs::__anon9
+CreateWindow	src/Application.cpp	/^void Application::CreateWindow() {$/;"	f	class:Application
 Ctx	extern/imgui/imgui.h	/^    ImGuiContext*       Ctx;            \/\/ Parent UI context$/;"	m	struct:ImGuiInputTextCallbackData
 Ctx	extern/imgui/imgui.h	/^    ImGuiContext*   Ctx;                \/\/ Parent UI context$/;"	m	struct:ImGuiListClipper
 Ctx	extern/imgui/imgui.h	/^    ImGuiContext* Ctx;                              \/\/ Parent UI context (needs to be set explicitly by parent).$/;"	m	struct:ImGuiIO
@@ -1014,6 +1031,7 @@ Data	extern/imgui/imgui.h	/^    void*           Data;               \/\/ Data (c
 Data	extern/imgui/imgui_draw.cpp	/^    ImTriangulatorNode**    Data = NULL;$/;"	m	struct:ImTriangulatorNodeSpan	file:
 Data	extern/imgui/imgui_internal.h	/^    ImU8        Data[8];        \/\/ Opaque storage to fit any data up to ImGuiDataType_COUNT$/;"	m	struct:ImGuiDataTypeStorage
 Data	extern/imgui/imgui_internal.h	/^    T*                  Data;$/;"	m	struct:ImSpan
+Data	src/Data.hpp	/^namespace Data {$/;"	n
 DataCount	extern/imgui/imgui_demo.cpp	/^    int             DataCount;  \/\/ Member count (1 when scalar)$/;"	m	struct:ExampleMemberInfo	file:
 DataEnd	extern/imgui/imgui_internal.h	/^    T*                  DataEnd;$/;"	m	struct:ImSpan
 DataFrameCount	extern/imgui/imgui.h	/^    int             DataFrameCount;     \/\/ Data timestamp$/;"	m	struct:ImGuiPayload
@@ -1364,12 +1382,16 @@ DstFont	extern/imgui/imgui.h	/^    ImFont*         DstFont;$/;"	m	struct:ImFontC
 DstIndex	extern/imgui/imgui_draw.cpp	/^    int                 DstIndex;           \/\/ Index into atlas->Fonts[] and dst_tmp_array[]$/;"	m	struct:ImFontBuildSrcData	file:
 Dummy	extern/imgui/imgui_widgets.cpp	/^void ImGui::Dummy(const ImVec2& size)$/;"	f	class:ImGui
 DummyDrawChannel	extern/imgui/imgui_internal.h	/^    ImGuiTableDrawChannelIdx    DummyDrawChannel;           \/\/ Redirect non-visible columns here.$/;"	m	struct:ImGuiTable
+EBO	src/Buffers.cpp	/^Buffers::EBO::EBO() { glGenBuffers(1, &ebo_buffer_id_); }$/;"	f	class:Buffers::EBO
+EBO	src/Buffers.hpp	/^class EBO {$/;"	c	namespace:Buffers
+EBO_FLAG_	src/Buffers.hpp	/^  bool EBO_FLAG_ = false;$/;"	m	class:Buffers::VAO
 EMSCRIPTEN_USE_EMBEDDED_GLFW3	extern/imgui/imgui_impl_glfw.cpp	122;"	d	file:
 EQUALS	build_linux/Makefile	/^EQUALS = =$/;"	m
 EditTableColumnsFlags	extern/imgui/imgui_demo.cpp	/^static void EditTableColumnsFlags(ImGuiTableColumnFlags* p_flags)$/;"	f	file:
 EditTableSizingFlags	extern/imgui/imgui_demo.cpp	/^static void EditTableSizingFlags(ImGuiTableFlags* p_flags)$/;"	f	file:
 Edited	extern/imgui/imgui_internal.h	/^    bool                    Edited;                 \/\/ edited this frame$/;"	m	struct:ImGuiInputTextState
 ElemCount	extern/imgui/imgui.h	/^    unsigned int    ElemCount;          \/\/ 4    \/\/ Number of indices (multiple of 3) to be rendered as triangles. Vertices are stored in the callee ImDrawList's vtx_buffer[] array, indices in idx_buffer[].$/;"	m	struct:ImDrawCmd
+Element	src/Graphics.hpp	/^class Element {$/;"	c	namespace:Graphics
 ElementsHandle	extern/imgui/imgui_impl_opengl3.cpp	/^    unsigned int    VboHandle, ElementsHandle;$/;"	m	struct:ImGui_ImplOpenGL3_Data	file:
 EllipsisChar	extern/imgui/imgui.h	/^    ImWchar                     EllipsisChar;       \/\/ 2     \/\/ out \/\/ = '...'\/'.'\/\/ Character used for ellipsis rendering.$/;"	m	struct:ImFont
 EllipsisChar	extern/imgui/imgui.h	/^    ImWchar         EllipsisChar;           \/\/ -1       \/\/ Explicitly specify unicode codepoint of ellipsis character. When fonts are being merged first specified ellipsis will be used.$/;"	m	struct:ImFontConfig
@@ -1444,6 +1466,12 @@ ExampleTree_CreateNode	extern/imgui/imgui_demo.cpp	/^static ExampleTreeNode* Exa
 ExecCommand	extern/imgui/imgui_demo.cpp	/^    void    ExecCommand(const char* command_line)$/;"	f	struct:ExampleAppConsole
 Expand	extern/imgui/imgui_internal.h	/^    void        Expand(const ImVec2& amount)        { Min.x -= amount.x; Min.y -= amount.y; Max.x += amount.x; Max.y += amount.y; }$/;"	f	struct:ImRect
 Expand	extern/imgui/imgui_internal.h	/^    void        Expand(const float amount)          { Min.x -= amount;   Min.y -= amount;   Max.x += amount;   Max.y += amount; }$/;"	f	struct:ImRect
+FBO	src/Buffers.cpp	/^Buffers::FBO::FBO(GLsizei width, GLsizei height) {$/;"	f	class:Buffers::FBO
+FBO	src/Buffers.hpp	/^class FBO {$/;"	c	namespace:Buffers
+FDVS_SRC_APPLICATION_H_	src/Application.hpp	2;"	d
+FDVS_SRC_BUFFERS_H_	src/Buffers.hpp	2;"	d
+FDVS_SRC_DATA_HPP_	src/Data.hpp	2;"	d
+FDVS_SRC_GRAPHICS_H_	src/Graphics.hpp	2;"	d
 FONT_ATLAS_DEFAULT_TEX_CURSOR_DATA	extern/imgui/imgui_draw.cpp	/^static const ImVec2 FONT_ATLAS_DEFAULT_TEX_CURSOR_DATA[ImGuiMouseCursor_COUNT][3] =$/;"	v	file:
 FONT_ATLAS_DEFAULT_TEX_DATA_H	extern/imgui/imgui_draw.cpp	/^const int FONT_ATLAS_DEFAULT_TEX_DATA_H = 27;$/;"	v
 FONT_ATLAS_DEFAULT_TEX_DATA_PIXELS	extern/imgui/imgui_draw.cpp	/^static const char FONT_ATLAS_DEFAULT_TEX_DATA_PIXELS[FONT_ATLAS_DEFAULT_TEX_DATA_W * FONT_ATLAS_DEFAULT_TEX_DATA_H + 1] =$/;"	v	file:
@@ -1611,6 +1639,7 @@ GLAD_GL_VERSION_4_3	extern/glad/glad.c	/^int GLAD_GL_VERSION_4_3 = 0;$/;"	v
 GLAD_GL_VERSION_4_4	extern/glad/glad.c	/^int GLAD_GL_VERSION_4_4 = 0;$/;"	v
 GLAD_GL_VERSION_4_5	extern/glad/glad.c	/^int GLAD_GL_VERSION_4_5 = 0;$/;"	v
 GLAD_GL_VERSION_4_6	extern/glad/glad.c	/^int GLAD_GL_VERSION_4_6 = 0;$/;"	v
+GLAD_LOADING_ERROR	src/Application.hpp	/^struct GLAD_LOADING_ERROR : public PROGRAM_CONSTRUCTION_ERROR {$/;"	s
 GLAPI	extern/imgui/imgui_impl_opengl3_loader.h	114;"	d
 GLDEBUGPROC	extern/imgui/imgui_impl_opengl3_loader.h	/^typedef void (APIENTRY  *GLDEBUGPROC)(GLenum source,GLenum type,GLuint id,GLenum severity,GLsizei length,const GLchar *message,const void *userParam);$/;"	t
 GLDEBUGPROCARB	extern/imgui/imgui_impl_opengl3_loader.h	/^typedef void (APIENTRY  *GLDEBUGPROCARB)(GLenum source,GLenum type,GLuint id,GLenum severity,GLsizei length,const GLchar *message,const void *userParam);$/;"	t
@@ -1634,6 +1663,7 @@ GLFW_HAS_WINDOW_ALPHA	extern/imgui/imgui_impl_glfw.cpp	130;"	d	file:
 GLFW_HAS_WINDOW_HOVERED	extern/imgui/imgui_impl_glfw.cpp	129;"	d	file:
 GLFW_HAS_WINDOW_TOPMOST	extern/imgui/imgui_impl_glfw.cpp	128;"	d	file:
 GLFW_VERSION_COMBINED	extern/imgui/imgui_impl_glfw.cpp	127;"	d	file:
+GLFW_WINDOW_CREATION_FAILURE	src/Application.hpp	/^struct GLFW_WINDOW_CREATION_FAILURE : public PROGRAM_CONSTRUCTION_ERROR {$/;"	s
 GLVULKANPROCNV	extern/imgui/imgui_impl_opengl3_loader.h	/^typedef void (APIENTRY  *GLVULKANPROCNV)(void);$/;"	t
 GLVersion	extern/glad/glad.c	/^struct gladGLversionStruct GLVersion = { 0, 0 };$/;"	v	typeref:struct:gladGLversionStruct
 GL_ACTIVE_TEXTURE	extern/imgui/imgui_impl_opengl3_loader.h	236;"	d
@@ -1758,6 +1788,8 @@ GetAliveCount	extern/imgui/imgui_internal.h	/^    int         GetAliveCount() co
 GetAllocatorFunctions	extern/imgui/imgui.cpp	/^void ImGui::GetAllocatorFunctions(ImGuiMemAllocFunc* p_alloc_func, ImGuiMemFreeFunc* p_free_func, void** p_user_data)$/;"	f	class:ImGui
 GetArea	extern/imgui/imgui_internal.h	/^    float       GetArea() const                     { return (Max.x - Min.x) * (Max.y - Min.y); }$/;"	f	struct:ImRect
 GetArenaSizeInBytes	extern/imgui/imgui_internal.h	/^    inline int   GetArenaSizeInBytes()              { return CurrOff; }$/;"	f	struct:ImSpanAllocator
+GetAttachedRBOID	src/Buffers.hpp	/^  GLuint GetAttachedRBOID() { return linked_rbo_->GetBufferID(); }$/;"	f	class:Buffers::FBO
+GetAttachedTextureID	src/Buffers.hpp	/^  GLuint GetAttachedTextureID() { return linked_texture_->GetBufferID(); }$/;"	f	class:Buffers::FBO
 GetAttribLocation	extern/imgui/imgui_impl_opengl3_loader.h	/^        PFNGLGETATTRIBLOCATIONPROC        GetAttribLocation;$/;"	m	struct:ImGL3WProcs::__anon9
 GetBL	extern/imgui/imgui_internal.h	/^    ImVec2      GetBL() const                       { return ImVec2(Min.x, Max.y); }  \/\/ Bottom-left$/;"	f	struct:ImRect
 GetBR	extern/imgui/imgui_internal.h	/^    ImVec2      GetBR() const                       { return Max; }                   \/\/ Bottom-right$/;"	f	struct:ImRect
@@ -1767,6 +1799,12 @@ GetBool	extern/imgui/imgui.cpp	/^bool ImGuiStorage::GetBool(ImGuiID key, bool de
 GetBoolRef	extern/imgui/imgui.cpp	/^bool* ImGuiStorage::GetBoolRef(ImGuiID key, bool default_val)$/;"	f	class:ImGuiStorage
 GetBoxSelectState	extern/imgui/imgui_internal.h	/^    inline ImGuiBoxSelectState*     GetBoxSelectState(ImGuiID id)   { ImGuiContext& g = *GImGui; return (id != 0 && g.BoxSelectState.ID == id && g.BoxSelectState.IsActive) ? &g.BoxSelectState : NULL; }$/;"	f	namespace:ImGui
 GetBufSize	extern/imgui/imgui_internal.h	/^    int         GetBufSize() const                  { return Buf.Size; }$/;"	f	struct:ImPool
+GetBufferID	src/Buffers.hpp	/^  GLuint GetBufferID() { return ebo_buffer_id_; }$/;"	f	class:Buffers::EBO
+GetBufferID	src/Buffers.hpp	/^  GLuint GetBufferID() { return fbo_buffer_id_; }$/;"	f	class:Buffers::FBO
+GetBufferID	src/Buffers.hpp	/^  GLuint GetBufferID() { return rbo_id_; }$/;"	f	class:Buffers::RBO
+GetBufferID	src/Buffers.hpp	/^  GLuint GetBufferID() { return texture_id_; }$/;"	f	class:Buffers::Texture2D
+GetBufferID	src/Buffers.hpp	/^  GLuint GetBufferID() { return vao_buffer_id_; }$/;"	f	class:Buffers::VAO
+GetBufferID	src/Buffers.hpp	/^  GLuint GetBufferID() { return vbo_buffer_id_; }$/;"	f	class:Buffers::VBO
 GetBuildWorkRect	extern/imgui/imgui_internal.h	/^    ImRect  GetBuildWorkRect() const    { ImVec2 pos = CalcWorkRectPos(BuildWorkInsetMin); ImVec2 size = CalcWorkRectSize(BuildWorkInsetMin, BuildWorkInsetMax); return ImRect(pos.x, pos.y, pos.x + size.x, pos.y + size.y); }$/;"	f	struct:ImGuiViewportP
 GetByIndex	extern/imgui/imgui_internal.h	/^    T*          GetByIndex(ImPoolIdx n)             { return &Buf[n]; }$/;"	f	struct:ImPool
 GetByKey	extern/imgui/imgui_internal.h	/^    T*          GetByKey(ImGuiID key)               { int idx = Map.GetInt(key, -1); return (idx != -1) ? &Buf[idx] : NULL; }$/;"	f	struct:ImPool
@@ -1997,6 +2035,9 @@ GlyphsSet	extern/imgui/imgui_draw.cpp	/^    ImBitVector         GlyphsSet;      
 GlyphsSet	extern/imgui/imgui_draw.cpp	/^    ImBitVector         GlyphsSet;          \/\/ This is used to resolve collision when multiple sources are merged into a same destination font.$/;"	m	struct:ImFontBuildDstData	file:
 GrabMinSize	extern/imgui/imgui.h	/^    float       GrabMinSize;                \/\/ Minimum width\/height of a grab box for slider\/scrollbar.$/;"	m	struct:ImGuiStyle
 GrabRounding	extern/imgui/imgui.h	/^    float       GrabRounding;               \/\/ Radius of grabs corners rounding. Set to 0.0f to have rectangular slider grabs.$/;"	m	struct:ImGuiStyle
+Graph	src/Renderer.cpp	/^class Graph : public Subpanel {$/;"	c	file:
+GraphWindow	src/Application.cpp	/^const ImVec2 Application::GraphWindow(Buffers::FBO &fb) {$/;"	f	class:Application
+Graphics	src/Graphics.hpp	/^namespace Graphics {$/;"	n
 GroupOffset	extern/imgui/imgui_internal.h	/^    ImVec1                  GroupOffset;$/;"	m	struct:ImGuiWindowTempData
 GroupStack	extern/imgui/imgui_internal.h	/^    ImVector<ImGuiGroupData>        GroupStack;                 \/\/ Stack for BeginGroup()\/EndGroup() - not inherited by Begin()$/;"	m	struct:ImGuiContext
 GrowIndex	extern/imgui/imgui_draw.cpp	/^void ImFont::GrowIndex(int new_size)$/;"	f	class:ImFont
@@ -2097,6 +2138,7 @@ ID	extern/imgui/imgui_internal.h	/^    ImGuiID             ID;$/;"	m	struct:ImGu
 ID	extern/imgui/imgui_internal.h	/^    ImGuiID             ID;$/;"	m	struct:ImGuiTabItem
 ID	extern/imgui/imgui_internal.h	/^    ImGuiID            ID;              \/\/ widget id owning the text state (which just got deactivated)$/;"	m	struct:ImGuiInputTextDeactivatedState
 ID	extern/imgui/imgui_internal.h	/^    ImGuiID     ID;$/;"	m	struct:ImGuiWindowSettings
+ID	src/shader_handler.hpp	/^  unsigned int ID;$/;"	m	class:Shader
 IDStack	extern/imgui/imgui_internal.h	/^    ImVector<ImGuiID>       IDStack;                            \/\/ ID stack. ID are hashes seeded with the value at the top of the stack. (In theory this should be in the TempData structure)$/;"	m	struct:ImGuiWindow
 ID_VOID_MAIN	build_linux/CMakeFiles/3.22.4/CompilerIdC/CMakeCCompilerId.c	6;"	d	file:
 IMGL3W_IMPL	extern/imgui/imgui_impl_opengl3.cpp	170;"	d	file:
@@ -3813,6 +3855,7 @@ InitialFlags	extern/imgui/imgui_internal.h	/^    ImDrawListFlags InitialFlags;  
 InitialTextA	extern/imgui/imgui_internal.h	/^    ImVector<char>          InitialTextA;           \/\/ value to revert to when pressing Escape = backup of end-user buffer at the time of focus (in UTF-8, unaltered)$/;"	m	struct:ImGuiInputTextState
 InitialWidth	extern/imgui/imgui_internal.h	/^    float       InitialWidth;$/;"	m	struct:ImGuiShrinkWidthItem
 Initialize	extern/imgui/imgui.cpp	/^void ImGui::Initialize()$/;"	f	class:ImGui
+InitializeNewFrame	src/Application.cpp	/^void Application::InitializeNewFrame() {$/;"	f	class:Application
 Initialized	extern/imgui/imgui_internal.h	/^    bool                    Initialized;$/;"	m	struct:ImGuiContext
 InnerClipRect	extern/imgui/imgui_internal.h	/^    ImRect                      InnerClipRect;$/;"	m	struct:ImGuiTable
 InnerClipRect	extern/imgui/imgui_internal.h	/^    ImRect                  InnerClipRect;                      \/\/ == InnerRect shrunk by WindowPadding*0.5f on each side, clipped within viewport or parent clip rect.$/;"	m	struct:ImGuiWindow
@@ -4178,6 +4221,8 @@ MenusIdSubmittedThisFrame	extern/imgui/imgui_internal.h	/^    ImVector<ImGuiID> 
 Merge	extern/imgui/imgui_draw.cpp	/^void ImDrawListSplitter::Merge(ImDrawList* draw_list)$/;"	f	class:ImDrawListSplitter
 MergeMode	extern/imgui/imgui.h	/^    bool            MergeMode;              \/\/ false    \/\/ Merge into previous ImFont, so you can combine multiple inputs font into one ImFont (e.g. ASCII font + icons + Japanese glyphs). You may want to use GlyphOffset.y when merge font of different heights.$/;"	m	struct:ImFontConfig
 MergedFlags	extern/imgui/imgui_internal.h	/^    ImGuiDockNodeFlags      MergedFlags;                \/\/ (Read)  Effective flags (== SharedFlags | LocalFlagsInNode | LocalFlagsInWindows)$/;"	m	struct:ImGuiDockNode
+MessageCallback	src/Application.cpp	/^void GLAPIENTRY MessageCallback(GLenum source, GLenum type, GLuint id,$/;"	f
+MessageCallback	src/old_main.cpp	/^void GLAPIENTRY MessageCallback(GLenum source, GLenum type, GLuint id,$/;"	f
 MetricsActiveWindows	extern/imgui/imgui.h	/^    int         MetricsActiveWindows;               \/\/ Number of active windows$/;"	m	struct:ImGuiIO
 MetricsHelpMarker	extern/imgui/imgui.cpp	/^static void MetricsHelpMarker(const char* desc)$/;"	f	file:
 MetricsRenderIndices	extern/imgui/imgui.h	/^    int         MetricsRenderIndices;               \/\/ Indices output during last call to Render() = number of triangles * 3$/;"	m	struct:ImGuiIO
@@ -4398,6 +4443,7 @@ NodesSettings	extern/imgui/imgui_internal.h	/^    ImVector<ImGuiDockNodeSettings
 Normalized	extern/imgui/imgui_impl_opengl3.cpp	/^    GLint   Enabled, Size, Type, Normalized, Stride;$/;"	m	struct:ImGui_ImplOpenGL3_VtxAttribState	file:
 NotifyOfDocumentsClosedElsewhere	extern/imgui/imgui_demo.cpp	/^    void NotifyOfDocumentsClosedElsewhere()$/;"	f	struct:ExampleAppDocuments
 OffMaxX	extern/imgui/imgui_internal.h	/^    float               OffMinX, OffMaxX;       \/\/ Offsets from HostWorkRect.Min.x$/;"	m	struct:ImGuiOldColumns
+OffMeshData	src/Data.hpp	/^struct OffMeshData {$/;"	s	namespace:Data
 OffMinX	extern/imgui/imgui_internal.h	/^    float               OffMinX, OffMaxX;       \/\/ Offsets from HostWorkRect.Min.x$/;"	m	struct:ImGuiOldColumns
 Offset	extern/imgui/imgui_demo.cpp	/^    int             Offset;     \/\/ Offset inside parent structure$/;"	m	struct:ExampleMemberInfo	file:
 Offset	extern/imgui/imgui_internal.h	/^    ImU32           Offset;     \/\/ Offset in parent structure$/;"	m	struct:ImGuiDataVarInfo
@@ -4584,6 +4630,7 @@ PRId64	extern/imgui/imgui_demo.cpp	174;"	d	file:
 PRId64	extern/imgui/imgui_demo.cpp	177;"	d	file:
 PRIu64	extern/imgui/imgui_demo.cpp	175;"	d	file:
 PRIu64	extern/imgui/imgui_demo.cpp	178;"	d	file:
+PROGRAM_CONSTRUCTION_ERROR	src/Application.hpp	/^struct PROGRAM_CONSTRUCTION_ERROR {$/;"	s
 PackIdLines	extern/imgui/imgui.h	/^    int                         PackIdLines;        \/\/ Custom texture rectangle ID for baked anti-aliased lines$/;"	m	struct:ImFontAtlas
 PackIdMouseCursors	extern/imgui/imgui.h	/^    int                         PackIdMouseCursors; \/\/ Custom texture rectangle ID for white pixel and mouse cursors$/;"	m	struct:ImFontAtlas
 PackRange	extern/imgui/imgui_draw.cpp	/^    stbtt_pack_range    PackRange;          \/\/ Hold the list of codepoints to pack (essentially points to Codepoints.Data)$/;"	m	struct:ImFontBuildSrcData	file:
@@ -4620,6 +4667,7 @@ PathLineToMergeDuplicate	extern/imgui/imgui.h	/^    inline    void  PathLineToMe
 PathRect	extern/imgui/imgui_draw.cpp	/^void ImDrawList::PathRect(const ImVec2& a, const ImVec2& b, float rounding, ImDrawFlags flags)$/;"	f	class:ImDrawList
 PathStroke	extern/imgui/imgui.h	/^    inline    void  PathStroke(ImU32 col, ImDrawFlags flags = 0, float thickness = 1.0f) { AddPolyline(_Path.Data, _Path.Size, col, flags, thickness); _Path.Size = 0; }$/;"	f	struct:ImDrawList
 PenPressure	extern/imgui/imgui.h	/^    float       PenPressure;                        \/\/ Touch\/Pen pressure (0.0f to 1.0f, should be >0.0f only when MouseDown[0] == true). Helper storage currently unused by Dear ImGui.$/;"	m	struct:ImGuiIO
+PerspectiveFrustrum	src/matrix_handler.cpp	/^glm::mat4 PerspectiveFrustrum(float r, float l, float t, float b, float n,$/;"	f
 PixelSnapH	extern/imgui/imgui.h	/^    bool            PixelSnapH;             \/\/ false    \/\/ Align every glyph to pixel boundary. Useful e.g. if you are merging a non-pixel aligned font with the default font. If enabled, you can set OversampleH\/V to 1.$/;"	m	struct:ImFontConfig
 PixelStorei	extern/imgui/imgui_impl_opengl3_loader.h	/^        PFNGLPIXELSTOREIPROC              PixelStorei;$/;"	m	struct:ImGL3WProcs::__anon9
 PlatformHandle	extern/imgui/imgui.h	/^    void*               PlatformHandle;         \/\/ void* to hold higher-level, platform window handle (e.g. HWND, GLFWWindow*, SDL_Window*), for FindViewportByPlatformHandle().$/;"	m	struct:ImGuiViewport
@@ -4744,6 +4792,9 @@ PrimWriteIdx	extern/imgui/imgui.h	/^    inline    void  PrimWriteIdx(ImDrawIdx i
 PrimWriteVtx	extern/imgui/imgui.h	/^    inline    void  PrimWriteVtx(const ImVec2& pos, const ImVec2& uv, ImU32 col)    { _VtxWritePtr->pos = pos; _VtxWritePtr->uv = uv; _VtxWritePtr->col = col; _VtxWritePtr++; _VtxCurrentIdx++; }$/;"	f	struct:ImDrawList
 PrintFmt	extern/imgui/imgui_internal.h	/^    const char* PrintFmt;       \/\/ Default printf format for the type$/;"	m	struct:ImGuiDataTypeInfo
 ProgressBar	extern/imgui/imgui_widgets.cpp	/^void ImGui::ProgressBar(float fraction, const ImVec2& size_arg, const char* overlay)$/;"	f	class:ImGui
+ProjectionMatrices	src/Graphics.hpp	/^  ProjectionMatrices() {}$/;"	f	class:Graphics::ProjectionMatrices
+ProjectionMatrices	src/Graphics.hpp	/^  explicit ProjectionMatrices(glm::mat4 model, glm::mat4 view,$/;"	f	class:Graphics::ProjectionMatrices
+ProjectionMatrices	src/Graphics.hpp	/^class ProjectionMatrices {$/;"	c	namespace:Graphics
 Ptr	extern/imgui/imgui_impl_opengl3.cpp	/^    GLvoid* Ptr;$/;"	m	struct:ImGui_ImplOpenGL3_VtxAttribState	file:
 Ptr	extern/imgui/imgui_internal.h	/^    void*       Ptr;            \/\/ Either field can be set, not both. e.g. Dock node tab bars are loose while BeginTabBar() ones are in a pool.$/;"	m	struct:ImGuiPtrOrIndex
 PushAllowKeyboardFocus	extern/imgui/imgui.h	/^    static inline void  PushAllowKeyboardFocus(bool tab_stop)                   { PushItemFlag(ImGuiItemFlags_NoTabStop, !tab_stop); }$/;"	f	namespace:ImGui
@@ -4777,6 +4828,8 @@ Quantity	extern/imgui/imgui_demo.cpp	/^    int         Quantity;$/;"	m	struct:__
 QueryFrameCount	extern/imgui/imgui_internal.h	/^    ImS8                    QueryFrameCount;            \/\/ >= 1: Query in progress$/;"	m	struct:ImGuiStackLevelInfo
 QueryId	extern/imgui/imgui_internal.h	/^    ImGuiID                 QueryId;                    \/\/ ID to query details for$/;"	m	struct:ImGuiIDStackTool
 QuerySuccess	extern/imgui/imgui_internal.h	/^    bool                    QuerySuccess;               \/\/ Obtained result from DebugHookIdInfo()$/;"	m	struct:ImGuiStackLevelInfo
+RBO	src/Buffers.cpp	/^Buffers::RBO::RBO(GLsizei width, GLsizei height) {$/;"	f	class:Buffers::RBO
+RBO	src/Buffers.hpp	/^class RBO {$/;"	c	namespace:Buffers
 RM	build_linux/Makefile	/^RM = \/home\/eric\/anaconda3\/lib\/python3.9\/site-packages\/cmake\/data\/bin\/cmake -E rm -f$/;"	m
 RadioButton	extern/imgui/imgui_widgets.cpp	/^bool ImGui::RadioButton(const char* label, bool active)$/;"	f	class:ImGui
 RadioButton	extern/imgui/imgui_widgets.cpp	/^bool ImGui::RadioButton(const char* label, int* v, int v_button)$/;"	f	class:ImGui
@@ -4795,6 +4848,8 @@ RasterizerMultiply	extern/imgui/imgui.h	/^    float           RasterizerMultiply
 RawData	extern/imgui/imgui_internal.h	/^    void*                       RawData;                    \/\/ Single allocation to hold Columns[], DisplayOrderToIndex[] and RowCellData[]$/;"	m	struct:ImGuiTable
 ReadInitFn	extern/imgui/imgui_internal.h	/^    void        (*ReadInitFn)(ImGuiContext* ctx, ImGuiSettingsHandler* handler);                                \/\/ Read: Called before reading (in registration order)$/;"	m	struct:ImGuiSettingsHandler
 ReadLineFn	extern/imgui/imgui_internal.h	/^    void        (*ReadLineFn)(ImGuiContext* ctx, ImGuiSettingsHandler* handler, void* entry, const char* line); \/\/ Read: Called for every line of text within an ini entry$/;"	m	struct:ImGuiSettingsHandler
+ReadOffData	src/Data.cpp	/^void Data::ReadOffData(std::vector<float> &vertices_arr,$/;"	f	class:Data
+ReadOffFileAttrib	src/Data.cpp	/^void Data::ReadOffFileAttrib(unsigned int &vertices, unsigned int &facets,$/;"	f	class:Data
 ReadOpenFn	extern/imgui/imgui_internal.h	/^    void*       (*ReadOpenFn)(ImGuiContext* ctx, ImGuiSettingsHandler* handler, const char* name);              \/\/ Read: Called when entering into a new ini entry e.g. "[Window][Name]"$/;"	m	struct:ImGuiSettingsHandler
 ReadPixels	extern/imgui/imgui_impl_opengl3_loader.h	/^        PFNGLREADPIXELSPROC               ReadPixels;$/;"	m	struct:ImGL3WProcs::__anon9
 ReclassifyNode	extern/imgui/imgui_draw.cpp	/^void ImTriangulator::ReclassifyNode(ImTriangulatorNode* n1)$/;"	f	class:ImTriangulator
@@ -4808,6 +4863,7 @@ RefScale	extern/imgui/imgui_internal.h	/^    float                       RefScal
 RefScale	extern/imgui/imgui_internal.h	/^    float                       RefScale;               \/\/ Reference scale to be able to rescale columns on font\/dpi changes.$/;"	m	struct:ImGuiTableSettings
 RefVal	extern/imgui/imgui_internal.h	/^    ImGuiDataTypeStorage        RefVal;             \/\/ Not exposed yet, for ImGuiInputTextFlags_ParseEmptyAsRefVal$/;"	m	struct:ImGuiNextItemData
 RefViewportId	extern/imgui/imgui_internal.h	/^    ImGuiID                 RefViewportId;              \/\/ Reference viewport ID from visible window when HostWindow == NULL.$/;"	m	struct:ImGuiDockNode
+Refresh	src/Application.cpp	/^void Application::Refresh() {$/;"	f	class:Application
 RefreshFlagsVal	extern/imgui/imgui_internal.h	/^    ImGuiWindowRefreshFlags     RefreshFlagsVal;$/;"	m	struct:ImGuiNextWindowData
 ReloadSelectionEnd	extern/imgui/imgui_internal.h	/^    int                     ReloadSelectionEnd;$/;"	m	struct:ImGuiInputTextState
 ReloadSelectionStart	extern/imgui/imgui_internal.h	/^    int                     ReloadSelectionStart;   \/\/ POSITIONS ARE IN IMWCHAR units *NOT* UTF-8 this is why this is not exposed yet.$/;"	m	struct:ImGuiInputTextState
@@ -4822,6 +4878,7 @@ RemoveSettingsHandler	extern/imgui/imgui.cpp	/^void ImGui::RemoveSettingsHandler
 RenamingDoc	extern/imgui/imgui_demo.cpp	/^    MyDocument*             RenamingDoc = NULL;$/;"	m	struct:ExampleAppDocuments	file:
 RenamingStarted	extern/imgui/imgui_demo.cpp	/^    bool                    RenamingStarted = false;$/;"	m	struct:ExampleAppDocuments	file:
 Render	extern/imgui/imgui.cpp	/^void ImGui::Render()$/;"	f	class:ImGui
+Render	src/Application.cpp	/^void Application::Render() {$/;"	f	class:Application
 RenderArrow	extern/imgui/imgui_draw.cpp	/^void ImGui::RenderArrow(ImDrawList* draw_list, ImVec2 pos, ImU32 col, ImGuiDir dir, float scale)$/;"	f	class:ImGui
 RenderArrowDockMenu	extern/imgui/imgui_draw.cpp	/^void ImGui::RenderArrowDockMenu(ImDrawList* draw_list, ImVec2 p_min, float sz, ImU32 col)$/;"	f	class:ImGui
 RenderArrowPointingAt	extern/imgui/imgui_draw.cpp	/^void ImGui::RenderArrowPointingAt(ImDrawList* draw_list, ImVec2 pos, ImVec2 half_sz, ImGuiDir direction, ImU32 col)$/;"	f	class:ImGui
@@ -4851,6 +4908,7 @@ RenderWindowDecorations	extern/imgui/imgui.cpp	/^void ImGui::RenderWindowDecorat
 RenderWindowOuterBorders	extern/imgui/imgui.cpp	/^static void ImGui::RenderWindowOuterBorders(ImGuiWindow* window)$/;"	f	class:ImGui
 RenderWindowOuterSingleBorder	extern/imgui/imgui.cpp	/^static void RenderWindowOuterSingleBorder(ImGuiWindow* window, int border_n, ImU32 border_col, float border_size)$/;"	f	file:
 RenderWindowTitleBarContents	extern/imgui/imgui.cpp	/^void ImGui::RenderWindowTitleBarContents(ImGuiWindow* window, const ImRect& title_bar_rect, const char* name, bool* p_open)$/;"	f	class:ImGui
+Renderer	src/Renderer.cpp	/^class Renderer {$/;"	c	file:
 RendererUserData	extern/imgui/imgui.h	/^    void*               RendererUserData;       \/\/ void* to hold custom data structure for the renderer (e.g. swap chain, framebuffers etc.). generally set by your Renderer_CreateWindow function.$/;"	m	struct:ImGuiViewport
 Renderer_CreateWindow	extern/imgui/imgui.h	/^    void    (*Renderer_CreateWindow)(ImGuiViewport* vp);                    \/\/ . . U . .  \/\/ Create swap chain, frame buffers etc. (called after Platform_CreateWindow)$/;"	m	struct:ImGuiPlatformIO
 Renderer_DestroyWindow	extern/imgui/imgui.h	/^    void    (*Renderer_DestroyWindow)(ImGuiViewport* vp);                   \/\/ N . U . D  \/\/ Destroy swap chain, frame buffers etc. (called before Platform_DestroyWindow)$/;"	m	struct:ImGuiPlatformIO
@@ -4868,6 +4926,9 @@ RequestSort	extern/imgui/imgui_demo.cpp	/^    bool            RequestSort = fals
 RequestedWidth	extern/imgui/imgui_internal.h	/^    float               RequestedWidth;         \/\/ Width optionally requested by caller, -1.0f is unused$/;"	m	struct:ImGuiTabItem
 Requests	extern/imgui/imgui.h	/^    ImVector<ImGuiSelectionRequest> Requests;   \/\/  ms:w, app:r     \/  ms:w  app:r   \/\/ Requests to apply to your selection data.$/;"	m	struct:ImGuiMultiSelectIO
 Requests	extern/imgui/imgui_internal.h	/^    ImVector<ImGuiDockRequest>      Requests;$/;"	m	struct:ImGuiDockContext
+Rescale	src/Buffers.cpp	/^void Buffers::FBO::Rescale(GLsizei width, GLsizei height) {$/;"	f	class:Buffers::FBO
+Rescale	src/Buffers.cpp	/^void Buffers::RBO::Rescale(GLsizei width, GLsizei height) {$/;"	f	class:Buffers::RBO
+Rescale	src/Buffers.cpp	/^void Buffers::Texture2D::Rescale(GLsizei width, GLsizei height) {$/;"	f	class:Buffers::Texture2D
 Reserve	extern/imgui/imgui_internal.h	/^    inline void  Reserve(int n, size_t sz, int a=4) { IM_ASSERT(n == CurrIdx && n < CHUNKS); CurrOff = IM_MEMALIGN(CurrOff, a); Offsets[n] = CurrOff; Sizes[n] = (int)sz; CurrIdx++; CurrOff += (int)sz; }$/;"	f	struct:ImSpanAllocator
 Reserve	extern/imgui/imgui_internal.h	/^    void        Reserve(int capacity)               { Buf.reserve(capacity); Map.Data.reserve(capacity); }$/;"	f	struct:ImPool
 Reset	extern/imgui/imgui_internal.h	/^    void                            Reset(ImGuiListClipper* clipper) { ListClipper = clipper; StepNo = ItemsFrozen = 0; Ranges.resize(0); }$/;"	f	struct:ImGuiListClipperData
@@ -4903,6 +4964,8 @@ RowMinHeight	extern/imgui/imgui_internal.h	/^    float                       Row
 RowPosY1	extern/imgui/imgui_internal.h	/^    float                       RowPosY1;$/;"	m	struct:ImGuiTable
 RowPosY2	extern/imgui/imgui_internal.h	/^    float                       RowPosY2;$/;"	m	struct:ImGuiTable
 RowTextBaseline	extern/imgui/imgui_internal.h	/^    float                       RowTextBaseline;$/;"	m	struct:ImGuiTable
+SHADER_CONSTRUCTION_ERROR	src/Application.hpp	/^struct SHADER_CONSTRUCTION_ERROR : public PROGRAM_CONSTRUCTION_ERROR {$/;"	s
+SHADER_H	src/shader_handler.hpp	2;"	d
 SHELL	build_linux/Makefile	/^SHELL = \/bin\/sh$/;"	m
 SIMULATE_ID	build_linux/CMakeFiles/3.22.4/CompilerIdC/CMakeCCompilerId.c	27;"	d	file:
 SIMULATE_ID	build_linux/CMakeFiles/3.22.4/CompilerIdC/CMakeCCompilerId.c	291;"	d	file:
@@ -5210,7 +5273,11 @@ SetCursorPos	extern/imgui/imgui.cpp	/^void ImGui::SetCursorPos(const ImVec2& loc
 SetCursorPosX	extern/imgui/imgui.cpp	/^void ImGui::SetCursorPosX(float x)$/;"	f	class:ImGui
 SetCursorPosY	extern/imgui/imgui.cpp	/^void ImGui::SetCursorPosY(float y)$/;"	f	class:ImGui
 SetCursorScreenPos	extern/imgui/imgui.cpp	/^void ImGui::SetCursorScreenPos(const ImVec2& pos)$/;"	f	class:ImGui
+SetData	src/Buffers.cpp	/^void Buffers::EBO::SetData(const std::vector<unsigned int> &faces) {$/;"	f	class:Buffers::EBO
+SetData	src/Buffers.cpp	/^void Buffers::VAO::SetData(Data::OffMeshData data) {$/;"	f	class:Buffers::VAO
+SetData	src/Buffers.cpp	/^void Buffers::VBO::SetData(std::vector<float> vertices) {$/;"	f	class:Buffers::VBO
 SetDragDropPayload	extern/imgui/imgui.cpp	/^bool ImGui::SetDragDropPayload(const char* type, const void* data, size_t data_size, ImGuiCond cond)$/;"	f	class:ImGui
+SetDrawTarget	src/Graphics.hpp	/^  void SetDrawTarget(std::shared_ptr<Buffers::FBO> fbo) { fbo_ = fbo; }$/;"	f	class:Graphics::Element
 SetFloat	extern/imgui/imgui.cpp	/^void ImGuiStorage::SetFloat(ImGuiID key, float val)$/;"	f	class:ImGuiStorage
 SetFocusID	extern/imgui/imgui.cpp	/^void ImGui::SetFocusID(ImGuiID id, ImGuiWindow* window)$/;"	f	class:ImGui
 SetGlyphVisible	extern/imgui/imgui_draw.cpp	/^void ImFont::SetGlyphVisible(ImWchar c, bool visible)$/;"	f	class:ImFont
@@ -5275,6 +5342,9 @@ SetTexID	extern/imgui/imgui.h	/^    void                        SetTexID(ImTextu
 SetToContextState	extern/imgui/imgui.cpp	/^void ImGuiStackSizes::SetToContextState(ImGuiContext* ctx)$/;"	f	class:ImGuiStackSizes
 SetTooltip	extern/imgui/imgui.cpp	/^void ImGui::SetTooltip(const char* fmt, ...)$/;"	f	class:ImGui
 SetTooltipV	extern/imgui/imgui.cpp	/^void ImGui::SetTooltipV(const char* fmt, va_list args)$/;"	f	class:ImGui
+SetVertexAttribute	src/Buffers.cpp	/^void Buffers::VAO::SetVertexAttribute() {$/;"	f	class:Buffers::VAO
+SetVertexAttributeOffset	src/Buffers.hpp	/^  void SetVertexAttributeOffset(void *offset) {$/;"	f	class:Buffers::VAO
+SetVertexAttributeSize	src/Buffers.hpp	/^  void SetVertexAttributeSize(GLint size) {$/;"	f	class:Buffers::VAO
 SetVoidPtr	extern/imgui/imgui.cpp	/^void ImGuiStorage::SetVoidPtr(ImGuiID key, void* val)$/;"	f	class:ImGuiStorage
 SetWindowActiveForSkipRefresh	extern/imgui/imgui.cpp	/^static void SetWindowActiveForSkipRefresh(ImGuiWindow* window)$/;"	f	file:
 SetWindowClipRectBeforeSetChannel	extern/imgui/imgui_tables.cpp	/^void ImGui::SetWindowClipRectBeforeSetChannel(ImGuiWindow* window, const ImRect& clip_rect)$/;"	f	class:ImGui
@@ -5312,9 +5382,12 @@ SettingsOffset	extern/imgui/imgui_internal.h	/^    int                     Setti
 SettingsTables	extern/imgui/imgui_internal.h	/^    ImChunkStream<ImGuiTableSettings>   SettingsTables;         \/\/ ImGuiTable .ini settings entries$/;"	m	struct:ImGuiContext
 SettingsWindows	extern/imgui/imgui_internal.h	/^    ImChunkStream<ImGuiWindowSettings>  SettingsWindows;        \/\/ ImGuiWindow .ini settings entries$/;"	m	struct:ImGuiContext
 SetupDrawListSharedData	extern/imgui/imgui.cpp	/^static void SetupDrawListSharedData()$/;"	f	file:
+SetupImGui	src/Application.cpp	/^void Application::SetupImGui() {$/;"	f	class:Application
 ShadeVertsLinearColorGradientKeepAlpha	extern/imgui/imgui_draw.cpp	/^void ImGui::ShadeVertsLinearColorGradientKeepAlpha(ImDrawList* draw_list, int vert_start_idx, int vert_end_idx, ImVec2 gradient_p0, ImVec2 gradient_p1, ImU32 col0, ImU32 col1)$/;"	f	class:ImGui
 ShadeVertsLinearUV	extern/imgui/imgui_draw.cpp	/^void ImGui::ShadeVertsLinearUV(ImDrawList* draw_list, int vert_start_idx, int vert_end_idx, const ImVec2& a, const ImVec2& b, const ImVec2& uv_a, const ImVec2& uv_b, bool clamp)$/;"	f	class:ImGui
 ShadeVertsTransformPos	extern/imgui/imgui_draw.cpp	/^void ImGui::ShadeVertsTransformPos(ImDrawList* draw_list, int vert_start_idx, int vert_end_idx, const ImVec2& pivot_in, float cos_a, float sin_a, const ImVec2& pivot_out)$/;"	f	class:ImGui
+Shader	src/shader_handler.cpp	/^Shader::Shader(const char *vertexPath, const char *fragmentPath) {$/;"	f	class:Shader
+Shader	src/shader_handler.hpp	/^class Shader {$/;"	c
 ShaderHandle	extern/imgui/imgui_impl_opengl3.cpp	/^    GLuint          ShaderHandle;$/;"	m	struct:ImGui_ImplOpenGL3_Data	file:
 ShaderSource	extern/imgui/imgui_impl_opengl3_loader.h	/^        PFNGLSHADERSOURCEPROC             ShaderSource;$/;"	m	struct:ImGL3WProcs::__anon9
 SharedFlags	extern/imgui/imgui_internal.h	/^    ImGuiDockNodeFlags      SharedFlags;                \/\/ (Write) Flags shared by all nodes of a same dockspace hierarchy (inherited from the root node)$/;"	m	struct:ImGuiDockNode
@@ -5530,6 +5603,8 @@ StyleColorsClassic	extern/imgui/imgui_draw.cpp	/^void ImGui::StyleColorsClassic(
 StyleColorsDark	extern/imgui/imgui_draw.cpp	/^void ImGui::StyleColorsDark(ImGuiStyle* dst)$/;"	f	class:ImGui
 StyleColorsLight	extern/imgui/imgui_draw.cpp	/^void ImGui::StyleColorsLight(ImGuiStyle* dst)$/;"	f	class:ImGui
 StyleVarStack	extern/imgui/imgui_internal.h	/^    ImVector<ImGuiStyleMod>         StyleVarStack;              \/\/ Stack for PushStyleVar()\/PopStyleVar() - inherited by Begin()$/;"	m	struct:ImGuiContext
+Subpanel	src/Renderer.cpp	/^class Subpanel {$/;"	c	file:
+Subpanels	src/Renderer.cpp	/^  std::vector<Subpanel &> Subpanels;$/;"	m	class:Renderer	file:
 Swap	extern/imgui/imgui_widgets.cpp	/^void ImGuiSelectionBasicStorage::Swap(ImGuiSelectionBasicStorage& r)$/;"	f	class:ImGuiSelectionBasicStorage
 TABLE_BORDER_SIZE	extern/imgui/imgui_tables.cpp	/^static const float TABLE_BORDER_SIZE                     = 1.0f;    \/\/ FIXME-TABLE: Currently hard-coded because of clipping assumptions with outer borders rendering.$/;"	v	file:
 TABLE_DRAW_CHANNEL_BG0	extern/imgui/imgui_tables.cpp	/^static const int TABLE_DRAW_CHANNEL_BG0 = 0;$/;"	v	file:
@@ -5667,6 +5742,7 @@ Tabs	extern/imgui/imgui_internal.h	/^    ImVector<ImGuiTabItem> Tabs;$/;"	m	stru
 TabsActiveCount	extern/imgui/imgui_internal.h	/^    ImS16               TabsActiveCount;        \/\/ Number of tabs submitted this frame.$/;"	m	struct:ImGuiTabBar
 TabsAddedNew	extern/imgui/imgui_internal.h	/^    bool                TabsAddedNew;           \/\/ Set to true when a new tab item or button has been added to the tab bar during last frame$/;"	m	struct:ImGuiTabBar
 TabsNames	extern/imgui/imgui_internal.h	/^    ImGuiTextBuffer     TabsNames;              \/\/ For non-docking tab bar we re-append names in a contiguous buffer.$/;"	m	struct:ImGuiTabBar
+TabularData	src/Renderer.cpp	/^class TabularData : public Subpanel {$/;"	c	file:
 TeleportMousePos	extern/imgui/imgui.cpp	/^void ImGui::TeleportMousePos(const ImVec2& pos)$/;"	f	class:ImGui
 TempBuffer	extern/imgui/imgui_internal.h	/^    ImVector<ImVec2> TempBuffer;$/;"	m	struct:ImDrawListSharedData
 TempBuffer	extern/imgui/imgui_internal.h	/^    ImVector<char>          TempBuffer;                         \/\/ Temporary text buffer$/;"	m	struct:ImGuiContext
@@ -5722,6 +5798,8 @@ TextWrapPos	extern/imgui/imgui_internal.h	/^    float                   TextWrap
 TextWrapPosStack	extern/imgui/imgui_internal.h	/^    ImVector<float>         TextWrapPosStack;       \/\/ Store text wrap pos to restore (attention: .back() is not == TextWrapPos)$/;"	m	struct:ImGuiWindowTempData
 TextWrapped	extern/imgui/imgui_widgets.cpp	/^void ImGui::TextWrapped(const char* fmt, ...)$/;"	f	class:ImGui
 TextWrappedV	extern/imgui/imgui_widgets.cpp	/^void ImGui::TextWrappedV(const char* fmt, va_list args)$/;"	f	class:ImGui
+Texture2D	src/Buffers.cpp	/^Buffers::Texture2D::Texture2D(GLsizei width, GLsizei height) {$/;"	f	class:Buffers::Texture2D
+Texture2D	src/Buffers.hpp	/^class Texture2D {$/;"	c	namespace:Buffers
 TextureId	extern/imgui/imgui.h	/^    ImTextureID     TextureId;          \/\/ 4-8  \/\/ User-provided texture ID. Set by user in ImfontAtlas::SetTexID() for fonts or passed to Image*() functions. Ignore if never using images or multiple fonts atlas.$/;"	m	struct:ImDrawCmd
 TextureId	extern/imgui/imgui.h	/^    ImTextureID     TextureId;$/;"	m	struct:ImDrawCmdHeader
 Time	extern/imgui/imgui_impl_glfw.cpp	/^    double                  Time;$/;"	m	struct:ImGui_ImplGlfw_Data	file:
@@ -5765,6 +5843,8 @@ TreePop	extern/imgui/imgui_widgets.cpp	/^void ImGui::TreePop()$/;"	f	class:ImGui
 TreePush	extern/imgui/imgui_widgets.cpp	/^void ImGui::TreePush(const char* str_id)$/;"	f	class:ImGui
 TreePush	extern/imgui/imgui_widgets.cpp	/^void ImGui::TreePush(const void* ptr_id)$/;"	f	class:ImGui
 TreePushOverrideID	extern/imgui/imgui_widgets.cpp	/^void ImGui::TreePushOverrideID(ImGuiID id)$/;"	f	class:ImGui
+TriangleMesh	src/Graphics.cpp	/^Graphics::TriangleMesh::TriangleMesh(std::shared_ptr<Shader> element_shader,$/;"	f	class:Graphics::TriangleMesh
+TriangleMesh	src/Graphics.hpp	/^class TriangleMesh : public Element {$/;"	c	namespace:Graphics
 TryGetMapData	extern/imgui/imgui_internal.h	/^    T*          TryGetMapData(ImPoolIdx n)          { int idx = Map.Data[n].val_i; if (idx == -1) return NULL; return GetByIndex(idx); }$/;"	f	struct:ImPool
 Type	extern/imgui/imgui.cpp	/^    ImGuiDockRequestType    Type;$/;"	m	struct:ImGuiDockRequest	file:
 Type	extern/imgui/imgui.h	/^    ImGuiSelectionRequestType   Type;           \/\/  ms:w, app:r     \/  ms:w, app:r   \/\/ Request type. You'll most often receive 1 Clear + 1 SetRange with a single-item range.$/;"	m	struct:ImGuiSelectionRequest
@@ -5784,6 +5864,14 @@ U0	extern/imgui/imgui.h	/^    float           U0, V0, U1, V1;     \/\/ Texture c
 U1	extern/imgui/imgui.h	/^    float           U0, V0, U1, V1;     \/\/ Texture coordinates$/;"	m	struct:ImFontGlyph
 UID	extern/imgui/imgui_demo.cpp	/^    int                         UID = 0;$/;"	m	struct:ExampleTreeNode	file:
 UID	extern/imgui/imgui_demo.cpp	/^    int         UID;        \/\/ Unique ID (necessary as we can change title)$/;"	m	struct:MyDocument	file:
+Unbind	src/Buffers.hpp	/^  void Unbind() { glBindBuffer(GL_ARRAY_BUFFER, 0); }$/;"	f	class:Buffers::VBO
+Unbind	src/Buffers.hpp	/^  void Unbind() { glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0); }$/;"	f	class:Buffers::EBO
+Unbind	src/Buffers.hpp	/^  void Unbind() { glBindFramebuffer(GL_FRAMEBUFFER, 0); }$/;"	f	class:Buffers::FBO
+Unbind	src/Buffers.hpp	/^  void Unbind() { glBindRenderbuffer(GL_RENDERBUFFER, 0); }$/;"	f	class:Buffers::RBO
+Unbind	src/Buffers.hpp	/^  void Unbind() { glBindTexture(GL_TEXTURE_2D, 0); }$/;"	f	class:Buffers::Texture2D
+Unbind	src/Buffers.hpp	/^  void Unbind() {$/;"	f	class:Buffers::VAO
+UnbindEBO	src/Buffers.hpp	/^  void UnbindEBO() { ebo_->Unbind(); }$/;"	f	class:Buffers::VAO
+UnbindVBO	src/Buffers.hpp	/^  void UnbindVBO() { vbo_->Unbind(); }$/;"	f	class:Buffers::VAO
 UnclipMode	extern/imgui/imgui_internal.h	/^    bool                    UnclipMode;         \/\/ (Temp\/Transient, here in hot area). Set\/cleared by the BeginMultiSelect()\/EndMultiSelect() owning active box-select.$/;"	m	struct:ImGuiBoxSelectState
 UnclipRect	extern/imgui/imgui_internal.h	/^    ImRect                  UnclipRect;         \/\/ Rectangle where ItemAdd() clipping may be temporarily disabled. Need support by multi-select supporting widgets.$/;"	m	struct:ImGuiBoxSelectState
 UndockTargetNode	extern/imgui/imgui.cpp	/^    ImGuiDockNode*          UndockTargetNode;$/;"	m	struct:ImGuiDockRequest	file:
@@ -5841,6 +5929,10 @@ UserID	extern/imgui/imgui_internal.h	/^    ImGuiID                 UserID;$/;"	m
 UserOuterSize	extern/imgui/imgui_internal.h	/^    ImVec2                      UserOuterSize;              \/\/ outer_size.x passed to BeginTable()$/;"	m	struct:ImGuiTableTempData
 V0	extern/imgui/imgui.h	/^    float           U0, V0, U1, V1;     \/\/ Texture coordinates$/;"	m	struct:ImFontGlyph
 V1	extern/imgui/imgui.h	/^    float           U0, V0, U1, V1;     \/\/ Texture coordinates$/;"	m	struct:ImFontGlyph
+VAO	src/Buffers.cpp	/^Buffers::VAO::VAO(bool EBO_FLAG) {$/;"	f	class:Buffers::VAO
+VAO	src/Buffers.hpp	/^class VAO {$/;"	c	namespace:Buffers
+VBO	src/Buffers.cpp	/^Buffers::VBO::VBO() { glGenBuffers(1, &vbo_buffer_id_); }$/;"	f	class:Buffers::VBO
+VBO	src/Buffers.hpp	/^class VBO {$/;"	c	namespace:Buffers
 VK_DEFINE_HANDLE	extern/imgui/imgui_impl_glfw.cpp	1287;"	d	file:
 VK_DEFINE_NON_DISPATCHABLE_HANDLE	extern/imgui/imgui_impl_glfw.cpp	1289;"	d	file:
 VK_DEFINE_NON_DISPATCHABLE_HANDLE	extern/imgui/imgui_impl_glfw.cpp	1291;"	d	file:
@@ -5891,6 +5983,7 @@ WIN32_LEAN_AND_MEAN	extern/imgui/imgui_impl_opengl3_loader.h	619;"	d
 WINDOWS_HOVER_PADDING	extern/imgui/imgui.cpp	/^static const float WINDOWS_HOVER_PADDING                    = 4.0f;     \/\/ Extend outside window for hovering\/resizing (maxxed with TouchPadding) and inside windows for borders. Affect FindHoveredWindow().$/;"	v	file:
 WINDOWS_MOUSE_WHEEL_SCROLL_LOCK_TIMER	extern/imgui/imgui.cpp	/^static const float WINDOWS_MOUSE_WHEEL_SCROLL_LOCK_TIMER    = 0.70f;    \/\/ Lock scrolled window (so it doesn't pick child windows that are scrolling through) for a certain time, unless mouse moved.$/;"	v	file:
 WINDOWS_RESIZE_FROM_EDGES_FEEDBACK_TIMER	extern/imgui/imgui.cpp	/^static const float WINDOWS_RESIZE_FROM_EDGES_FEEDBACK_TIMER = 0.04f;    \/\/ Reduce visual noise by only highlighting the border after a certain time.$/;"	v	file:
+WINDOW_NOT_IN_FOCUS	src/Application.hpp	/^struct WINDOW_NOT_IN_FOCUS {};$/;"	s
 WantApply	extern/imgui/imgui_internal.h	/^    bool                        WantApply;              \/\/ Set when loaded from .ini data (to enable merging\/loading .ini data into an already running context)$/;"	m	struct:ImGuiTableSettings
 WantApply	extern/imgui/imgui_internal.h	/^    bool        WantApply;      \/\/ Set when loaded from .ini data (to enable merging\/loading .ini data into an already running context)$/;"	m	struct:ImGuiWindowSettings
 WantCaptureKeyboard	extern/imgui/imgui.h	/^    bool        WantCaptureKeyboard;                \/\/ Set when Dear ImGui will use keyboard inputs, in this case do not dispatch them to your main game\/application (either way, always pass keyboard inputs to imgui). (e.g. InputText active, or an imgui window is focused and navigation is enabled, etc.).$/;"	m	struct:ImGuiIO
@@ -6055,6 +6148,8 @@ active_head	extern/imgui/imstb_rectpack.h	/^   stbrp_node *active_head;$/;"	m	st
 advance	extern/imgui/imstb_truetype.h	/^   int advance;$/;"	m	struct:stbtt_kerningentry
 align	extern/imgui/imstb_rectpack.h	/^   int align;$/;"	m	struct:stbrp_context
 alloc_chunk	extern/imgui/imgui_internal.h	/^    T*      alloc_chunk(size_t sz)      { size_t HDR_SZ = 4; sz = IM_MEMALIGN(HDR_SZ + sz, 4u); int off = Buf.Size; Buf.resize(off + (int)sz); ((int*)(void*)(Buf.Data + off))[0] = (int)sz; return (T*)(void*)(Buf.Data + off + (int)HDR_SZ); }$/;"	f	struct:ImChunkStream
+app_x_	src/Application.hpp	/^  int app_x_, app_y_;$/;"	m	class:Application
+app_y_	src/Application.hpp	/^  int app_x_, app_y_;$/;"	m	class:Application
 append	extern/imgui/imgui.cpp	/^void ImGuiTextBuffer::append(const char* str, const char* str_end)$/;"	f	class:ImGuiTextBuffer
 append	extern/imgui/imgui.cpp	/^void ImGuiTextIndex::append(const char* base, int old_size, int new_size)$/;"	f	class:ImGuiTextIndex
 appendf	extern/imgui/imgui.cpp	/^void ImGuiTextBuffer::appendf(const char* fmt, ...)$/;"	f	class:ImGuiTextBuffer
@@ -6105,11 +6200,18 @@ cy1	extern/imgui/imstb_truetype.h	/^      stbtt_vertex_type x,y,cx,cy,cx1,cy1;$/
 data	extern/imgui/imstb_truetype.h	/^   unsigned char  * data;              \/\/ pointer to .ttf file$/;"	m	struct:stbtt_fontinfo
 data	extern/imgui/imstb_truetype.h	/^   unsigned char *data;$/;"	m	struct:__anon13
 data	include/lib_data.hpp	/^class data {$/;"	c
+data_	src/Graphics.hpp	/^  Data::OffMeshData data_;$/;"	m	class:Graphics::Box
+data_	src/Graphics.hpp	/^  Data::OffMeshData data_;$/;"	m	class:Graphics::TriangleMesh
 delete_length	extern/imgui/imstb_textedit.h	/^   IMSTB_TEXTEDIT_POSITIONTYPE  delete_length;$/;"	m	struct:__anon4
 direction	extern/imgui/imstb_truetype.h	/^   float direction;$/;"	m	struct:stbtt__active_edge
 direction	extern/imgui/imstb_truetype.h	/^   int direction;$/;"	m	struct:stbtt__active_edge
+drawToBuffer	src/Graphics.cpp	/^void Graphics::Box::drawToBuffer(GLsizei s_x, GLsizei s_y) {$/;"	f	class:Graphics::Box
+drawToBuffer	src/Graphics.cpp	/^void Graphics::TriangleMesh::drawToBuffer(GLsizei s_x, GLsizei s_y) {$/;"	f	class:Graphics::TriangleMesh
 dx	extern/imgui/imstb_truetype.h	/^   int x,dx;$/;"	m	struct:stbtt__active_edge
 e	extern/imgui/imgui.h	/^        const char*     e;$/;"	m	struct:ImGuiTextFilter::ImGuiTextRange
+ebo_	src/Buffers.hpp	/^  std::shared_ptr<EBO> ebo_;$/;"	m	class:Buffers::VAO
+ebo_buffer_id_	src/Buffers.hpp	/^  GLuint ebo_buffer_id_ = 0;$/;"	m	class:Buffers::EBO
+element_shader_	src/Graphics.hpp	/^  std::shared_ptr<Shader> element_shader_;$/;"	m	class:Graphics::Element
 empty	extern/imgui/imgui.h	/^        bool            empty() const                   { return b == e; }$/;"	f	struct:ImGuiTextFilter::ImGuiTextRange
 empty	extern/imgui/imgui.h	/^    bool                empty() const           { return Buf.Size <= 1; }$/;"	f	struct:ImGuiTextBuffer
 empty	extern/imgui/imgui.h	/^    inline bool         empty() const                       { return Size == 0; }$/;"	f	struct:ImVector
@@ -6124,10 +6226,18 @@ equal	extern/imgui/imstb_truetype.h	/^static int equal(float *a, float *b)$/;"	f
 erase	extern/imgui/imgui.h	/^    inline T*           erase(const T* it)                  { IM_ASSERT(it >= Data && it < Data + Size); const ptrdiff_t off = it - Data; memmove(Data + off, Data + off + 1, ((size_t)Size - (size_t)off - 1) * sizeof(T)); Size--; return Data + off; }$/;"	f	struct:ImVector
 erase	extern/imgui/imgui.h	/^    inline T*           erase(const T* it, const T* it_last){ IM_ASSERT(it >= Data && it < Data + Size && it_last >= it && it_last <= Data + Size); const ptrdiff_t count = it_last - it; const ptrdiff_t off = it - Data; memmove(Data + off, Data + off + count, ((size_t)Size - (size_t)off - (size_t)count) * sizeof(T)); Size -= (int)count; return Data + off; }$/;"	f	struct:ImVector
 erase_unsorted	extern/imgui/imgui.h	/^    inline T*           erase_unsorted(const T* it)         { IM_ASSERT(it >= Data && it < Data + Size);  const ptrdiff_t off = it - Data; if (it < Data + Size - 1) memcpy(Data + off, Data + Size - 1, sizeof(T)); Size--; return Data + off; }$/;"	f	struct:ImVector
+errString	src/Application.hpp	/^  std::string errString() { return "Glad Loading Error"; }$/;"	f	struct:GLAD_LOADING_ERROR
+errString	src/Application.hpp	/^  std::string errString() { return "Glfw Window Creation Failure"; }$/;"	f	struct:GLFW_WINDOW_CREATION_FAILURE
+errString	src/Application.hpp	/^  std::string errString() { return "Program Construction Error"; }$/;"	f	struct:PROGRAM_CONSTRUCTION_ERROR
+errString	src/Application.hpp	/^  std::string errString() { return "Shader Construction Error"; }$/;"	f	struct:SHADER_CONSTRUCTION_ERROR
 extra	extern/imgui/imstb_rectpack.h	/^   stbrp_node extra[2]; \/\/ we allocate two extra nodes so optimal user-node-count is 'width' not 'width+2'$/;"	m	struct:stbrp_context
 exts	extern/glad/glad.c	/^static const char *exts = NULL;$/;"	v	file:
 exts_i	extern/glad/glad.c	/^static char **exts_i = NULL;$/;"	v	file:
 ey	extern/imgui/imstb_truetype.h	/^   float ey;$/;"	m	struct:stbtt__active_edge
+faces	src/Buffers.hpp	/^  std::vector<unsigned int> faces;$/;"	m	class:Buffers::EBO
+faces	src/Data.hpp	/^  std::vector<unsigned int> faces;$/;"	m	struct:Data::OffMeshData
+fbo_	src/Graphics.hpp	/^  std::shared_ptr<Buffers::FBO> fbo_;$/;"	m	class:Graphics::Element
+fbo_buffer_id_	src/Buffers.hpp	/^  GLuint fbo_buffer_id_ = 0;$/;"	m	class:Buffers::FBO
 fdselect	extern/imgui/imstb_truetype.h	/^   stbtt__buf fdselect;               \/\/ map from glyph to fontdict$/;"	m	struct:stbtt_fontinfo
 fdx	extern/imgui/imstb_truetype.h	/^   float fx,fdx,fdy;$/;"	m	struct:stbtt__active_edge
 fdy	extern/imgui/imstb_truetype.h	/^   float fx,fdx,fdy;$/;"	m	struct:stbtt__active_edge
@@ -6930,6 +7040,8 @@ glyf	extern/imgui/imstb_truetype.h	/^   int loca,head,glyf,hhea,hmtx,kern,gpos,s
 glyph1	extern/imgui/imstb_truetype.h	/^   int glyph1; \/\/ use stbtt_FindGlyphIndex$/;"	m	struct:stbtt_kerningentry
 glyph2	extern/imgui/imstb_truetype.h	/^   int glyph2;$/;"	m	struct:stbtt_kerningentry
 gpos	extern/imgui/imstb_truetype.h	/^   int loca,head,glyf,hhea,hmtx,kern,gpos,svg; \/\/ table locations as offset from start of .ttf$/;"	m	struct:stbtt_fontinfo
+graph	src/Application.hpp	/^  std::shared_ptr<Graphics::Box> graph;$/;"	m	class:Application
+graph_fbo_	src/Application.hpp	/^  std::shared_ptr<Buffers::FBO> graph_fbo_;$/;"	m	class:Application
 gsubrs	extern/imgui/imstb_truetype.h	/^   stbtt__buf gsubrs;                 \/\/ global charstring subroutines index$/;"	m	struct:stbtt_fontinfo
 h	extern/imgui/imstb_rectpack.h	/^   stbrp_coord    w, h;$/;"	m	struct:stbrp_rect
 h	extern/imgui/imstb_truetype.h	/^   int id,w,h,was_packed;$/;"	m	struct:stbrp_rect
@@ -6988,6 +7100,8 @@ insert	extern/imgui/imgui.h	/^    inline T*           insert(const T* it, const 
 insert_length	extern/imgui/imstb_textedit.h	/^   IMSTB_TEXTEDIT_POSITIONTYPE  insert_length;$/;"	m	struct:__anon4
 insert_mode	extern/imgui/imstb_textedit.h	/^   unsigned char insert_mode;$/;"	m	struct:__anon6
 invert	extern/imgui/imstb_truetype.h	/^   int invert;$/;"	m	struct:stbtt__edge
+io	src/Application.hpp	/^  ImGuiIO *io;$/;"	m	class:Application
+isOpen	src/Application.cpp	/^bool Application::isOpen() { return !glfwWindowShouldClose(window); }$/;"	f	class:Application
 is_library_loaded	extern/imgui/imgui_impl_opengl3_loader.h	/^static int is_library_loaded(const char* name, void** lib)$/;"	f
 is_separator	extern/imgui/imgui_widgets.cpp	/^static bool is_separator(unsigned int c)$/;"	f	namespace:ImStb
 is_word_boundary	extern/imgui/imstb_textedit.h	/^static int is_word_boundary( IMSTB_TEXTEDIT_STRING *str, int idx )$/;"	f
@@ -7019,6 +7133,8 @@ libgl	extern/imgui/imgui_impl_opengl3_loader.h	/^static HMODULE libgl;$/;"	v
 libgl	extern/imgui/imgui_impl_opengl3_loader.h	/^static void *libgl;$/;"	v
 libgl	extern/imgui/imgui_impl_opengl3_loader.h	/^static void* libgl;  \/\/ OpenGL library$/;"	v
 libglx	extern/imgui/imgui_impl_opengl3_loader.h	/^static void* libglx;  \/\/ GLX library$/;"	v
+linked_rbo_	src/Buffers.hpp	/^  std::shared_ptr<Buffers::RBO> linked_rbo_;$/;"	m	class:Buffers::FBO
+linked_texture_	src/Buffers.hpp	/^  std::shared_ptr<Buffers::Texture2D> linked_texture_;$/;"	m	class:Buffers::FBO
 load_GL_VERSION_1_0	extern/glad/glad.c	/^static void load_GL_VERSION_1_0(GLADloadproc load) {$/;"	f	file:
 load_GL_VERSION_1_1	extern/glad/glad.c	/^static void load_GL_VERSION_1_1(GLADloadproc load) {$/;"	f	file:
 load_GL_VERSION_1_2	extern/glad/glad.c	/^static void load_GL_VERSION_1_2(GLADloadproc load) {$/;"	f	file:
@@ -7045,6 +7161,7 @@ main	build_linux/CMakeFiles/3.22.4/CompilerIdC/CMakeCCompilerId.c	/^void main() 
 main	build_linux/CMakeFiles/3.22.4/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^int main(int argc, char* argv[])$/;"	f
 main	extern/imgui/imstb_truetype.h	/^int main(int argc, char **argv)$/;"	f
 main	src/main.cpp	/^int main() {$/;"	f
+main	src/old_main.cpp	/^int main() {$/;"	f
 main_clipboard	extern/imgui/imgui.cpp	/^static PasteboardRef main_clipboard = 0;$/;"	v	file:
 major	extern/imgui/imgui_impl_opengl3_loader.h	/^static struct { int major, minor; } version;$/;"	m	struct:__anon10
 max_loaded_major	extern/glad/glad.c	/^static int max_loaded_major;$/;"	v	file:
@@ -7055,6 +7172,7 @@ max_y	extern/imgui/imstb_truetype.h	/^   stbtt_int32 min_x, max_x, min_y, max_y;
 min_x	extern/imgui/imstb_truetype.h	/^   stbtt_int32 min_x, max_x, min_y, max_y;$/;"	m	struct:__anon27
 min_y	extern/imgui/imstb_truetype.h	/^   stbtt_int32 min_x, max_x, min_y, max_y;$/;"	m	struct:__anon27
 minor	extern/imgui/imgui_impl_opengl3_loader.h	/^static struct { int major, minor; } version;$/;"	m	struct:__anon10
+model_	src/Graphics.hpp	/^  glm::mat4 model_;$/;"	m	class:Graphics::ProjectionMatrices
 my_stbtt_initfont	extern/imgui/imstb_truetype.h	/^void my_stbtt_initfont(void)$/;"	f
 my_stbtt_print	extern/imgui/imstb_truetype.h	/^void my_stbtt_print(float x, float y, char *text)$/;"	f
 next	extern/imgui/imstb_rectpack.h	/^   stbrp_node  *next;$/;"	m	struct:stbrp_node
@@ -7067,8 +7185,15 @@ num_chars	extern/imgui/imstb_textedit.h	/^   int num_chars;$/;"	m	struct:__anon7
 num_chars	extern/imgui/imstb_truetype.h	/^   int num_chars;$/;"	m	struct:__anon17
 num_exts_i	extern/glad/glad.c	/^static int num_exts_i = 0;$/;"	v	file:
 num_nodes	extern/imgui/imstb_rectpack.h	/^   int num_nodes;$/;"	m	struct:stbrp_context
+num_of_edges	src/Data.hpp	/^  unsigned int num_of_edges = 0;$/;"	m	struct:Data::OffMeshData
+num_of_edges	src/Graphics.hpp	/^  unsigned int num_of_vertices = 8, num_of_faces = 8, num_of_edges = 0;$/;"	m	class:Graphics::Box
+num_of_faces	src/Data.hpp	/^  unsigned int num_of_faces = 0;$/;"	m	struct:Data::OffMeshData
+num_of_faces	src/Graphics.hpp	/^  unsigned int num_of_vertices = 8, num_of_faces = 8, num_of_edges = 0;$/;"	m	class:Graphics::Box
+num_of_vertices	src/Data.hpp	/^  unsigned int num_of_vertices = 0;$/;"	m	struct:Data::OffMeshData
+num_of_vertices	src/Graphics.hpp	/^  unsigned int num_of_vertices = 8, num_of_faces = 8, num_of_edges = 0;$/;"	m	class:Graphics::Box
 num_remaining_in_head_chunk	extern/imgui/imstb_truetype.h	/^   int    num_remaining_in_head_chunk;$/;"	m	struct:stbtt__hheap
 num_vertices	extern/imgui/imstb_truetype.h	/^   int num_vertices;$/;"	m	struct:__anon27
+offset_	src/Buffers.hpp	/^  void *offset_ = (void *)0;$/;"	m	class:Buffers::VAO
 offset_from_ptr	extern/imgui/imgui_internal.h	/^    int     offset_from_ptr(const T* p) { IM_ASSERT(p >= begin() && p < end()); const ptrdiff_t off = (const char*)p - Buf.Data; return (int)off; }$/;"	f	struct:ImChunkStream
 open_gl	extern/glad/glad.c	/^int open_gl(void) {$/;"	f	file:
 open_libgl	extern/imgui/imgui_impl_opengl3_loader.h	/^static int open_libgl(void)$/;"	f
@@ -7123,14 +7248,19 @@ prev_first	extern/imgui/imstb_textedit.h	/^   int prev_first;  \/\/ first char o
 prev_link	extern/imgui/imstb_rectpack.h	/^   stbrp_node **prev_link;$/;"	m	struct:__anon3
 proc_names	extern/imgui/imgui_impl_opengl3_loader.h	/^static const char *proc_names[] = {$/;"	v
 proggy_clean_ttf_compressed_data_base85	extern/imgui/imgui_draw.cpp	/^static const char proggy_clean_ttf_compressed_data_base85[11980 + 1] =$/;"	v	file:
+projection_	src/Graphics.hpp	/^  glm::mat4 projection_;$/;"	m	class:Graphics::ProjectionMatrices
 ptr	extern/imgui/imgui_impl_opengl3_loader.h	/^    GL3WglProc ptr[59];$/;"	m	union:ImGL3WProcs
 ptr_from_offset	extern/imgui/imgui_internal.h	/^    T*      ptr_from_offset(int off)    { IM_ASSERT(off >= 4 && off < Buf.Size); return (T*)(void*)(Buf.Data + off); }$/;"	f	struct:ImChunkStream
+pushToShader	src/Graphics.cpp	/^void Graphics::ProjectionMatrices::pushToShader(const Shader &shader) {$/;"	f	class:Graphics::ProjectionMatrices
 push_back	extern/imgui/imgui.h	/^    inline void         push_back(const T& v)               { if (Size == Capacity) reserve(_grow_capacity(Size + 1)); memcpy(&Data[Size], &v, sizeof(v)); Size++; }$/;"	f	struct:ImVector
 push_back	extern/imgui/imgui_draw.cpp	/^    void    push_back(ImTriangulatorNode* node) { Data[Size++] = node; }$/;"	f	struct:ImTriangulatorNodeSpan
 push_front	extern/imgui/imgui.h	/^    inline void         push_front(const T& v)              { if (Size == 0) push_back(v); else insert(Data, v); }$/;"	f	struct:ImVector
 pvertices	extern/imgui/imstb_truetype.h	/^   stbtt_vertex *pvertices;$/;"	m	struct:__anon27
 qnxnto	build_linux/CMakeFiles/3.22.4/CompilerIdC/CMakeCCompilerId.c	/^char const* qnxnto = "INFO" ":" "qnxnto[]";$/;"	v
 qnxnto	build_linux/CMakeFiles/3.22.4/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^char const* qnxnto = "INFO" ":" "qnxnto[]";$/;"	v
+rbo_id_	src/Buffers.hpp	/^  GLuint rbo_id_ = 0;$/;"	m	class:Buffers::RBO
+read_data	src/read_data.cpp	/^void read_data(arr_v &vertices_arr, arr_f &faces_arr, std::string file_name) {$/;"	f
+read_off_file_attrib	src/read_data.cpp	/^void read_off_file_attrib(unsigned int &vertices, unsigned int &facets,$/;"	f
 rect_height_compare	extern/imgui/imstb_rectpack.h	/^static int STBRP__CDECL rect_height_compare(const void *a, const void *b)$/;"	f
 rect_original_order	extern/imgui/imstb_rectpack.h	/^static int STBRP__CDECL rect_original_order(const void *a, const void *b)$/;"	f
 redo_char_point	extern/imgui/imstb_textedit.h	/^   int undo_char_point, redo_char_point;$/;"	m	struct:__anon5
@@ -7153,6 +7283,10 @@ select_end	extern/imgui/imstb_textedit.h	/^   int select_end;$/;"	m	struct:__ano
 select_start	extern/imgui/imstb_textedit.h	/^   int select_start;          \/\/ selection start point$/;"	m	struct:__anon6
 set	extern/imgui/imgui_internal.h	/^    inline void         set(T* data, T* data_end)   { Data = data; DataEnd = data_end; }$/;"	f	struct:ImSpan
 set	extern/imgui/imgui_internal.h	/^    inline void         set(T* data, int size)      { Data = data; DataEnd = data + size; }$/;"	f	struct:ImSpan
+setBool	src/shader_handler.cpp	/^void Shader::setBool(const std::string &name, bool value) const {$/;"	f	class:Shader
+setFloat	src/shader_handler.cpp	/^void Shader::setFloat(const std::string &name, float value) const {$/;"	f	class:Shader
+setInt	src/shader_handler.cpp	/^void Shader::setInt(const std::string &name, int value) const {$/;"	f	class:Shader
+shader	src/Application.hpp	/^  std::shared_ptr<Shader> shader;$/;"	m	class:Application
 shrink	extern/imgui/imgui.h	/^    inline void         shrink(int new_size)                { IM_ASSERT(new_size <= Size); Size = new_size; } \/\/ Resize a vector to a smaller size, guaranteed not to cause a reallocation$/;"	f	struct:ImVector
 single_line	extern/imgui/imstb_textedit.h	/^   unsigned char single_line;$/;"	m	struct:__anon6
 size	extern/imgui/imgui.h	/^    inline int          size() const                        { return Size; }$/;"	f	struct:ImVector
@@ -7161,6 +7295,7 @@ size	extern/imgui/imgui_internal.h	/^    inline int          size() const       
 size	extern/imgui/imgui_internal.h	/^    int             size()                                  { return LineOffsets.Size; }$/;"	f	struct:ImGuiTextIndex
 size	extern/imgui/imgui_internal.h	/^    int     size() const                { return Buf.Size; }$/;"	f	struct:ImChunkStream
 size	extern/imgui/imstb_truetype.h	/^   int size;$/;"	m	struct:__anon13
+size_	src/Buffers.hpp	/^  GLint size_ = 3;$/;"	m	class:Buffers::VAO
 size_in_bytes	extern/imgui/imgui.h	/^    inline int          size_in_bytes() const               { return Size * (int)sizeof(T); }$/;"	f	struct:ImVector
 size_in_bytes	extern/imgui/imgui_internal.h	/^    inline int          size_in_bytes() const       { return (int)(ptrdiff_t)(DataEnd - Data) * (int)sizeof(T); }$/;"	f	struct:ImSpan
 skip_missing	extern/imgui/imstb_truetype.h	/^   int   skip_missing;$/;"	m	struct:stbtt_pack_context
@@ -7401,6 +7536,7 @@ stbtt_uint8	extern/imgui/imstb_truetype.h	/^   typedef unsigned char   stbtt_uin
 stbtt_vertex	extern/imgui/imstb_truetype.h	/^   } stbtt_vertex;$/;"	t	typeref:struct:__anon19
 stbtt_vertex_type	extern/imgui/imstb_truetype.h	839;"	d
 stride	extern/imgui/imstb_truetype.h	/^   int w,h,stride;$/;"	m	struct:__anon20
+stride_	src/Buffers.hpp	/^  GLsizei stride_ = 3 * sizeof(float);$/;"	m	class:Buffers::VAO
 stride_in_bytes	extern/imgui/imstb_truetype.h	/^   int   stride_in_bytes;$/;"	m	struct:stbtt_pack_context
 subrs	extern/imgui/imstb_truetype.h	/^   stbtt__buf subrs;                  \/\/ private charstring subroutines index$/;"	m	struct:stbtt_fontinfo
 svg	extern/imgui/imstb_truetype.h	/^   int loca,head,glyf,hhea,hmtx,kern,gpos,svg; \/\/ table locations as offset from start of .ttf$/;"	m	struct:stbtt_fontinfo
@@ -7410,6 +7546,7 @@ sy	extern/imgui/imstb_truetype.h	/^   float sy;$/;"	m	struct:stbtt__active_edge
 t0	extern/imgui/imstb_truetype.h	/^   float x0,y0,s0,t0; \/\/ top-left$/;"	m	struct:__anon15
 t1	extern/imgui/imstb_truetype.h	/^   float x1,y1,s1,t1; \/\/ bottom-right$/;"	m	struct:__anon15
 temp_bitmap	extern/imgui/imstb_truetype.h	/^unsigned char temp_bitmap[512*512];$/;"	v
+texture_id_	src/Buffers.hpp	/^  GLuint texture_id_ = 0;$/;"	m	class:Buffers::Texture2D
 ttBYTE	extern/imgui/imstb_truetype.h	1287;"	d
 ttCHAR	extern/imgui/imstb_truetype.h	1288;"	d
 ttFixed	extern/imgui/imstb_truetype.h	1289;"	d
@@ -7425,6 +7562,8 @@ undo_char_point	extern/imgui/imstb_textedit.h	/^   int undo_char_point, redo_cha
 undo_point	extern/imgui/imstb_textedit.h	/^   short undo_point, redo_point;$/;"	m	struct:__anon5
 undo_rec	extern/imgui/imstb_textedit.h	/^   StbUndoRecord          undo_rec [IMSTB_TEXTEDIT_UNDOSTATECOUNT];$/;"	m	struct:__anon5
 undostate	extern/imgui/imstb_textedit.h	/^   StbUndoState undostate;$/;"	m	struct:__anon6
+updateData	src/Graphics.cpp	/^void Graphics::TriangleMesh::updateData(Data::OffMeshData new_data) {$/;"	f	class:Graphics::TriangleMesh
+use	src/shader_handler.cpp	/^void Shader::use() { glUseProgram(ID); }$/;"	f	class:Shader
 user_allocator_context	extern/imgui/imstb_truetype.h	/^   void *user_allocator_context;$/;"	m	struct:stbtt_pack_context
 userdata	extern/imgui/imstb_truetype.h	/^   void           * userdata;$/;"	m	struct:stbtt_fontinfo
 uv	extern/imgui/imgui.h	/^    ImVec2  uv;$/;"	m	struct:ImDrawVert
@@ -7436,7 +7575,14 @@ val_f	extern/imgui/imgui.h	/^    union       { int val_i; float val_f; void* val
 val_i	extern/imgui/imgui.h	/^    union       { int val_i; float val_f; void* val_p; };$/;"	m	union:ImGuiStoragePair::__anon12
 val_p	extern/imgui/imgui.h	/^    union       { int val_i; float val_f; void* val_p; };$/;"	m	union:ImGuiStoragePair::__anon12
 value_type	extern/imgui/imgui.h	/^    typedef T                   value_type;$/;"	t	struct:ImVector
+vao_	src/Graphics.hpp	/^  std::shared_ptr<Buffers::VAO> vao_; \/\/ true means with EBO which I'll assume$/;"	m	class:Graphics::Element
+vao_buffer_id_	src/Buffers.hpp	/^  GLuint vao_buffer_id_ = 0;$/;"	m	class:Buffers::VAO
+vbo_	src/Buffers.hpp	/^  std::shared_ptr<VBO> vbo_;$/;"	m	class:Buffers::VAO
+vbo_buffer_id_	src/Buffers.hpp	/^  GLuint vbo_buffer_id_ = 0;$/;"	m	class:Buffers::VBO
 version	extern/imgui/imgui_impl_opengl3_loader.h	/^static struct { int major, minor; } version;$/;"	v	typeref:struct:__anon10
+vertices	src/Data.hpp	/^  std::vector<float> vertices;$/;"	m	struct:Data::OffMeshData
+vertices_	src/Buffers.hpp	/^  std::vector<float> vertices_;$/;"	m	class:Buffers::VBO
+view_	src/Graphics.hpp	/^  glm::mat4 view_;$/;"	m	class:Graphics::ProjectionMatrices
 volatile	build_linux/CMakeFiles/3.22.4/CompilerIdC/CMakeCCompilerId.c	11;"	d	file:
 vsnprintf	extern/imgui/imgui.cpp	2109;"	d	file:
 vsnprintf	extern/imgui/imgui_demo.cpp	169;"	d	file:
@@ -7451,6 +7597,7 @@ where	extern/imgui/imstb_textedit.h	/^   IMSTB_TEXTEDIT_POSITIONTYPE  where;$/;"
 width	extern/imgui/imstb_rectpack.h	/^   int width;$/;"	m	struct:stbrp_context
 width	extern/imgui/imstb_truetype.h	/^   int   width;$/;"	m	struct:stbtt_pack_context
 width	extern/imgui/imstb_truetype.h	/^   int width,height;$/;"	m	struct:__anon29
+window	src/Application.hpp	/^  GLFWwindow *window;$/;"	m	class:Application
 x	extern/imgui/imgui.h	/^    float                                                     x, y, z, w;$/;"	m	struct:ImVec4
 x	extern/imgui/imgui.h	/^    float                                   x, y;$/;"	m	struct:ImVec2
 x	extern/imgui/imgui_internal.h	/^    float   x;$/;"	m	struct:ImVec1
@@ -7507,7 +7654,9 @@ yoff	extern/imgui/imstb_truetype.h	/^   float xoff,yoff,xadvance;$/;"	m	struct:_
 yoff	extern/imgui/imstb_truetype.h	/^   float xoff,yoff,xadvance;$/;"	m	struct:__anon16
 yoff2	extern/imgui/imstb_truetype.h	/^   float xoff2,yoff2;$/;"	m	struct:__anon16
 z	extern/imgui/imgui.h	/^    float                                                     x, y, z, w;$/;"	m	struct:ImVec4
+~EBO	src/Buffers.cpp	/^Buffers::EBO::~EBO() { glDeleteBuffers(1, &ebo_buffer_id_); }$/;"	f	class:Buffers::EBO
 ~ExampleAppConsole	extern/imgui/imgui_demo.cpp	/^    ~ExampleAppConsole()$/;"	f	struct:ExampleAppConsole
+~FBO	src/Buffers.cpp	/^Buffers::FBO::~FBO() { glDeleteBuffers(1, &fbo_buffer_id_); }$/;"	f	class:Buffers::FBO
 ~ImDrawList	extern/imgui/imgui.h	/^    ~ImDrawList() { _ClearFreeMemory(); }$/;"	f	struct:ImDrawList
 ~ImDrawListSplitter	extern/imgui/imgui.h	/^    inline ~ImDrawListSplitter() { ClearFreeMemory(); }$/;"	f	struct:ImDrawListSplitter
 ~ImFont	extern/imgui/imgui_draw.cpp	/^ImFont::~ImFont()$/;"	f	class:ImFont
@@ -7521,3 +7670,7 @@ z	extern/imgui/imgui.h	/^    float                                              
 ~ImGui_ImplGlfw_ViewportData	extern/imgui/imgui_impl_glfw.cpp	/^    ~ImGui_ImplGlfw_ViewportData() { IM_ASSERT(Window == nullptr); }$/;"	f	struct:ImGui_ImplGlfw_ViewportData
 ~ImPool	extern/imgui/imgui_internal.h	/^    ~ImPool()   { Clear(); }$/;"	f	struct:ImPool
 ~ImVector	extern/imgui/imgui.h	/^    inline ~ImVector()                                      { if (Data) IM_FREE(Data); } \/\/ Important: does not destruct anything$/;"	f	struct:ImVector
+~RBO	src/Buffers.cpp	/^Buffers::RBO::~RBO() { glDeleteBuffers(1, &rbo_id_); }$/;"	f	class:Buffers::RBO
+~Texture2D	src/Buffers.cpp	/^Buffers::Texture2D::~Texture2D() { glDeleteTextures(1, &texture_id_); }$/;"	f	class:Buffers::Texture2D
+~VAO	src/Buffers.cpp	/^Buffers::VAO::~VAO() { glDeleteVertexArrays(1, &vao_buffer_id_); }$/;"	f	class:Buffers::VAO
+~VBO	src/Buffers.cpp	/^Buffers::VBO::~VBO() { glDeleteBuffers(1, &vbo_buffer_id_); }$/;"	f	class:Buffers::VBO

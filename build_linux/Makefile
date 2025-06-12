@@ -57,10 +57,10 @@ RM = /home/eric/anaconda3/lib/python3.9/site-packages/cmake/data/bin/cmake -E rm
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS"
+CMAKE_SOURCE_DIR = "/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS/build_linux"
+CMAKE_BINARY_DIR = "/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/build_linux"
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -87,9 +87,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS/build_linux/CMakeFiles" "/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS/build_linux//CMakeFiles/progress.marks"
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/build_linux/CMakeFiles" "/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/build_linux//CMakeFiles/progress.marks"
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start "/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS/build_linux/CMakeFiles" 0
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/build_linux/CMakeFiles" 0
 .PHONY : all
 
 # The main clean target
@@ -234,43 +234,56 @@ shader_handler/fast:
 .PHONY : shader_handler/fast
 
 #=============================================================================
-# Target rules for targets named matrix_handler
+# Target rules for targets named Buffers
 
 # Build rule for target.
-matrix_handler: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 matrix_handler
-.PHONY : matrix_handler
+Buffers: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 Buffers
+.PHONY : Buffers
 
 # fast build rule for target.
-matrix_handler/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/matrix_handler.dir/build.make CMakeFiles/matrix_handler.dir/build
-.PHONY : matrix_handler/fast
+Buffers/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Buffers.dir/build.make CMakeFiles/Buffers.dir/build
+.PHONY : Buffers/fast
 
 #=============================================================================
-# Target rules for targets named buffer_handler
+# Target rules for targets named Data
 
 # Build rule for target.
-buffer_handler: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 buffer_handler
-.PHONY : buffer_handler
+Data: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 Data
+.PHONY : Data
 
 # fast build rule for target.
-buffer_handler/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/buffer_handler.dir/build.make CMakeFiles/buffer_handler.dir/build
-.PHONY : buffer_handler/fast
+Data/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Data.dir/build.make CMakeFiles/Data.dir/build
+.PHONY : Data/fast
 
 #=============================================================================
-# Target rules for targets named read_data
+# Target rules for targets named Graphics
 
 # Build rule for target.
-read_data: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 read_data
-.PHONY : read_data
+Graphics: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 Graphics
+.PHONY : Graphics
 
 # fast build rule for target.
-read_data/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/read_data.dir/build.make CMakeFiles/read_data.dir/build
-.PHONY : read_data/fast
+Graphics/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Graphics.dir/build.make CMakeFiles/Graphics.dir/build
+.PHONY : Graphics/fast
+
+#=============================================================================
+# Target rules for targets named Application
+
+# Build rule for target.
+Application: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 Application
+.PHONY : Application
+
+# fast build rule for target.
+Application/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Application.dir/build.make CMakeFiles/Application.dir/build
+.PHONY : Application/fast
 
 #=============================================================================
 # Target rules for targets named program.out
@@ -477,29 +490,101 @@ extern/imgui/imgui_widgets.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/imgui_widgets.dir/build.make CMakeFiles/imgui_widgets.dir/extern/imgui/imgui_widgets.cpp.s
 .PHONY : extern/imgui/imgui_widgets.cpp.s
 
-src/buffer_handler.o: src/buffer_handler.cpp.o
-.PHONY : src/buffer_handler.o
+src/Application.o: src/Application.cpp.o
+.PHONY : src/Application.o
 
 # target to build an object file
-src/buffer_handler.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/buffer_handler.dir/build.make CMakeFiles/buffer_handler.dir/src/buffer_handler.cpp.o
-.PHONY : src/buffer_handler.cpp.o
+src/Application.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Application.dir/build.make CMakeFiles/Application.dir/src/Application.cpp.o
+.PHONY : src/Application.cpp.o
 
-src/buffer_handler.i: src/buffer_handler.cpp.i
-.PHONY : src/buffer_handler.i
+src/Application.i: src/Application.cpp.i
+.PHONY : src/Application.i
 
 # target to preprocess a source file
-src/buffer_handler.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/buffer_handler.dir/build.make CMakeFiles/buffer_handler.dir/src/buffer_handler.cpp.i
-.PHONY : src/buffer_handler.cpp.i
+src/Application.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Application.dir/build.make CMakeFiles/Application.dir/src/Application.cpp.i
+.PHONY : src/Application.cpp.i
 
-src/buffer_handler.s: src/buffer_handler.cpp.s
-.PHONY : src/buffer_handler.s
+src/Application.s: src/Application.cpp.s
+.PHONY : src/Application.s
 
 # target to generate assembly for a file
-src/buffer_handler.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/buffer_handler.dir/build.make CMakeFiles/buffer_handler.dir/src/buffer_handler.cpp.s
-.PHONY : src/buffer_handler.cpp.s
+src/Application.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Application.dir/build.make CMakeFiles/Application.dir/src/Application.cpp.s
+.PHONY : src/Application.cpp.s
+
+src/Buffers.o: src/Buffers.cpp.o
+.PHONY : src/Buffers.o
+
+# target to build an object file
+src/Buffers.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Buffers.dir/build.make CMakeFiles/Buffers.dir/src/Buffers.cpp.o
+.PHONY : src/Buffers.cpp.o
+
+src/Buffers.i: src/Buffers.cpp.i
+.PHONY : src/Buffers.i
+
+# target to preprocess a source file
+src/Buffers.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Buffers.dir/build.make CMakeFiles/Buffers.dir/src/Buffers.cpp.i
+.PHONY : src/Buffers.cpp.i
+
+src/Buffers.s: src/Buffers.cpp.s
+.PHONY : src/Buffers.s
+
+# target to generate assembly for a file
+src/Buffers.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Buffers.dir/build.make CMakeFiles/Buffers.dir/src/Buffers.cpp.s
+.PHONY : src/Buffers.cpp.s
+
+src/Data.o: src/Data.cpp.o
+.PHONY : src/Data.o
+
+# target to build an object file
+src/Data.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Data.dir/build.make CMakeFiles/Data.dir/src/Data.cpp.o
+.PHONY : src/Data.cpp.o
+
+src/Data.i: src/Data.cpp.i
+.PHONY : src/Data.i
+
+# target to preprocess a source file
+src/Data.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Data.dir/build.make CMakeFiles/Data.dir/src/Data.cpp.i
+.PHONY : src/Data.cpp.i
+
+src/Data.s: src/Data.cpp.s
+.PHONY : src/Data.s
+
+# target to generate assembly for a file
+src/Data.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Data.dir/build.make CMakeFiles/Data.dir/src/Data.cpp.s
+.PHONY : src/Data.cpp.s
+
+src/Graphics.o: src/Graphics.cpp.o
+.PHONY : src/Graphics.o
+
+# target to build an object file
+src/Graphics.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Graphics.dir/build.make CMakeFiles/Graphics.dir/src/Graphics.cpp.o
+.PHONY : src/Graphics.cpp.o
+
+src/Graphics.i: src/Graphics.cpp.i
+.PHONY : src/Graphics.i
+
+# target to preprocess a source file
+src/Graphics.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Graphics.dir/build.make CMakeFiles/Graphics.dir/src/Graphics.cpp.i
+.PHONY : src/Graphics.cpp.i
+
+src/Graphics.s: src/Graphics.cpp.s
+.PHONY : src/Graphics.s
+
+# target to generate assembly for a file
+src/Graphics.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Graphics.dir/build.make CMakeFiles/Graphics.dir/src/Graphics.cpp.s
+.PHONY : src/Graphics.cpp.s
 
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
@@ -524,54 +609,6 @@ src/main.s: src/main.cpp.s
 src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/program.out.dir/build.make CMakeFiles/program.out.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
-
-src/matrix_handler.o: src/matrix_handler.cpp.o
-.PHONY : src/matrix_handler.o
-
-# target to build an object file
-src/matrix_handler.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/matrix_handler.dir/build.make CMakeFiles/matrix_handler.dir/src/matrix_handler.cpp.o
-.PHONY : src/matrix_handler.cpp.o
-
-src/matrix_handler.i: src/matrix_handler.cpp.i
-.PHONY : src/matrix_handler.i
-
-# target to preprocess a source file
-src/matrix_handler.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/matrix_handler.dir/build.make CMakeFiles/matrix_handler.dir/src/matrix_handler.cpp.i
-.PHONY : src/matrix_handler.cpp.i
-
-src/matrix_handler.s: src/matrix_handler.cpp.s
-.PHONY : src/matrix_handler.s
-
-# target to generate assembly for a file
-src/matrix_handler.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/matrix_handler.dir/build.make CMakeFiles/matrix_handler.dir/src/matrix_handler.cpp.s
-.PHONY : src/matrix_handler.cpp.s
-
-src/read_data.o: src/read_data.cpp.o
-.PHONY : src/read_data.o
-
-# target to build an object file
-src/read_data.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/read_data.dir/build.make CMakeFiles/read_data.dir/src/read_data.cpp.o
-.PHONY : src/read_data.cpp.o
-
-src/read_data.i: src/read_data.cpp.i
-.PHONY : src/read_data.i
-
-# target to preprocess a source file
-src/read_data.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/read_data.dir/build.make CMakeFiles/read_data.dir/src/read_data.cpp.i
-.PHONY : src/read_data.cpp.i
-
-src/read_data.s: src/read_data.cpp.s
-.PHONY : src/read_data.s
-
-# target to generate assembly for a file
-src/read_data.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/read_data.dir/build.make CMakeFiles/read_data.dir/src/read_data.cpp.s
-.PHONY : src/read_data.cpp.s
 
 src/shader_handler.o: src/shader_handler.cpp.o
 .PHONY : src/shader_handler.o
@@ -605,7 +642,10 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... buffer_handler"
+	@echo "... Application"
+	@echo "... Buffers"
+	@echo "... Data"
+	@echo "... Graphics"
 	@echo "... glad"
 	@echo "... imgui"
 	@echo "... imgui_backend"
@@ -614,9 +654,7 @@ help:
 	@echo "... imgui_renderer"
 	@echo "... imgui_tables"
 	@echo "... imgui_widgets"
-	@echo "... matrix_handler"
 	@echo "... program.out"
-	@echo "... read_data"
 	@echo "... shader_handler"
 	@echo "... extern/glad/glad.o"
 	@echo "... extern/glad/glad.i"
@@ -642,18 +680,21 @@ help:
 	@echo "... extern/imgui/imgui_widgets.o"
 	@echo "... extern/imgui/imgui_widgets.i"
 	@echo "... extern/imgui/imgui_widgets.s"
-	@echo "... src/buffer_handler.o"
-	@echo "... src/buffer_handler.i"
-	@echo "... src/buffer_handler.s"
+	@echo "... src/Application.o"
+	@echo "... src/Application.i"
+	@echo "... src/Application.s"
+	@echo "... src/Buffers.o"
+	@echo "... src/Buffers.i"
+	@echo "... src/Buffers.s"
+	@echo "... src/Data.o"
+	@echo "... src/Data.i"
+	@echo "... src/Data.s"
+	@echo "... src/Graphics.o"
+	@echo "... src/Graphics.i"
+	@echo "... src/Graphics.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
-	@echo "... src/matrix_handler.o"
-	@echo "... src/matrix_handler.i"
-	@echo "... src/matrix_handler.s"
-	@echo "... src/read_data.o"
-	@echo "... src/read_data.i"
-	@echo "... src/read_data.s"
 	@echo "... src/shader_handler.o"
 	@echo "... src/shader_handler.i"
 	@echo "... src/shader_handler.s"

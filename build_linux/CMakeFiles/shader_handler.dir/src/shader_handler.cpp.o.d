@@ -1,7 +1,7 @@
 CMakeFiles/shader_handler.dir/src/shader_handler.cpp.o: \
- /home/eric/Documents/Learning/Computer\ Science/OpenGL/FDVS/src/shader_handler.cpp \
+ /home/eric/Documents/Learning/Computer\ Science/OpenGL/FDVS_github/src/shader_handler.cpp \
  /usr/include/stdc-predef.h \
- /home/eric/Documents/Learning/Computer\ Science/OpenGL/FDVS/src/shader_handler.hpp \
+ /home/eric/Documents/Learning/Computer\ Science/OpenGL/FDVS_github/src/shader_handler.hpp \
  /usr/include/glad/glad.h /usr/include/KHR/khrplatform.h \
  /usr/lib/gcc/x86_64-linux-gnu/11/include/stdint.h /usr/include/stdint.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
