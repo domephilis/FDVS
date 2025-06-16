@@ -138,12 +138,12 @@ Buffers::VAO::VAO(bool EBO_FLAG) {
     ebo_->Unbind();
   Unbind();
 }
-void Buffers::VAO::SetData(Data::OffMeshData data) {
+void Buffers::VAO::SetData(std::shared_ptr<Data::OffMeshData> data) {
   vbo_->Bind();
-  vbo_->SetData(data.vertices);
+  vbo_->SetData(data->vertices);
 
   ebo_->Bind();
-  ebo_->SetData(data.faces);
+  ebo_->SetData(data->faces);
   ebo_->Unbind();
   vbo_->Unbind();
 

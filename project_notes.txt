@@ -11,9 +11,11 @@
 [x]  Create FBO and a Texture
 [x]  Link FBO to Texture
 [x]  Bind to FBO and Draw into the Buffer
-[]  Use Shader Programs to Draw Each Item on Scene
-    []  Draw a Cube containing the entire viewing volume inside ImGui Window
-    []  Create a projection matrix with Perspective Division that maps
+[]   Event Controller Class
+     []  Publisher / Subscriber Model
+[x]  Use Shader Programs to Draw Each Item on Scene
+    [x]  Draw a Cube containing the entire viewing volume inside ImGui Window
+    [x]  Create a projection matrix with Perspective Division that maps
         my coordinates (0,100 in xyz) to viewing frustrum from (-1, 1 in xyz)
     []  Create a view matrix handling class with the following functions:
         [] Store the following values:
@@ -38,10 +40,10 @@
         a separate ImGui window
     []  Use some tga images to texture over some rectangles to label the axes (optional)
     []  Refactor code 
-        [] Create a Setup function that sets up the window, the buffers, ...
-        [] Create functions that draw each of the above elements separately
+        [x] Create a Setup function that sets up the window, the buffers, ...
+        [x] Create functions that draw each of the above elements separately
            (These functions may be later used in a graphing window class)
-        [] The class renders to a FBO linked with a texture that is Ultimately
+        [x] The class renders to a FBO linked with a texture that is Ultimately
            sent to the ImDrawlist.  Naturally, one may overlay multiple 
            instances of this class on the same FBO.  The user handles the
            windowing and the camerawork.
@@ -49,7 +51,7 @@
                  anything.  If one needs histograms, one generates data
                  elsewhere and passes the buckets and number into this class
                  and set the GPH_VBAR type.
-            [] Require type of graph, FBO name, texture_id in the constructor
+            [x] Require type of graph, FBO name, texture_id in the constructor
             [] gphSet(ENUM_FLAG);
                 The flags are: GPH_SURFACE, GPH_POINTCLOUD, GPH_WIREFRAME,
                 GPH_LINE...

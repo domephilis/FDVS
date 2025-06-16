@@ -613,13 +613,26 @@ CMakeFiles/program.out.dir/src/main.cpp.o: ../src/main.cpp \
   ../extern/imgui/imconfig.h \
   ../extern/imgui/imgui_impl_glfw.h \
   ../extern/imgui/imgui_impl_opengl3.h \
+  ../src/Events.hpp \
+  ../src/Panel.hpp \
   ../src/Buffers.hpp \
   ../src/Data.hpp \
   ../src/Graphics.hpp \
-  ../src/shader_handler.hpp
+  ../src/MatrixHandler.hpp \
+  /usr/include/glm/gtx/rotate_vector.hpp \
+  /usr/include/glm/gtx/transform.hpp \
+  /usr/include/glm/gtx/transform.inl \
+  /usr/include/glm/gtx/rotate_vector.inl \
+  ../src/ShaderHandler.hpp
 
 
-../src/shader_handler.hpp:
+../src/ShaderHandler.hpp:
+
+/usr/include/glm/gtx/transform.inl:
+
+/usr/include/glm/gtx/rotate_vector.hpp:
+
+../src/MatrixHandler.hpp:
 
 ../src/Graphics.hpp:
 
@@ -931,6 +944,8 @@ CMakeFiles/program.out.dir/src/main.cpp.o: ../src/main.cpp \
 
 /usr/include/x86_64-linux-gnu/bits/floatn.h:
 
+../src/Panel.hpp:
+
 /usr/include/glm/ext/matrix_transform.hpp:
 
 /usr/include/KHR/khrplatform.h:
@@ -1060,6 +1075,8 @@ CMakeFiles/program.out.dir/src/main.cpp.o: ../src/main.cpp \
 /usr/lib/gcc/x86_64-linux-gnu/11/include/stdint.h:
 
 /usr/include/c++/11/bits/this_thread_sleep.h:
+
+../src/Events.hpp:
 
 /usr/include/c++/11/type_traits:
 
@@ -1367,6 +1384,8 @@ CMakeFiles/program.out.dir/src/main.cpp.o: ../src/main.cpp \
 
 /usr/include/c++/11/bits/ios_base.h:
 
+/usr/include/glm/gtx/transform.hpp:
+
 /usr/include/c++/11/tr1/exp_integral.tcc:
 
 /usr/include/glm/detail/type_mat4x3.hpp:
@@ -1400,6 +1419,8 @@ CMakeFiles/program.out.dir/src/main.cpp.o: ../src/main.cpp \
 /usr/include/glm/ext/matrix_double3x2_precision.hpp:
 
 /usr/include/c++/11/bits/ostream_insert.h:
+
+/usr/include/glm/gtx/rotate_vector.inl:
 
 /usr/include/c++/11/string_view:
 

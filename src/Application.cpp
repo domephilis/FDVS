@@ -1,39 +1,16 @@
 #include "Application.hpp"
-/*
-class Application {
-public:
-  Application();
-  bool isOpen();
-  void refresh();
-  void close();
-
-private:
-  int app_x_, app_y_;
-  GLFWwindow *window;
-
-  void CreateWindow();
-  void SetupImGui();
-  void GraphWindow(FBO fb);
-  void Render();
-  void Cleanup();
-} */
 
 Application::Application() {
   CreateWindow();
   SetupImGui();
-
-  // Get Data from Off file
-  Data::ReadOffFileAttrib(data.num_of_vertices, data.num_of_faces,
-                          data.num_of_edges, "output.off");
-  Data::ReadOffData(data.vertices, data.faces, "output.off");
 
   // Setup Shaders
 #ifdef CMAKE_CURRENT_SOURCE_DIR
   std::string root_directory = BOOST_PP_STRINGIZE(CMAKE_CURRENT_SOURCE_DIR);
   std::string vPath = root_directory;
   std::string fPath = root_directory;
-  vPath.append("/src/shader.vs");
-  fPath.append("/src/shader.fs");
+  vPath.append("/src/shaders/shader.vs");
+  fPath.append("/src/shaders/shader.fs");
   std::cerr << fPath << std::endl;
   shader = std::make_shared<Shader>(vPath.c_str(), fPath.c_str());
 #else
@@ -41,11 +18,13 @@ Application::Application() {
 #error "DEFINE CMAKE_CURRENT_SOURCE_DIR"
 #endif
 
-  // Create Graph Window FBO Target
-  graph_fbo_ = std::make_shared<Buffers::FBO>(800, 600);
+  // Configure IO Controller
+  io_ctr_ = std::make_shared<Events::Controller>(window);
+  glfwSetWindowUserPointer(window, (void *)io_ctr_.get());
 
-  // Setup Graphics Elements
-  graph = std::make_shared<Graphics::TriangleMesh>(shader, data, graph_fbo_);
+  panels.emplace(std::make_pair(
+      "Graph", std::dynamic_pointer_cast<Windowing::Panel>(
+                   std::make_shared<Windowing::GraphPanel>(shader, io_ctr_))));
 }
 
 bool Application::isOpen() { return !glfwWindowShouldClose(window); }
@@ -58,11 +37,10 @@ void Application::Refresh() {
   }
 
   // Draw Each Window
-  ImVec2 windowSize = GraphWindow(*graph_fbo_);
-  // Update the Contents of Each Window
-  graph->drawToBuffer(windowSize.x, windowSize.y);
+  for (const auto &[key, panel] : panels)
+    panel->Render();
 
-  Render();
+  RenderMain();
 }
 
 void Application::Close() {
@@ -153,32 +131,7 @@ void Application::SetupImGui() {
   ImGui::StyleColorsDark();
 }
 
-const ImVec2 Application::GraphWindow(Buffers::FBO &fb) {
-  ImGui::Begin("Graph");
-  const ImVec2 size_avail = ImGui::GetContentRegionAvail();
-  const ImVec2 pos = ImGui::GetCursorScreenPos();
-
-  std::string upper_left =
-      "(" + std::to_string(pos.x) + ", " + std::to_string(pos.y) + ")";
-  std::string bottom_right = "(" + std::to_string(pos.x + size_avail.x) + ", " +
-                             std::to_string(pos.y + size_avail.x) + ")";
-
-  ImGui::Text(upper_left.c_str());
-  ImGui::Text(bottom_right.c_str());
-
-  // Rescale Framebuffer
-  fb.Rescale((GLsizei)size_avail.x, (GLsizei)size_avail.y);
-
-  ImGui::GetWindowDrawList()->AddImage(
-      (void *)fb.GetAttachedTextureID(), ImVec2(pos.x, pos.y),
-      ImVec2(pos.x + size_avail.x, pos.y + size_avail.y), ImVec2(0, 0),
-      ImVec2(1, 1));
-
-  ImGui::End();
-  return size_avail;
-}
-
-void Application::Render() {
+void Application::RenderMain() {
   ImGui::Render();
   ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
   int display_w, display_h;

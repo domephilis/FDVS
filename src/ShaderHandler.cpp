@@ -1,7 +1,7 @@
-#include "shader_handler.hpp"
+#include "ShaderHandler.hpp"
 
-Shader::Shader(const char *vertexPath, const char *fragmentPath) {
-  // Retrieve Source from Filepath
+Shader::Shader(const char *vertexPath,
+               const char *fragmentPath) { // Retrieve Source from Filepath
   std::string vertexCode;
   std::string fragmentCode;
   std::ifstream vShaderFile;
@@ -52,6 +52,8 @@ Shader::Shader(const char *vertexPath, const char *fragmentPath) {
   glAttachShader(ID, fragment);
   glLinkProgram(ID);
 
+  std::cerr << this->ID << std::endl;
+
   // Print Linking Errors
   glGetProgramiv(ID, GL_LINK_STATUS, &success);
   if (!success) {
@@ -66,6 +68,12 @@ Shader::Shader(const char *vertexPath, const char *fragmentPath) {
 }
 
 void Shader::use() { glUseProgram(ID); }
+
+void Shader::setMatrix(const std::string &name, glm::mat4 matrix) const {
+  std::cerr << this->ID << std::endl;
+  glUniformMatrix4fv(glGetUniformLocation(ID, name.c_str()), 1, GL_FALSE,
+                     glm::value_ptr(matrix));
+}
 
 void Shader::setBool(const std::string &name, bool value) const {
   glUniform1i(glGetUniformLocation(ID, name.c_str()), (int)value);

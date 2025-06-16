@@ -83,17 +83,33 @@ CMakeFiles/Application.dir/src/Application.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Application.dir/src/Application.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/src/Application.cpp" -o CMakeFiles/Application.dir/src/Application.cpp.s
 
+CMakeFiles/Application.dir/src/MatrixHandler.cpp.o: CMakeFiles/Application.dir/flags.make
+CMakeFiles/Application.dir/src/MatrixHandler.cpp.o: ../src/MatrixHandler.cpp
+CMakeFiles/Application.dir/src/MatrixHandler.cpp.o: CMakeFiles/Application.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/build_linux/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/Application.dir/src/MatrixHandler.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Application.dir/src/MatrixHandler.cpp.o -MF CMakeFiles/Application.dir/src/MatrixHandler.cpp.o.d -o CMakeFiles/Application.dir/src/MatrixHandler.cpp.o -c "/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/src/MatrixHandler.cpp"
+
+CMakeFiles/Application.dir/src/MatrixHandler.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Application.dir/src/MatrixHandler.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/src/MatrixHandler.cpp" > CMakeFiles/Application.dir/src/MatrixHandler.cpp.i
+
+CMakeFiles/Application.dir/src/MatrixHandler.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Application.dir/src/MatrixHandler.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/src/MatrixHandler.cpp" -o CMakeFiles/Application.dir/src/MatrixHandler.cpp.s
+
 # Object files for target Application
 Application_OBJECTS = \
-"CMakeFiles/Application.dir/src/Application.cpp.o"
+"CMakeFiles/Application.dir/src/Application.cpp.o" \
+"CMakeFiles/Application.dir/src/MatrixHandler.cpp.o"
 
 # External object files for target Application
 Application_EXTERNAL_OBJECTS =
 
 libApplication.a: CMakeFiles/Application.dir/src/Application.cpp.o
+libApplication.a: CMakeFiles/Application.dir/src/MatrixHandler.cpp.o
 libApplication.a: CMakeFiles/Application.dir/build.make
 libApplication.a: CMakeFiles/Application.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/build_linux/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX static library libApplication.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/build_linux/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX static library libApplication.a"
 	$(CMAKE_COMMAND) -P CMakeFiles/Application.dir/cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Application.dir/link.txt --verbose=$(VERBOSE)
 

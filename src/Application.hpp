@@ -1,5 +1,8 @@
-#ifndef FDVS_SRC_APPLICATION_H_
-#define FDVS_SRC_APPLICATION_H_
+#ifndef FDVS_SRC_APPLICATION_HPP_
+#define FDVS_SRC_APPLICATION_HPP_
+
+#ifndef GL_HEADERS_
+#define GL_HEADERS_
 
 // GLAD First
 
@@ -9,6 +12,8 @@
 
 #include <GLFW/glfw3.h>
 
+#endif
+
 // C++ Libraries
 
 #include <algorithm>
@@ -16,6 +21,7 @@
 #include <boost/preprocessor/stringize.hpp>
 #include <ctime>
 #include <iostream>
+#include <map>
 #include <memory>
 #include <string>
 
@@ -32,10 +38,9 @@
 #include "imgui_impl_opengl3.h"
 
 // My Own Libraries
-#include "Buffers.hpp"
-#include "Data.hpp"
-#include "Graphics.hpp"
-#include "shader_handler.hpp"
+#include "Events.hpp"
+#include "Panel.hpp"
+#include "ShaderHandler.hpp"
 
 struct PROGRAM_CONSTRUCTION_ERROR {
   std::string errString() { return "Program Construction Error"; }
@@ -63,21 +68,18 @@ public:
   void Close();
 
 private:
-  int app_x_, app_y_;
   GLFWwindow *window;
   std::shared_ptr<Shader> shader;
   ImGuiIO *io;
+  std::shared_ptr<Events::Controller> io_ctr_;
 
-  // Graph Window
-  std::shared_ptr<Buffers::FBO> graph_fbo_;
-  std::shared_ptr<Graphics::TriangleMesh> graph;
-  Data::OffMeshData data{};
+  // Panels
+  std::map<std::string, std::shared_ptr<Windowing::Panel>> panels;
 
   void CreateWindow();
   void InitializeNewFrame();
   void SetupImGui();
-  const ImVec2 GraphWindow(Buffers::FBO &fb);
-  void Render();
+  void RenderMain();
 };
 
 #endif

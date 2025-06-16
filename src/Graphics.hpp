@@ -1,5 +1,5 @@
-#ifndef FDVS_SRC_GRAPHICS_H_
-#define FDVS_SRC_GRAPHICS_H_
+#ifndef FDVS_SRC_GRAPHICS_HPP_
+#define FDVS_SRC_GRAPHICS_HPP_
 
 #include <cstddef>
 #include <iostream>
@@ -13,7 +13,8 @@
 
 #include "Buffers.hpp"
 #include "Data.hpp"
-#include "shader_handler.hpp"
+#include "MatrixHandler.hpp"
+#include "ShaderHandler.hpp"
 
 namespace Graphics {
 
@@ -36,7 +37,7 @@ public:
   void drawToBuffer(GLsizei s_x, GLsizei s_y);
 
 private:
-  Data::OffMeshData data_;
+  std::shared_ptr<Data::OffMeshData> data_;
 
   // Define the Vertices and Faces
   unsigned int num_of_vertices = 4, num_of_faces = 2, num_of_edges = 0;
@@ -68,13 +69,14 @@ private:
 
 class TriangleMesh : public Element {
 public:
-  TriangleMesh(std::shared_ptr<Shader> element_shader, Data::OffMeshData data,
+  TriangleMesh(std::shared_ptr<Shader> element_shader,
+               std::shared_ptr<Data::OffMeshData> data,
                std::shared_ptr<Buffers::FBO> target);
   void drawToBuffer(GLsizei s_x, GLsizei s_y);
-  void updateData(Data::OffMeshData new_data);
+  void updateData(std::shared_ptr<Data::OffMeshData> new_data);
 
 private:
-  Data::OffMeshData data_;
+  std::shared_ptr<Data::OffMeshData> data_;
 };
 
 class ProjectionMatrices {

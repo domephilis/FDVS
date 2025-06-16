@@ -1,9 +1,17 @@
-#ifndef FDVS_SRC_BUFFERS_H_
-#define FDVS_SRC_BUFFERS_H_
+#ifndef FDVS_SRC_BUFFERS_HPP_
+#define FDVS_SRC_BUFFERS_HPP_
+
+#ifndef GL_HEADERS_
+#define GL_HEADERS_
+// Glad first
+#include <glad/glad.h>
+
+// GLFW second
+#include <GLFW/glfw3.h>
+#endif // !GL_HEADERS_
 
 #include "Data.hpp"
 #include <cstddef>
-#include <glad/glad.h>
 #include <iostream>
 #include <memory>
 #include <string>
@@ -112,7 +120,7 @@ class VAO {
 public:
   // Constructor
   VAO(bool EBO_FLAG);
-  void SetData(Data::OffMeshData data);
+  void SetData(std::shared_ptr<Data::OffMeshData> data);
   void SetVertexAttribute();
 
   // Getter and Setter Functions
