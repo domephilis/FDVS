@@ -16,6 +16,8 @@
 #include "MatrixHandler.hpp"
 #include "ShaderHandler.hpp"
 
+#include "imgui.h"
+
 namespace Graphics {
 
 // Graphics Base Class
@@ -65,6 +67,17 @@ private:
                                   0, 4, 2, 2, 6, 4, 3, 7, 1, 1, 5, 7};
   /*
   std::vector<unsigned int> faces{0, 1, 3, 1, 2, 3};*/
+};
+
+class Line : public Element {
+public:
+  Line(glm::vec3 start, glm::vec3 end, std::shared_ptr<Shader> element_shader,
+       std::shared_ptr<Buffers::FBO> target);
+  void drawToBuffer(GLsizei s_x, GLsizei s_y);
+
+private:
+  glm::vec3 start_;
+  glm::vec3 end_;
 };
 
 class TriangleMesh : public Element {

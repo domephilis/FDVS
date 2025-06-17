@@ -23,6 +23,8 @@
 #include <GLFW/glfw3.h>
 #endif // !GLAD_H_
 
+#include "imgui.h"
+
 namespace Matrices {
 
 class RefFrame {
@@ -58,16 +60,18 @@ public:
   public:
     CFrameMSubscriber(Matrices::CameraFrame *camera) { camera_ = camera; }
     void Update(double x_pos, double y_pos) override {
-      double mouse_speed_ = 0.01f;
-      double delta_time_ = glfwGetTime() - last_time_;
-      last_time_ = glfwGetTime();
+      double mouse_speed_ = 0.001f;
+      double delta_displacement_x = (x_pos - centre_x) - last_displacement_x;
+      double delta_displacement_y = (y_pos - centre_y) - last_displacement_y;
+      last_displacement_x = x_pos - centre_x;
+      last_displacement_y = y_pos - centre_y;
+      // last_time_ = glfwGetTime();
 
-      camera_->RotateAxis(mouse_speed_ * delta_time_ * (x_pos - centre_x),
-                          glm::vec3(0.0f, -1.0f, 0.0f));
-      camera_->RotateAxis(mouse_speed_ * delta_time_ * (y_pos - centre_y),
-                          glm::vec3(1.0f, 0.0f, 0.0f));
+      camera_->RotateAxis(mouse_speed_ * delta_displacement_x,
+                          glm::vec3(0.0f, 1.0f, 0.0f));
+      camera_->RotateAxis(mouse_speed_ * delta_displacement_y,
+                          glm::vec3(-1.0f, 0.0f, 0.0f));
     }
-    bool IsUpdateAllowed() override { return LeftClickState(); }
 
     void UpdateWindowCentre(float x, float y) {
       centre_x = x;
@@ -78,7 +82,8 @@ public:
 
   private:
     CameraFrame *camera_;
-    double last_time_ = 0;
+    double last_displacement_x = 0;
+    double last_displacement_y = 0;
     float centre_x;
     float centre_y;
   };
@@ -107,30 +112,27 @@ public:
         case GLFW_KEY_M:
           camera_->TranslateLoc(5.0f, glm::vec3(0.0f, 0.0f, 1.0f));
           break;
-        case GLFW_KEY_W:
+        case GLFW_KEY_N:
           camera_->RotateAxis(0.1f, glm::vec3(0.0f, 0.0f, 1.0f));
           break;
-        case GLFW_KEY_A:
+        case GLFW_KEY_B:
           camera_->RotateAxis(0.1f, glm::vec3(0.0f, 0.0f, -1.0f));
           break;
-        case GLFW_KEY_S:
+        case GLFW_KEY_A:
           camera_->RotateAxis(0.1f, glm::vec3(0.0f, 1.0f, 0.0f));
           break;
         case GLFW_KEY_D:
           camera_->RotateAxis(0.1f, glm::vec3(0.0f, -1.0f, 0.0f));
           break;
-        case GLFW_KEY_N:
+        case GLFW_KEY_W:
           camera_->RotateAxis(0.1f, glm::vec3(1.0f, 0.0f, 0.0f));
           break;
-        case GLFW_KEY_B:
+        case GLFW_KEY_S:
           camera_->RotateAxis(0.1f, glm::vec3(-1.0f, 0.0f, 0.0f));
           break;
         }
       }
     }
-    bool IsUpdateAllowed() override { return true; }
-    void EnableKeyboardInput() { is_keyboard_input_allowed_ = true; }
-    void DisableKeyboardInput() { is_keyboard_input_allowed_ = false; }
     ~CFrameKSubscriber() {}
 
   private:

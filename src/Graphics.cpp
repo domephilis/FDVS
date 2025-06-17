@@ -44,9 +44,6 @@ void Graphics::Box::drawToBuffer(GLsizei s_x, GLsizei s_y) {
   // Draw what is in the buffer
   vao_->Bind();
   vao_->BindEBO();
-  int32_t size = 0;
-  glGetBufferParameteriv(GL_ELEMENT_ARRAY_BUFFER, GL_BUFFER_SIZE, &size);
-  std::cerr << size << std::endl;
   glDrawElements(GL_TRIANGLES, data_->num_of_faces * 3, GL_UNSIGNED_INT, 0);
 
   // Cleanup
@@ -54,6 +51,40 @@ void Graphics::Box::drawToBuffer(GLsizei s_x, GLsizei s_y) {
   vao_->Unbind();
   fbo_->Unbind();
   // glUseProgram(0);
+}
+
+Graphics::Line::Line(glm::vec3 start, glm::vec3 end,
+                     std::shared_ptr<Shader> element_shader,
+                     std::shared_ptr<Buffers::FBO> target) {
+  element_shader_ = element_shader;
+  start_ = start;
+  end_ = end;
+  vao_ = std::make_shared<Buffers::VAO>(false);
+
+  SetDrawTarget(target);
+
+  fbo_->Bind();
+  vao_->Bind();
+  vao_->SetData(Buffers::Vec3ToFloatArr({start, end}));
+
+  vao_->Unbind();
+  fbo_->Unbind();
+}
+
+void Graphics::Line::drawToBuffer(GLsizei s_x, GLsizei s_y) {
+  fbo_->Bind();
+  glViewport(0, 0, s_x, s_y);
+
+  element_shader_->use();
+
+  // Draw what is in the buffer
+  vao_->Bind();
+  glDrawArrays(GL_LINES, 0, 6);
+
+  // Cleanup
+  vao_->Unbind();
+  fbo_->Unbind();
+  glUseProgram(0);
 }
 
 Graphics::TriangleMesh::TriangleMesh(std::shared_ptr<Shader> element_shader,

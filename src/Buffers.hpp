@@ -121,6 +121,7 @@ public:
   // Constructor
   VAO(bool EBO_FLAG);
   void SetData(std::shared_ptr<Data::OffMeshData> data);
+  void SetData(std::vector<float> vertices);
   void SetVertexAttribute();
 
   // Getter and Setter Functions
@@ -140,8 +141,14 @@ public:
     glEnableVertexAttribArray(0);
     glBindVertexArray(0);
   }
-  void BindEBO() { ebo_->Bind(); }
-  void UnbindEBO() { ebo_->Unbind(); }
+  void BindEBO() {
+    if (EBO_FLAG_)
+      ebo_->Bind();
+  }
+  void UnbindEBO() {
+    if (EBO_FLAG_)
+      ebo_->Unbind();
+  }
   void BindVBO() { vbo_->Bind(); }
   void UnbindVBO() { vbo_->Unbind(); }
   ~VAO();
@@ -155,6 +162,8 @@ private:
   GLint size_ = 3;
   GLsizei stride_ = 3 * sizeof(float);
 };
+
+std::vector<float> Vec3ToFloatArr(std::initializer_list<glm::vec3> vertices);
 
 } // namespace Buffers
 #endif

@@ -14,26 +14,27 @@
 
 #endif
 
+#include "imgui.h"
+#include "imgui_impl_glfw.h"
+
 #include <algorithm>
 #include <memory>
 #include <vector>
 
 namespace Events {
 
+ImGuiKey GLFWKeyToImGuiKey(int key);
+
 class KeyboardSubscriber {
 public:
   virtual void Update(int key, int action) = 0;
-  virtual bool IsUpdateAllowed() = 0;
   virtual ~KeyboardSubscriber() {}
 };
 
 class MouseSubscriber {
 public:
   virtual void Update(double xpos, double ypos) = 0;
-  virtual bool IsUpdateAllowed() = 0;
   virtual ~MouseSubscriber() {}
-  void UpdateClickState(bool val) { click_state_ = val; }
-  bool LeftClickState() { return click_state_; }
 
 private:
   bool click_state_ = false;
@@ -83,6 +84,7 @@ public:
   ~Controller() {}
 
   GLFWwindow *window_;
+  ImGuiIO *imgui_io_;
   std::unique_ptr<KeyboardPublisher> k_publisher_;
   std::unique_ptr<MousePublisher> m_publisher_;
 };

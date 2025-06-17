@@ -129,12 +129,13 @@ Buffers::VAO::VAO(bool EBO_FLAG) {
   Bind();
   vbo_ = std::make_shared<VBO>();
   glBindBuffer(GL_ARRAY_BUFFER, vbo_->GetBufferID());
-  if (EBO_FLAG)
+  if (EBO_FLAG_) {
     ebo_ = std::make_shared<EBO>();
-  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo_->GetBufferID());
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo_->GetBufferID());
+  }
   SetVertexAttribute();
   vbo_->Unbind();
-  if (EBO_FLAG)
+  if (EBO_FLAG_)
     ebo_->Unbind();
   Unbind();
 }
@@ -146,6 +147,13 @@ void Buffers::VAO::SetData(std::shared_ptr<Data::OffMeshData> data) {
   ebo_->SetData(data->faces);
   ebo_->Unbind();
   vbo_->Unbind();
+}
+void Buffers::VAO::SetData(std::vector<float> vertices) {
+  if (EBO_FLAG_ == false) {
+    vbo_->Bind();
+    vbo_->SetData(vertices);
+    vbo_->Unbind();
+  }
 
   // Check
   int32_t size = 0;
@@ -158,3 +166,13 @@ void Buffers::VAO::SetVertexAttribute() {
                         offset_);
 }
 Buffers::VAO::~VAO() { glDeleteVertexArrays(1, &vao_buffer_id_); }
+
+std::vector<float>
+Buffers::Vec3ToFloatArr(std::initializer_list<glm::vec3> vertices) {
+  std::vector<float> arr;
+  for (glm::vec3 vertex : vertices) {
+    for (int i = 0; i < 3; i++)
+      arr.push_back(vertex[i]);
+  }
+  return arr;
+}

@@ -56,6 +56,10 @@ Index of this file:
 
 */
 
+#ifndef IMGUI_H
+#define IMGUI_H
+
+
 #pragma once
 
 // Configuration file with compile-time options
@@ -3930,3 +3934,5 @@ namespace ImGui
 #endif
 
 #endif // #ifndef IMGUI_DISABLE
+
+#endif // !IMGUI_H

@@ -31,16 +31,16 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+// My Own Libraries
+#include "Events.hpp"
+#include "Panel.hpp"
+#include "ShaderHandler.hpp"
+
 // ImGui Libraries
 
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
-
-// My Own Libraries
-#include "Events.hpp"
-#include "Panel.hpp"
-#include "ShaderHandler.hpp"
 
 struct PROGRAM_CONSTRUCTION_ERROR {
   std::string errString() { return "Program Construction Error"; }

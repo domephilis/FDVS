@@ -10,8 +10,6 @@
 #include <GLFW/glfw3.h>
 #endif // !GL_HEADERS_
 
-#include "imgui.h"
-
 #include <memory>
 
 #include "Buffers.hpp"
@@ -20,6 +18,8 @@
 #include "Graphics.hpp"
 #include "MatrixHandler.hpp"
 #include "ShaderHandler.hpp"
+
+#include "imgui.h"
 
 namespace Windowing {
 class Panel {
@@ -45,6 +45,9 @@ private:
   std::shared_ptr<Buffers::FBO> graph_fbo_;
   std::unique_ptr<Graphics::TriangleMesh> graph;
   std::shared_ptr<Data::OffMeshData> data_;
+  std::unique_ptr<Graphics::Line> x_axis_;
+  std::unique_ptr<Graphics::Line> y_axis_;
+  std::unique_ptr<Graphics::Line> z_axis_;
 };
 
 } // namespace Windowing

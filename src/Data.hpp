@@ -4,18 +4,71 @@
 // glm
 #include <glm/glm.hpp>
 
+// CGAL
+#include <CGAL/Advancing_front_surface_reconstruction.h>
+#include <CGAL/Simple_cartesian.h>
+#include <CGAL/tuple.h>
+#include <boost/lexical_cast.hpp>
+
 // CPP Libraries
+#include <cmath>
+#include <functional>
+#include <future>
 #include <iostream>
 #include <string>
 #include <vector>
 
+namespace std {
+std::ostream &operator<<(std::ostream &os, const std::array<std::size_t, 3> &f);
+} // namespace std
+
 namespace Data {
+
+typedef CGAL::Simple_cartesian<double> K;
+typedef K::Point_3 Point_3;
+
+struct Perimeter {
+  double bound;
+
+  Perimeter(double bound) : bound(bound) {}
+
+  template <typename AdvancingFront, typename Cell_handle>
+  double operator()(const AdvancingFront &adv, Cell_handle &c,
+                    const int &index) const {
+    // bound == 0 is better than bound < infinity
+    // as it avoids the distance computations
+    if (bound == 0) {
+      return adv.smallest_radius_delaunay_sphere(c, index);
+    }
+
+    // If perimeter > bound, return infinity so that facet is not used
+    double d = 0;
+    d = sqrt(squared_distance(c->vertex((index + 1) % 4)->point(),
+                              c->vertex((index + 2) % 4)->point()));
+    if (d > bound)
+      return adv.infinity();
+    d += sqrt(squared_distance(c->vertex((index + 2) % 4)->point(),
+                               c->vertex((index + 3) % 4)->point()));
+    if (d > bound)
+      return adv.infinity();
+    d += sqrt(squared_distance(c->vertex((index + 1) % 4)->point(),
+                               c->vertex((index + 3) % 4)->point()));
+    if (d > bound)
+      return adv.infinity();
+
+    // Otherwise, return usual priority value: smallest radius of delaunay
+    // sphere
+    return adv.smallest_radius_delaunay_sphere(c, index);
+  }
+};
 
 // Store Data Retrieved from Off Files
 struct OffMeshData {
   OffMeshData(std::vector<float> in_vertices,
               std::vector<unsigned int> in_faces);
   OffMeshData(std::string filename);
+  OffMeshData(glm::vec2 min, float steps_x, float steps_y, float step_size_x,
+              float step_size_y, std::function<float(float, float)> f);
 
   // Properties
   unsigned int num_of_vertices = 0;
@@ -28,14 +81,23 @@ struct OffMeshData {
   // Points
   std::vector<float> vertices;
   std::vector<unsigned int> faces;
+  void Meshify(double per = 20.0f, double radius_ratio_bound = 5.0f);
+  void ExportToOff(std::string file_name);
 
 private:
+  std::vector<Point_3> points;
+  std::vector<std::array<std::size_t, 3>> facets;
   void ComputeProperties();
   void ReadOffFileAttrib(unsigned int &vertices, unsigned int &facets,
                          unsigned int &edges, std::string file_name);
   void ReadOffData(std::vector<float> &vertices_arr,
                    std::vector<unsigned int> &faces_arr, std::string file_name);
 };
+
+enum class PayoffType { Call = 1, Put = -1 };
+
+float BlackScholes(PayoffType payoff_type, float S, float K, float time_to_exp,
+                   float sigma, float rate, float div = 0.0);
 
 } // namespace Data
 

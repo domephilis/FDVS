@@ -6,5 +6,5 @@ CXX_DEFINES =
 
 CXX_INCLUDES = -I"/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/extern/imgui"
 
-CXX_FLAGS = -g
+CXX_FLAGS = -O3 -DNDEBUG
 
