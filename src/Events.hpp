@@ -34,6 +34,9 @@ public:
 class MouseSubscriber {
 public:
   virtual void Update(double xpos, double ypos) = 0;
+  virtual bool WantCaptureMouse() { return true; }
+  bool IsLeftMouseButtonPressed() { return click_state_; }
+  void UpdateMouseButtonState(bool click_state) { click_state_ = click_state; }
   virtual ~MouseSubscriber() {}
 
 private:
@@ -63,6 +66,7 @@ class MousePublisher {
 public:
   MousePublisher(GLFWwindow *window) : window_(window) {
     glfwSetCursorPosCallback(window_, CursorPositionCallback);
+    glfwSetInputMode(window_, GLFW_STICKY_MOUSE_BUTTONS, GLFW_TRUE);
   }
   void addSubscriber(std::shared_ptr<MouseSubscriber> s) {
     subscribers_.push_back(s);

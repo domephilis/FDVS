@@ -286,6 +286,19 @@ Data/fast:
 .PHONY : Data/fast
 
 #=============================================================================
+# Target rules for targets named Models
+
+# Build rule for target.
+Models: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 Models
+.PHONY : Models
+
+# fast build rule for target.
+Models/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Models.dir/build.make CMakeFiles/Models.dir/build
+.PHONY : Models/fast
+
+#=============================================================================
 # Target rules for targets named Panel
 
 # Build rule for target.
@@ -676,6 +689,30 @@ src/MatrixHandler.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Application.dir/build.make CMakeFiles/Application.dir/src/MatrixHandler.cpp.s
 .PHONY : src/MatrixHandler.cpp.s
 
+src/Models.o: src/Models.cpp.o
+.PHONY : src/Models.o
+
+# target to build an object file
+src/Models.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Models.dir/build.make CMakeFiles/Models.dir/src/Models.cpp.o
+.PHONY : src/Models.cpp.o
+
+src/Models.i: src/Models.cpp.i
+.PHONY : src/Models.i
+
+# target to preprocess a source file
+src/Models.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Models.dir/build.make CMakeFiles/Models.dir/src/Models.cpp.i
+.PHONY : src/Models.cpp.i
+
+src/Models.s: src/Models.cpp.s
+.PHONY : src/Models.s
+
+# target to generate assembly for a file
+src/Models.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Models.dir/build.make CMakeFiles/Models.dir/src/Models.cpp.s
+.PHONY : src/Models.cpp.s
+
 src/Panel.o: src/Panel.cpp.o
 .PHONY : src/Panel.o
 
@@ -762,6 +799,7 @@ help:
 	@echo "... Events"
 	@echo "... Graphics"
 	@echo "... MatrixHandler"
+	@echo "... Models"
 	@echo "... Panel"
 	@echo "... ShaderHandler"
 	@echo "... glad"
@@ -815,6 +853,9 @@ help:
 	@echo "... src/MatrixHandler.o"
 	@echo "... src/MatrixHandler.i"
 	@echo "... src/MatrixHandler.s"
+	@echo "... src/Models.o"
+	@echo "... src/Models.i"
+	@echo "... src/Models.s"
 	@echo "... src/Panel.o"
 	@echo "... src/Panel.i"
 	@echo "... src/Panel.s"

@@ -78,6 +78,8 @@ public:
       centre_y = y;
     }
 
+    bool WantCaptureMouse() override { return IsLeftMouseButtonPressed(); }
+
     ~CFrameMSubscriber() {}
 
   private:

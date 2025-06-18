@@ -111,6 +111,7 @@ program.out: libEvents.a
 program.out: libimgui_backend.a
 program.out: libShaderHandler.a
 program.out: libglad.a
+program.out: libModels.a
 program.out: CMakeFiles/program.out.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/build_linux/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable program.out"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/program.out.dir/link.txt --verbose=$(VERBOSE)

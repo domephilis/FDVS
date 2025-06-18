@@ -2769,10 +2769,13 @@ CMakeFiles/program.out.dir/src/main.cpp.o: ../src/main.cpp \
   /usr/include/glm/gtx/transform.inl \
   /usr/include/glm/gtx/rotate_vector.inl \
   ../src/ShaderHandler.hpp \
+  ../src/Models.hpp \
   ../extern/imgui/imgui_impl_opengl3.h
 
 
 ../extern/imgui/imgui_impl_opengl3.h:
+
+../src/Models.hpp:
 
 /usr/include/glm/gtx/rotate_vector.hpp:
 

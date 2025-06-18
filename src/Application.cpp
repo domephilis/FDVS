@@ -25,6 +25,11 @@ Application::Application() {
   panels.emplace(std::make_pair(
       "Graph", std::dynamic_pointer_cast<Windowing::Panel>(
                    std::make_shared<Windowing::GraphPanel>(shader, io_ctr_))));
+  panels.emplace(std::make_pair(
+      "Config", std::dynamic_pointer_cast<Windowing::Panel>(
+                    std::make_shared<Windowing::ConfigPanel>(
+                        std::dynamic_pointer_cast<Windowing::GraphPanel>(
+                            panels["Graph"])))));
 }
 
 bool Application::isOpen() { return !glfwWindowShouldClose(window); }

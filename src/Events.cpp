@@ -34,6 +34,8 @@ void Events::MousePublisher::CursorPositionCallback(GLFWwindow *window,
       static_cast<Events::Controller *>(glfwGetWindowUserPointer(window));
   ctr->imgui_io_->AddMousePosEvent(xpos, ypos);
   for (std::shared_ptr<MouseSubscriber> s : ctr->m_publisher_->subscribers_) {
+    s->UpdateMouseButtonState(
+        glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS);
     if (ctr->imgui_io_->WantCaptureMouse) {
       s->Update(xpos, ypos);
     }

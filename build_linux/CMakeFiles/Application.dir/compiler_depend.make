@@ -2769,6 +2769,7 @@ CMakeFiles/Application.dir/src/Application.cpp.o: ../src/Application.cpp \
   /usr/include/glm/gtx/transform.inl \
   /usr/include/glm/gtx/rotate_vector.inl \
   ../src/ShaderHandler.hpp \
+  ../src/Models.hpp \
   ../extern/imgui/imgui_impl_opengl3.h
 
 CMakeFiles/Application.dir/src/MatrixHandler.cpp.o: ../src/MatrixHandler.cpp \
@@ -3260,6 +3261,8 @@ CMakeFiles/Application.dir/src/MatrixHandler.cpp.o: ../src/MatrixHandler.cpp \
 ../src/MatrixHandler.cpp:
 
 ../extern/imgui/imgui_impl_opengl3.h:
+
+../src/Models.hpp:
 
 /usr/include/glm/gtx/rotate_vector.hpp:
 

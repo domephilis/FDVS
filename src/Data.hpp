@@ -12,6 +12,7 @@
 
 // CPP Libraries
 #include <cmath>
+#include <fstream>
 #include <functional>
 #include <future>
 #include <iostream>
@@ -23,6 +24,21 @@ std::ostream &operator<<(std::ostream &os, const std::array<std::size_t, 3> &f);
 } // namespace std
 
 namespace Data {
+
+typedef std::array<float, 2> Point2D;
+
+struct INVALID_BOUNDS_EXCEPTION {};
+struct Bounds2D {
+  Bounds2D(Point2D in_min, unsigned int in_steps_x, unsigned int in_steps_y,
+           float in_step_size_x, float in_step_size_y)
+      : min(in_min), steps_x(in_steps_x), steps_y(in_steps_y),
+        step_size_x(in_step_size_x), step_size_y(in_step_size_y) {}
+  Point2D min;
+  unsigned int steps_x;
+  unsigned int steps_y;
+  float step_size_x;
+  float step_size_y;
+};
 
 typedef CGAL::Simple_cartesian<double> K;
 typedef K::Point_3 Point_3;
@@ -67,8 +83,8 @@ struct OffMeshData {
   OffMeshData(std::vector<float> in_vertices,
               std::vector<unsigned int> in_faces);
   OffMeshData(std::string filename);
-  OffMeshData(glm::vec2 min, float steps_x, float steps_y, float step_size_x,
-              float step_size_y, std::function<float(float, float)> f);
+  OffMeshData(std::shared_ptr<Data::Bounds2D> b,
+              std::function<float(float, float)> f);
 
   // Properties
   unsigned int num_of_vertices = 0;
@@ -93,11 +109,6 @@ private:
   void ReadOffData(std::vector<float> &vertices_arr,
                    std::vector<unsigned int> &faces_arr, std::string file_name);
 };
-
-enum class PayoffType { Call = 1, Put = -1 };
-
-float BlackScholes(PayoffType payoff_type, float S, float K, float time_to_exp,
-                   float sigma, float rate, float div = 0.0);
 
 } // namespace Data
 
