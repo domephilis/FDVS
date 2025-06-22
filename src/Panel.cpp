@@ -1,25 +1,26 @@
 #include "Panel.hpp"
 
-Windowing::GraphPanel::GraphPanel(std::shared_ptr<Shader> in_shader,
+Windowing::GraphPanel::GraphPanel(GLFWwindow *window,
+                                  std::shared_ptr<Shader> in_shader,
                                   std::shared_ptr<Events::Controller> io_ctr) {
   shader = in_shader;
   io_ctr_ = io_ctr;
 
+  // Create ImGui Context
+  context = ImGui::CreateContext();
+  {
+    ImGuiContext *g = ImGui::GetCurrentContext();
+    ImGui::SetCurrentContext(context);
+    this->window = window;
+    ImGui_ImplGlfw_InitForOpenGL(this->window, false);
+    ImGui_ImplOpenGL3_Init("#version 330 core");
+    // ImGuiIO io = ImGui::GetIO();
+    // io.ConfigWindowsMoveFromTitleBarOnly = true;
+    ImGui::SetCurrentContext(g);
+  }
+
   // Construct from a file
   data_ = std::make_shared<Data::OffMeshData>("output.off");
-
-  // Construct via a Function
-  /*
-  Models::BlackScholes bs_pricer(Data::PayoffType::Call,
-                                 {{"Time To Expiry", 0.08f},
-                                  {"Implied Volatility", 0.263f},
-                                  {"Risk Free Rate", 0.05f},
-                                  {"Dividend Rate", 0.05f}}
-                                 {{"Spot Price", -1}, {"Strike Price", -1}});
-  data_ = std::make_shared<Data::OffMeshData>(
-      {{20.0f, 20.0f}, 250, 250, 2.0f, 2.0f},
-  std::bind(&(Models::BlackScholes::Compute), &bs_pricer););
-  */
 
   std::array<float, 3> max({data_->max[0], data_->max[0], data_->max[0]});
   depth = *std::max_element(max.begin(), max.end());
@@ -27,12 +28,15 @@ Windowing::GraphPanel::GraphPanel(std::shared_ptr<Shader> in_shader,
   // Configure MatrixStack
   mv_stack_ = std::make_unique<Matrices::MatrixStack>("modelview", shader);
   proj_stack_ = std::make_unique<Matrices::MatrixStack>("projection", shader);
-  camera_ = std::make_unique<Matrices::CameraFrame>();
+  camera_ = std::make_unique<Matrices::CameraFrame>(context);
+
+  io_ctr_->contexts.push_back(context);
 
   io_ctr_->k_publisher_->addSubscriber(
       std::dynamic_pointer_cast<Events::KeyboardSubscriber>(
           camera_->k_subscription_));
   io_ctr_->m_publisher_->addSubscriber(camera_->m_subscription_);
+  io_ctr_->s_publisher_->addSubscriber(camera_->s_subscription_);
 
   // Create Graph Window FBO Target
   graph_fbo_ = std::make_shared<Buffers::FBO>(800, 600);
@@ -51,17 +55,37 @@ Windowing::GraphPanel::GraphPanel(std::shared_ptr<Shader> in_shader,
 }
 
 void Windowing::GraphPanel::Render() {
-  ImGui::Begin("Graph");
 
-  /*
-  if (ImGui::IsWindowFocused())
-    camera_->k_subscription_->EnableKeyboardInput();
-  else
-    camera_->k_subscription_->DisableKeyboardInput();
-  */
+  ImGuiContext *g = ImGui::GetCurrentContext();
+  ImGui::SetCurrentContext(context);
+
+  ImGui_ImplOpenGL3_NewFrame();
+  ImGui_ImplGlfw_NewFrame();
+  ImGui::NewFrame();
+
+  ImGui::Begin("Graph");
 
   const ImVec2 size_avail = ImGui::GetContentRegionAvail();
   const ImVec2 pos = ImGui::GetCursorScreenPos();
+
+  // First get the current window reference
+  ImGuiWindow *Window = ImGui::GetCurrentWindow();
+
+  ImRect rect(pos.x + 5, pos.y + 5, pos.x + size_avail.x - 10,
+              pos.y + size_avail.y - 10);
+
+  // Check if the mouse is in that rect
+  if (rect.Contains(ImGui::GetMousePos()) && ImGui::IsWindowFocused()) {
+    Window->Flags |= ImGuiWindowFlags_NoMove;
+    camera_->m_subscription_->SetUserFlag(true);
+    camera_->k_subscription_->SetUserFlag(true);
+    camera_->s_subscription_->SetUserFlag(true);
+  } else {
+    Window->Flags &= ~ImGuiWindowFlags_NoMove;
+    camera_->m_subscription_->SetUserFlag(false);
+    camera_->k_subscription_->SetUserFlag(false);
+    camera_->s_subscription_->SetUserFlag(false);
+  }
 
   std::string upper_left =
       "(" + std::to_string(pos.x) + ", " + std::to_string(pos.y) + ")";
@@ -87,14 +111,19 @@ void Windowing::GraphPanel::Render() {
   glEnable(GL_LINE_SMOOTH);
   glEnable(GL_POLYGON_SMOOTH);
 
+  int success = 0;
+  glGetProgramiv(shader->ID, GL_LINK_STATUS, &success);
   shader->use();
+  glGetProgramiv(shader->ID, GL_LINK_STATUS, &success);
 
   // Set Camera
+  mv_stack_->pushMatrix(glm::mat4(1.0f));
   camera_->m_subscription_->UpdateWindowCentre(pos.x + size_avail.x / 2,
                                                pos.y + size_avail.y / 2);
   mv_stack_->pushMatrix(camera_->GetTransformMatrix());
 
   // Draw Graph
+  // Reminder: Call shader->use() everytime you pop a matrix
   mv_stack_->pushProduct(
       glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -20.0f)));
   proj_stack_->pushMatrix(glm::perspective(
@@ -108,12 +137,51 @@ void Windowing::GraphPanel::Render() {
   z_axis_->drawToBuffer(size_avail.x, size_avail.y);
 
   glUseProgram(0);
+  ImGui::Render();
+  ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+  ImGui::SetCurrentContext(g);
 }
 
-Windowing::ConfigPanel::ConfigPanel(std::shared_ptr<GraphPanel> graph_panel)
-    : graph_panel_(graph_panel) {}
+Windowing::ConfigPanel::ConfigPanel(GLFWwindow *window,
+                                    std::shared_ptr<Events::Controller> io_ctr,
+                                    std::shared_ptr<GraphPanel> graph_panel)
+    : window_(window), io_ctr_(io_ctr), graph_panel_(graph_panel) {
+
+  // Context Creation
+  prev_context_ = ImGui::GetCurrentContext();
+  context_ = ImGui::CreateContext();
+  ImGui::SetCurrentContext(context_);
+  ImGui_ImplGlfw_InitForOpenGL(window_, false);
+  ImGui_ImplOpenGL3_Init("#version 330 core");
+  io = ImGui::GetIO();
+  ImGui::SetCurrentContext(prev_context_);
+
+  // Events Subscriptions
+  k_subscription_ = std::make_shared<KSubscription>(context_);
+  m_subscription_ = std::make_shared<MSubscription>(context_);
+  s_subscription_ = std::make_shared<SSubscription>(context_);
+
+  // Link to Controller
+  io_ctr_->contexts.push_back(context_);
+  io_ctr_->k_publisher_->addSubscriber(
+      std::dynamic_pointer_cast<Events::KeyboardSubscriber>(
+          this->k_subscription_));
+  io_ctr_->m_publisher_->addSubscriber(
+      std::dynamic_pointer_cast<Events::MouseSubscriber>(
+          this->m_subscription_));
+  io_ctr_->s_publisher_->addSubscriber(
+      std::dynamic_pointer_cast<Events::ScrollwheelSubscriber>(
+          this->s_subscription_));
+}
 
 void Windowing::ConfigPanel::Render() {
+
+  ImGui::SetCurrentContext(context_);
+
+  ImGui_ImplOpenGL3_NewFrame();
+  ImGui_ImplGlfw_NewFrame();
+  ImGui::NewFrame();
+
   ImGui::Begin("Configuration Panel");
   ImGui::SeparatorText("Graph Configuration");
   const char *models[] = {"Black Scholes", "Binomial", "Monte Carlo"};
@@ -189,4 +257,8 @@ void Windowing::ConfigPanel::Render() {
   }
 
   ImGui::End();
+
+  ImGui::Render();
+  ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+  ImGui::SetCurrentContext(prev_context_);
 }

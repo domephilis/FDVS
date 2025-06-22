@@ -72,6 +72,7 @@ private:
   std::shared_ptr<Shader> shader;
   ImGuiIO *io;
   std::shared_ptr<Events::Controller> io_ctr_;
+  ImGuiContext *main_context;
 
   // Panels
   std::map<std::string, std::shared_ptr<Windowing::Panel>> panels;

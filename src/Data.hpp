@@ -90,9 +90,9 @@ struct OffMeshData {
   unsigned int num_of_vertices = 0;
   unsigned int num_of_faces = 0;
   unsigned int num_of_edges = 0;
-  glm::vec3 centre;
-  glm::vec3 max;
-  glm::vec3 min;
+  glm::vec3 centre = glm::vec3(1.0f);
+  glm::vec3 max = glm::vec3(1.0f);
+  glm::vec3 min = glm::vec3(1.0f);
 
   // Points
   std::vector<float> vertices;

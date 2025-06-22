@@ -25,13 +25,25 @@ glm::mat4 Matrices::RefFrame::GetTransformMatrix() {
   return matrix;
 }
 
-Matrices::CameraFrame::CameraFrame() {
+Matrices::CameraFrame::CameraFrame(ImGuiContext *context) {
+  context_ = context;
+  ImGuiContext *g = ImGui::GetCurrentContext();
+  ImGui::SetCurrentContext(context_);
+  io = &ImGui::GetIO();
+  ImGui::SetCurrentContext(g);
   k_subscription_ = std::make_shared<CFrameKSubscriber>(this);
   m_subscription_ = std::make_shared<CFrameMSubscriber>(this);
+  s_subscription_ = std::make_shared<CFrameSSubscriber>(this);
 }
-Matrices::CameraFrame::CameraFrame(glm::vec3 loc, glm::vec3 up,
-                                   glm::vec3 forward)
+Matrices::CameraFrame::CameraFrame(ImGuiContext *context, glm::vec3 loc,
+                                   glm::vec3 up, glm::vec3 forward)
     : RefFrame(loc, up, forward) {
+  context_ = context;
+  ImGuiContext *g = ImGui::GetCurrentContext();
+  ImGui::SetCurrentContext(context_);
+  io = &ImGui::GetIO();
+  ImGui::SetCurrentContext(g);
   k_subscription_ = std::make_shared<CFrameKSubscriber>(this);
   m_subscription_ = std::make_shared<CFrameMSubscriber>(this);
+  s_subscription_ = std::make_shared<CFrameSSubscriber>(this);
 }

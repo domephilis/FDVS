@@ -22,6 +22,9 @@
 #include "ShaderHandler.hpp"
 
 #include "imgui.h"
+#include "imgui_impl_glfw.h"
+#include "imgui_impl_opengl3.h"
+#include "imgui_internal.h"
 
 typedef std::array<float, 2> Point2D;
 
@@ -31,11 +34,15 @@ class Panel {
 public:
   virtual void Render() = 0;
   virtual ~Panel() {}
+
+protected:
+  GLFWwindow *window;
+  ImGuiContext *context;
 };
 
 class GraphPanel : public Panel {
 public:
-  GraphPanel(std::shared_ptr<Shader> in_shader,
+  GraphPanel(GLFWwindow *window, std::shared_ptr<Shader> in_shader,
              std::shared_ptr<Events::Controller> io_ctr);
   void Render();
   void SetModel(std::shared_ptr<Data::Bounds2D> b,
@@ -77,12 +84,60 @@ private:
 
 class ConfigPanel : public Panel {
 public:
-  ConfigPanel(std::shared_ptr<GraphPanel> graph_panel);
+  ConfigPanel(GLFWwindow *window, std::shared_ptr<Events::Controller> io_ctr,
+              std::shared_ptr<GraphPanel> graph_panel);
   void Render();
   ~ConfigPanel() {}
 
+  class KSubscription : public Events::KeyboardSubscriber {
+  public:
+    KSubscription(ImGuiContext *context) { context_ = context; }
+    void Update(int key, int action) {}
+    ImGuiContext *GetContext() { return context_; }
+    bool WantCaptureKeyboard() { return true; }
+    ~KSubscription() {}
+
+  private:
+    ImGuiContext *context_;
+  };
+
+  class SSubscription : public Events::ScrollwheelSubscriber {
+  public:
+    SSubscription(ImGuiContext *context) { context_ = context; }
+    void Update(double yoffset) {};
+    ImGuiContext *GetContext() { return context_; }
+    bool WantCaptureScroll() { return true; }
+    ~SSubscription() {}
+
+  private:
+    ImGuiContext *context_;
+  };
+
+  class MSubscription : public Events::MouseSubscriber {
+  public:
+    MSubscription(ImGuiContext *context) { context_ = context; }
+    void Update(double xpos, double ypos) {};
+    bool WantCaptureMouse() { return true; }
+    ImGuiContext *GetContext() { return context_; }
+    void ResetCentre() {}
+    ~MSubscription() {}
+
+  private:
+    ImGuiContext *context_;
+    bool click_state_ = false;
+  };
+
+  std::shared_ptr<KSubscription> k_subscription_;
+  std::shared_ptr<SSubscription> s_subscription_;
+  std::shared_ptr<MSubscription> m_subscription_;
+
 private:
   std::shared_ptr<GraphPanel> graph_panel_;
+  GLFWwindow *window_;
+  ImGuiContext *prev_context_;
+  ImGuiContext *context_;
+  ImGuiIO io;
+  std::shared_ptr<Events::Controller> io_ctr_;
 };
 
 } // namespace Windowing

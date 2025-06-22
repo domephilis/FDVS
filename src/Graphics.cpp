@@ -76,6 +76,8 @@ void Graphics::Line::drawToBuffer(GLsizei s_x, GLsizei s_y) {
   glViewport(0, 0, s_x, s_y);
 
   element_shader_->use();
+  int success;
+  glGetProgramiv(element_shader_->ID, GL_LINK_STATUS, &success);
 
   // Draw what is in the buffer
   vao_->Bind();

@@ -3,8 +3,36 @@
 Events::Controller::Controller(GLFWwindow *window) {
   window_ = window;
   imgui_io_ = &ImGui::GetIO();
+  glfwSetMouseButtonCallback(window, Events::Controller::MouseButtonCallback);
+  glfwSetCharCallback(window, Events::Controller::CharCallback);
   k_publisher_ = std::make_unique<KeyboardPublisher>(window_);
   m_publisher_ = std::make_unique<MousePublisher>(window_);
+  s_publisher_ = std::make_unique<ScrollwheelPublisher>(window_);
+}
+
+void Events::Controller::CharCallback(GLFWwindow *window,
+                                      unsigned int codepoint) {
+  Events::Controller *ctr =
+      static_cast<Events::Controller *>(glfwGetWindowUserPointer(window));
+  ImGuiContext *g = ImGui::GetCurrentContext();
+  for (auto context : ctr->contexts) {
+    ImGui::SetCurrentContext(context);
+    ImGui_ImplGlfw_CharCallback(window, codepoint);
+  }
+  ImGui::SetCurrentContext(g);
+}
+
+void Events::Controller::MouseButtonCallback(GLFWwindow *window, int button,
+                                             int action, int mods) {
+  Events::Controller *ctr =
+      static_cast<Events::Controller *>(glfwGetWindowUserPointer(window));
+  ImGuiContext *g = ImGui::GetCurrentContext();
+  for (auto context : ctr->contexts) {
+    ImGui::SetCurrentContext(context);
+    ImGuiIO io = ImGui::GetIO();
+    io.AddMouseButtonEvent(button, action == GLFW_PRESS);
+  }
+  ImGui::SetCurrentContext(g);
 }
 
 void Events::KeyboardPublisher::KeyCallback(GLFWwindow *window, int key,
@@ -19,12 +47,19 @@ void Events::KeyboardPublisher::KeyCallback(GLFWwindow *window, int key,
     down = true;
   else if (action == GLFW_RELEASE)
     down = false;
-  ctr->imgui_io_->AddKeyEvent(Events::GLFWKeyToImGuiKey(key), down);
+  ImGuiIO io;
 
   for (std::shared_ptr<KeyboardSubscriber> s :
        ctr->k_publisher_->subscribers_) {
-    if (ctr->imgui_io_->WantCaptureKeyboard)
+    ImGuiContext *g = ImGui::GetCurrentContext();
+    ImGui::SetCurrentContext(s->GetContext());
+    // io = ImGui::GetIO();
+    //  io.AddKeyEvent(Events::GLFWKeyToImGuiKey(key), down);
+    ImGui_ImplGlfw_KeyCallback(window, key, scancode, action, mods);
+
+    if (s->WantCaptureKeyboard())
       s->Update(key, action);
+    ImGui::SetCurrentContext(g);
   }
 }
 
@@ -32,13 +67,40 @@ void Events::MousePublisher::CursorPositionCallback(GLFWwindow *window,
                                                     double xpos, double ypos) {
   Events::Controller *ctr =
       static_cast<Events::Controller *>(glfwGetWindowUserPointer(window));
-  ctr->imgui_io_->AddMousePosEvent(xpos, ypos);
+
+  // ctr->imgui_io_->AddMousePosEvent(xpos, ypos);
   for (std::shared_ptr<MouseSubscriber> s : ctr->m_publisher_->subscribers_) {
     s->UpdateMouseButtonState(
         glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS);
-    if (ctr->imgui_io_->WantCaptureMouse) {
+    ImGuiContext *g = ImGui::GetCurrentContext();
+    ImGui::SetCurrentContext(s->GetContext());
+    ImGui_ImplGlfw_CursorPosCallback(window, xpos, ypos);
+    if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_RELEASE) {
+      // This function may or may not do anything depending on the configuration
+      // of each subscriber
+      s->ResetCentre();
+    }
+    if (s->WantCaptureMouse()) {
       s->Update(xpos, ypos);
     }
+    ImGui::SetCurrentContext(g);
+  }
+}
+
+void Events::ScrollwheelPublisher::ScrollCallback(GLFWwindow *window,
+                                                  double xoffset,
+                                                  double yoffset) {
+  Events::Controller *ctr =
+      static_cast<Events::Controller *>(glfwGetWindowUserPointer(window));
+  ctr->imgui_io_->AddMouseWheelEvent(xoffset, yoffset);
+  for (std::shared_ptr<ScrollwheelSubscriber> s :
+       ctr->s_publisher_->subscribers_) {
+    ImGuiContext *g = ImGui::GetCurrentContext();
+    ImGui::SetCurrentContext(s->GetContext());
+    ImGui_ImplGlfw_ScrollCallback(window, xoffset, yoffset);
+    if (s->WantCaptureScroll())
+      s->Update(yoffset);
+    ImGui::SetCurrentContext(g);
   }
 }
 

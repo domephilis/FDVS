@@ -47,6 +47,7 @@ add_executable(program.out src/main.cpp src/Application.hpp)
 
 if(CMAKE_CURRENT_SOURCE_DIR)
   target_compile_definitions(Application PRIVATE CMAKE_CURRENT_SOURCE_DIR=${CMAKE_CURRENT_SOURCE_DIR})
+  target_compile_definitions(Panel PRIVATE CMAKE_CURRENT_SOURCE_DIR=${CMAKE_CURRENT_SOURCE_DIR})
 endif()
 
 target_include_directories(program.out PRIVATE ${IMGUI_DIR})

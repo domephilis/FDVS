@@ -1,6 +1,7 @@
 #ifndef FDVS_SRC_MATRIX_HANDLER_HPP_
 #define FDVS_SRC_MATRIX_HANDLER_HPP_
 
+#include <iostream>
 #include <memory>
 #include <stack>
 #include <string>
@@ -44,7 +45,6 @@ public:
 
   glm::mat4 GetTransformMatrix();
 
-private:
   glm::vec3 loc_;
   glm::vec3 up_;
   glm::vec3 forward_;
@@ -53,14 +53,18 @@ private:
 
 class CameraFrame : public RefFrame {
 public:
-  CameraFrame();
-  CameraFrame(glm::vec3 loc, glm::vec3 up, glm::vec3 forward);
+  CameraFrame(ImGuiContext *context);
+  CameraFrame(ImGuiContext *context, glm::vec3 loc, glm::vec3 up,
+              glm::vec3 forward);
 
   class CFrameMSubscriber : public Events::MouseSubscriber {
   public:
     CFrameMSubscriber(Matrices::CameraFrame *camera) { camera_ = camera; }
     void Update(double x_pos, double y_pos) override {
-      double mouse_speed_ = 0.001f;
+
+      // std::cerr << "Mouse Callback Invoked" << std::endl;
+
+      double mouse_speed_ = 0.008f;
       double delta_displacement_x = (x_pos - centre_x) - last_displacement_x;
       double delta_displacement_y = (y_pos - centre_y) - last_displacement_y;
       last_displacement_x = x_pos - centre_x;
@@ -77,22 +81,49 @@ public:
       centre_x = x;
       centre_y = y;
     }
-
-    bool WantCaptureMouse() override { return IsLeftMouseButtonPressed(); }
+    void ResetCentre() override {
+      last_displacement_x = 0;
+      last_displacement_y = 0;
+    }
+    ImGuiContext *GetContext() override { return camera_->context_; }
+    bool WantCaptureMouse() override {
+      return (IsLeftMouseButtonPressed() && user_flag_ &&
+              camera_->io->WantCaptureMouse);
+    }
+    void SetUserFlag(bool val) { user_flag_ = val; }
 
     ~CFrameMSubscriber() {}
 
   private:
     CameraFrame *camera_;
+    bool user_flag_ = true;
     double last_displacement_x = 0;
     double last_displacement_y = 0;
     float centre_x;
     float centre_y;
   };
 
+  class CFrameSSubscriber : public Events::ScrollwheelSubscriber {
+  public:
+    CFrameSSubscriber(Matrices::CameraFrame *camera) { camera_ = camera; }
+    void Update(double yoffset) override {
+      camera_->TranslateLoc(yoffset * 20.0f, glm::vec3(0.0f, 0.0f, 1.0f));
+    }
+    void SetUserFlag(bool val) { user_flag_ = val; }
+    bool WantCaptureScroll() override { return user_flag_; }
+    ImGuiContext *GetContext() override { return camera_->context_; }
+
+  private:
+    bool user_flag_ = true;
+    CameraFrame *camera_;
+  };
+
   class CFrameKSubscriber : public Events::KeyboardSubscriber {
   public:
     CFrameKSubscriber(Matrices::CameraFrame *camera) { camera_ = camera; }
+    bool WantCaptureKeyboard() override {
+      return (user_flag_ && !camera_->io->WantCaptureKeyboard);
+    }
     void Update(int key, int action) override {
       if (action == GLFW_PRESS) {
         switch (key) {
@@ -134,16 +165,23 @@ public:
           break;
         }
       }
+      std::cerr << camera_->loc_[0] << " " << camera_->loc_[1] << " "
+                << camera_->loc_[2] << std::endl;
     }
+    ImGuiContext *GetContext() override { return camera_->context_; }
+    void SetUserFlag(bool val) { user_flag_ = val; }
     ~CFrameKSubscriber() {}
 
   private:
     CameraFrame *camera_;
-    bool is_keyboard_input_allowed_ = true;
+    bool user_flag_ = true;
   };
 
   std::shared_ptr<CFrameKSubscriber> k_subscription_;
+  std::shared_ptr<CFrameSSubscriber> s_subscription_;
   std::shared_ptr<CFrameMSubscriber> m_subscription_;
+  ImGuiContext *context_;
+  ImGuiIO *io;
 };
 
 class MatrixStack {

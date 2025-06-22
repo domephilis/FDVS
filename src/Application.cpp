@@ -20,14 +20,16 @@ Application::Application() {
 
   // Configure IO Controller
   io_ctr_ = std::make_shared<Events::Controller>(window);
+  io_ctr_->contexts.push_back(main_context);
   glfwSetWindowUserPointer(window, (void *)io_ctr_.get());
-
   panels.emplace(std::make_pair(
-      "Graph", std::dynamic_pointer_cast<Windowing::Panel>(
-                   std::make_shared<Windowing::GraphPanel>(shader, io_ctr_))));
+      "Graph",
+      std::dynamic_pointer_cast<Windowing::Panel>(
+          std::make_shared<Windowing::GraphPanel>(window, shader, io_ctr_))));
   panels.emplace(std::make_pair(
       "Config", std::dynamic_pointer_cast<Windowing::Panel>(
                     std::make_shared<Windowing::ConfigPanel>(
+                        window, io_ctr_,
                         std::dynamic_pointer_cast<Windowing::GraphPanel>(
                             panels["Graph"])))));
 }
@@ -41,11 +43,17 @@ void Application::Refresh() {
     throw;
   }
 
+  RenderMain();
+
   // Draw Each Window
   for (const auto &[key, panel] : panels)
     panel->Render();
 
-  RenderMain();
+  // Swap Buffer
+  glfwSwapBuffers(window);
+  glfwPollEvents();
+
+  glFlush();
 }
 
 void Application::Close() {
@@ -117,7 +125,7 @@ void Application::SetupImGui() {
 
   // Setup Dear ImGui context
   IMGUI_CHECKVERSION();
-  ImGui::CreateContext();
+  main_context = ImGui::CreateContext();
   io = &ImGui::GetIO();
 
   // Setup Platform/Renderer backends
@@ -137,19 +145,10 @@ void Application::SetupImGui() {
 }
 
 void Application::RenderMain() {
-  ImGui::Render();
   ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
-  int display_w, display_h;
-  glfwGetFramebufferSize(window, &display_w, &display_h);
-  // glViewport(0, 0, display_w, display_h);
   glClearColor(clear_color.x * clear_color.w, clear_color.y * clear_color.w,
                clear_color.z * clear_color.w, clear_color.w);
   glClear(GL_COLOR_BUFFER_BIT);
+  ImGui::Render();
   ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-
-  // Swap Buffer
-  glfwSwapBuffers(window);
-  glfwPollEvents();
-
-  glFlush();
 }
