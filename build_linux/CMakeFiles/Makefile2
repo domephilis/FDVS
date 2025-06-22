@@ -480,14 +480,14 @@ CMakeFiles/Models.dir/clean:
 # Target rules for target CMakeFiles/Panel.dir
 
 # All Build rule for target.
+CMakeFiles/Panel.dir/all: CMakeFiles/glad.dir/all
+CMakeFiles/Panel.dir/all: CMakeFiles/imgui.dir/all
+CMakeFiles/Panel.dir/all: CMakeFiles/imgui_backend.dir/all
 CMakeFiles/Panel.dir/all: CMakeFiles/imgui_renderer.dir/all
 CMakeFiles/Panel.dir/all: CMakeFiles/imgui_demo.dir/all
 CMakeFiles/Panel.dir/all: CMakeFiles/imgui_draw.dir/all
 CMakeFiles/Panel.dir/all: CMakeFiles/imgui_tables.dir/all
 CMakeFiles/Panel.dir/all: CMakeFiles/imgui_widgets.dir/all
-CMakeFiles/Panel.dir/all: CMakeFiles/glad.dir/all
-CMakeFiles/Panel.dir/all: CMakeFiles/imgui.dir/all
-CMakeFiles/Panel.dir/all: CMakeFiles/imgui_backend.dir/all
 CMakeFiles/Panel.dir/all: CMakeFiles/ShaderHandler.dir/all
 CMakeFiles/Panel.dir/all: CMakeFiles/Events.dir/all
 CMakeFiles/Panel.dir/all: CMakeFiles/MatrixHandler.dir/all
@@ -552,14 +552,14 @@ CMakeFiles/Graphics.dir/clean:
 # Target rules for target CMakeFiles/Application.dir
 
 # All Build rule for target.
+CMakeFiles/Application.dir/all: CMakeFiles/glad.dir/all
+CMakeFiles/Application.dir/all: CMakeFiles/imgui.dir/all
+CMakeFiles/Application.dir/all: CMakeFiles/imgui_backend.dir/all
 CMakeFiles/Application.dir/all: CMakeFiles/imgui_renderer.dir/all
 CMakeFiles/Application.dir/all: CMakeFiles/imgui_demo.dir/all
 CMakeFiles/Application.dir/all: CMakeFiles/imgui_draw.dir/all
 CMakeFiles/Application.dir/all: CMakeFiles/imgui_tables.dir/all
 CMakeFiles/Application.dir/all: CMakeFiles/imgui_widgets.dir/all
-CMakeFiles/Application.dir/all: CMakeFiles/glad.dir/all
-CMakeFiles/Application.dir/all: CMakeFiles/imgui.dir/all
-CMakeFiles/Application.dir/all: CMakeFiles/imgui_backend.dir/all
 CMakeFiles/Application.dir/all: CMakeFiles/ShaderHandler.dir/all
 CMakeFiles/Application.dir/all: CMakeFiles/Events.dir/all
 CMakeFiles/Application.dir/all: CMakeFiles/MatrixHandler.dir/all
@@ -593,14 +593,14 @@ CMakeFiles/Application.dir/clean:
 # Target rules for target CMakeFiles/program.out.dir
 
 # All Build rule for target.
+CMakeFiles/program.out.dir/all: CMakeFiles/glad.dir/all
+CMakeFiles/program.out.dir/all: CMakeFiles/imgui.dir/all
+CMakeFiles/program.out.dir/all: CMakeFiles/imgui_backend.dir/all
 CMakeFiles/program.out.dir/all: CMakeFiles/imgui_renderer.dir/all
 CMakeFiles/program.out.dir/all: CMakeFiles/imgui_demo.dir/all
 CMakeFiles/program.out.dir/all: CMakeFiles/imgui_draw.dir/all
 CMakeFiles/program.out.dir/all: CMakeFiles/imgui_tables.dir/all
 CMakeFiles/program.out.dir/all: CMakeFiles/imgui_widgets.dir/all
-CMakeFiles/program.out.dir/all: CMakeFiles/glad.dir/all
-CMakeFiles/program.out.dir/all: CMakeFiles/imgui.dir/all
-CMakeFiles/program.out.dir/all: CMakeFiles/imgui_backend.dir/all
 CMakeFiles/program.out.dir/all: CMakeFiles/ShaderHandler.dir/all
 CMakeFiles/program.out.dir/all: CMakeFiles/Events.dir/all
 CMakeFiles/program.out.dir/all: CMakeFiles/MatrixHandler.dir/all

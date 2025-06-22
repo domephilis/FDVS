@@ -1,7 +1,15 @@
 #include "Models.hpp"
 
+Models::ComputeFuncs Models::GetFuncID(const std::string &func_name) {
+  try {
+    return funcs.at(func_name);
+  } catch (...) {
+    return ComputeFuncs::None;
+  }
+}
+
 Models::OptionsPricer::OptionsPricer(PayoffType payoff_type,
-                                     std::map<std::string, float> params,
+                                     std::map<std::string, double> params,
                                      std::array<std::string, 2> to_vary)
     : payoff_type_(payoff_type), params_(params), to_vary_(to_vary) {
 
@@ -10,12 +18,20 @@ Models::OptionsPricer::OptionsPricer(PayoffType payoff_type,
 }
 
 Models::BlackScholes::BlackScholes(PayoffType payoff_type,
-                                   std::map<std::string, float> params,
+                                   std::map<std::string, double> params,
                                    std::array<std::string, 2> to_vary)
-    : OptionsPricer(payoff_type, params, to_vary) {}
+    : OptionsPricer(payoff_type, params, to_vary) {
+
+  norm_cdf = [](double x) -> double {
+    return (1.0 + std::erf(x / std::sqrt(2))) / 2.0f;
+  };
+  norm_pdf = [](double x) -> double {
+    return (std::exp(-std::pow(x, 2) / 2)) / std::sqrt(2 * std::numbers::pi);
+  };
+}
 
 float Models::BlackScholes::PricingFunction() {
-  float S, K, time_to_exp, sigma, rate, div;
+  double S, K, time_to_exp, sigma, rate, div;
   S = params_["Spot Price"];
   K = params_["Strike Price"];
   time_to_exp = params_["Time To Expiry"];
@@ -31,16 +47,115 @@ float Models::BlackScholes::PricingFunction() {
                 (sigma * std::sqrt(time_to_exp));
     double d2 = d1 - sigma * std::sqrt(time_to_exp);
 
-    auto norm_cdf = [](double x) {
-      return (1.0 + std::erf(x / std::sqrt(2))) / 2.0f;
-    };
-
     double nd_1 = norm_cdf(phi * d1);
     double nd_2 = norm_cdf(phi * d2);
     double disc_fctr = std::exp(-rate * time_to_exp);
-    return phi * (S * std::exp(-div * time_to_exp)) * nd_1 -
-           disc_fctr * K * nd_2;
+    return static_cast<float>(phi * (S * std::exp(-div * time_to_exp)) * nd_1 -
+                              disc_fctr * K * nd_2);
   } else {
-    return std::max(phi * (K - S), 0.0f);
+    return static_cast<float>(
+        std::max(phi * (K - S), static_cast<double>(0.0f)));
   }
+}
+
+float Models::BlackScholes::Delta() {
+  double S, K, time_to_exp, sigma, rate, div;
+  double delta = 0;
+  S = params_["Spot Price"];
+  K = params_["Strike Price"];
+  time_to_exp = params_["Time To Expiry"];
+  sigma = params_["Implied Volatility"];
+  rate = params_["Risk Free Rate"];
+  div = params_["Dividend Rate"];
+
+  const int phi = static_cast<int>(payoff_type_);
+
+  double d1 = (std::log(S / K) +
+               (rate - div + (std::pow(sigma, 2) / 2.0f)) * time_to_exp) /
+              (sigma * std::sqrt(time_to_exp));
+  double d2 = d1 - sigma * std::sqrt(time_to_exp);
+
+  // Note: There's an extra discount term if you want dividends;
+  // For now, I just want to replicate what worked before.
+
+  if (phi == 1)
+    delta = norm_cdf(d1);
+  else if (phi == -1)
+    delta = norm_cdf(d1) - 1;
+  return delta;
+}
+
+float Models::BlackScholes::Gamma() {
+  double S, K, time_to_exp, sigma, rate, div;
+  double gamma = 0;
+  S = params_["Spot Price"];
+  K = params_["Strike Price"];
+  time_to_exp = params_["Time To Expiry"];
+  sigma = params_["Implied Volatility"];
+  rate = params_["Risk Free Rate"];
+  div = params_["Dividend Rate"];
+
+  double d1 = (std::log(S / K) +
+               (rate - div + (std::pow(sigma, 2) / 2.0f)) * time_to_exp) /
+              (sigma * std::sqrt(time_to_exp));
+  double d2 = d1 - sigma * std::sqrt(time_to_exp);
+
+  // Note: Gamma is the same regardless of put/call
+  gamma = norm_pdf(d1) / (S * sigma * std::sqrt(time_to_exp));
+  return gamma;
+}
+
+float Models::BlackScholes::Theta() {
+  double S, K, time_to_exp, sigma, rate, div;
+  double theta = 0;
+  S = params_["Spot Price"];
+  K = params_["Strike Price"];
+  time_to_exp = params_["Time To Expiry"];
+  sigma = params_["Implied Volatility"];
+  rate = params_["Risk Free Rate"];
+  div = params_["Dividend Rate"];
+
+  const int phi = static_cast<int>(payoff_type_);
+  // Could be calendar days or trading days (in which case 252)
+  const double days_per_year = 365.0f;
+
+  double d1 = (std::log(S / K) +
+               (rate - div + (std::pow(sigma, 2) / 2.0f)) * time_to_exp) /
+              (sigma * std::sqrt(time_to_exp));
+  double d2 = d1 - sigma * std::sqrt(time_to_exp);
+
+  if (phi == 1)
+    theta = ((-(S * norm_pdf(d1) * sigma) / (2 * std::sqrt(time_to_exp))) -
+             ((rate * K * std::exp(-rate * time_to_exp)) * norm_cdf(d2)) +
+             (div * S * std::exp(-div * time_to_exp) * norm_cdf(d1))) /
+            days_per_year;
+  else if (phi == -1)
+    theta = ((-(S * norm_pdf(d1) * sigma) / (2 * std::sqrt(time_to_exp))) +
+             ((rate * K * std::exp(-rate * time_to_exp)) * norm_cdf(-d2)) -
+             (div * S * std::exp(-div * time_to_exp) * norm_cdf(-d1))) /
+            days_per_year;
+  return theta;
+}
+
+float Models::BlackScholes::Vega() {
+  double S, K, time_to_exp, sigma, rate, div;
+  double vega = 0;
+  S = params_["Spot Price"];
+  K = params_["Strike Price"];
+  time_to_exp = params_["Time To Expiry"];
+  sigma = params_["Implied Volatility"];
+  rate = params_["Risk Free Rate"];
+  div = params_["Dividend Rate"];
+
+  double d1 = (std::log(S / K) +
+               (rate - div + (std::pow(sigma, 2) / 2.0f)) * time_to_exp) /
+              (sigma * std::sqrt(time_to_exp));
+  double d2 = d1 - sigma * std::sqrt(time_to_exp);
+
+  // Same for puts and calls
+  // Divide by 100 to get change in V / 1 percentage point change in Volatility
+
+  vega =
+      S * std::exp(-div * time_to_exp) * std::sqrt(time_to_exp) * norm_pdf(d1);
+  return (vega / 100);
 }

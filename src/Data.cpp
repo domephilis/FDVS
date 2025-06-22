@@ -19,7 +19,7 @@ Data::OffMeshData::OffMeshData(std::string filename) {
 }
 
 Data::OffMeshData::OffMeshData(std::shared_ptr<Data::Bounds2D> b,
-                               std::function<float(float, float)> f) {
+                               std::function<float(double, double)> f) {
   unsigned int size = b->steps_x * b->steps_y;
   std::vector<std::future<float>> tasks;
   vertices = std::vector<float>(size * 3);
@@ -151,7 +151,7 @@ void Data::OffMeshData::ReadOffData(std::vector<float> &vertices_arr,
 }
 
 void Data::OffMeshData::ComputeProperties() {
-  for (int i = 0; i < num_of_vertices; i++) {
+  for (int i = 0; i < vertices.size(); i++) {
     switch (i % 3) {
     case 0:
       if (max[0] < vertices[i])
@@ -175,4 +175,10 @@ void Data::OffMeshData::ComputeProperties() {
   }
   centre = glm::vec3((max[0] - min[0]) / 2, (max[1] - min[1]) / 2,
                      (max[2] - min[2]) / 2);
+}
+
+void Data::OffMeshData::ScaleZ(double z_scaling) {
+  for (int i = 0; i < vertices.size(); i++)
+    if (i % 3 == 2)
+      vertices[i] *= z_scaling;
 }

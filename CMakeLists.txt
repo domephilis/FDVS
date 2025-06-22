@@ -6,6 +6,7 @@ project(
 )
 
 list(APPEND CMAKE_PREFIX_PATH "/usr/local/lib/glfw/")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++20")
 find_package(glfw3 REQUIRED)
 find_package(CGAL REQUIRED)
 

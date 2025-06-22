@@ -6,6 +6,8 @@ Windowing::GraphPanel::GraphPanel(GLFWwindow *window,
   shader = in_shader;
   io_ctr_ = io_ctr;
 
+  z_scaling_ = 1.0f;
+
   // Create ImGui Context
   context = ImGui::CreateContext();
   {
@@ -50,8 +52,8 @@ Windowing::GraphPanel::GraphPanel(GLFWwindow *window,
                                              glm::vec3(0.0f, 1.1 * depth, 0.0f),
                                              shader, graph_fbo_);
   z_axis_ = std::make_unique<Graphics::Line>(
-      glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.1 * depth), shader,
-      graph_fbo_);
+      glm::vec3(0.0f, 0.0f, 0.0f),
+      glm::vec3(0.0f, 0.0f, -1.1 * depth * z_scaling_), shader, graph_fbo_);
 }
 
 void Windowing::GraphPanel::Render() {
@@ -128,7 +130,7 @@ void Windowing::GraphPanel::Render() {
       glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -20.0f)));
   proj_stack_->pushMatrix(glm::perspective(
       glm::radians(45.0f), (float)size_avail.x / (float)size_avail.y, 0.1f,
-      5 * depth));
+      5 * depth * static_cast<float>(z_scaling_)));
   mv_stack_->popMatrix();
   proj_stack_->popMatrix();
   graph->drawToBuffer(size_avail.x, size_avail.y);
@@ -193,23 +195,23 @@ void Windowing::ConfigPanel::Render() {
 
   static int x_axis = 0;
   ImGui::Combo("X Axis Variable", &x_axis, variables, IM_ARRAYSIZE(variables));
-  static float min_x = 0.0f, step_size_x = 0.0f;
+  static double min_x = 0.0f, step_size_x = 0.0f;
   static unsigned int steps_x = 0;
   ImGuiInputTextFlags flags = ImGuiInputTextFlags_None;
-  ImGui::InputScalar("X Start", ImGuiDataType_Float, &min_x, NULL, NULL, NULL,
+  ImGui::InputScalar("X Start", ImGuiDataType_Double, &min_x, NULL, NULL, NULL,
                      flags);
-  ImGui::InputScalar("X Step Size", ImGuiDataType_Float, &step_size_x, NULL,
+  ImGui::InputScalar("X Step Size", ImGuiDataType_Double, &step_size_x, NULL,
                      NULL, NULL, flags);
   ImGui::InputScalar("X Steps", ImGuiDataType_U32, &steps_x, NULL, NULL, NULL,
                      flags);
 
   static int y_axis = 0;
   ImGui::Combo("Y Axis Variable", &y_axis, variables, IM_ARRAYSIZE(variables));
-  static float min_y = 0.0f, step_size_y = 0.0f;
+  static double min_y = 0.0f, step_size_y = 0.0f;
   static unsigned int steps_y = 0;
-  ImGui::InputScalar("Y Start", ImGuiDataType_Float, &min_y, NULL, NULL, NULL,
+  ImGui::InputScalar("Y Start", ImGuiDataType_Double, &min_y, NULL, NULL, NULL,
                      flags);
-  ImGui::InputScalar("Y Step Size", ImGuiDataType_Float, &step_size_y, NULL,
+  ImGui::InputScalar("Y Step Size", ImGuiDataType_Double, &step_size_y, NULL,
                      NULL, NULL, flags);
   ImGui::InputScalar("Y Steps", ImGuiDataType_U32, &steps_y, NULL, NULL, NULL,
                      flags);
@@ -221,16 +223,19 @@ void Windowing::ConfigPanel::Render() {
                IM_ARRAYSIZE(pos_image_vars));
 
   // The x_axis, y_axis spots will be unpopulated and ignored
-  static std::array<float, 6> arr;
+  static std::array<double, 6> arr;
   for (int i = 0; i < 6; i++) {
     if (i != x_axis && i != y_axis) {
       ImGuiInputTextFlags flags = ImGuiInputTextFlags_None;
-      ImGui::InputScalar(variables[i], ImGuiDataType_Float, &arr[i], NULL, NULL,
-                         NULL, flags);
+      ImGui::InputScalar(variables[i], ImGuiDataType_Double, &arr[i], NULL,
+                         NULL, NULL, flags);
     }
   }
+  static double z_scaling = 0.0f;
+  ImGui::InputScalar("Z Scale Factor", ImGuiDataType_Double, &z_scaling, NULL,
+                     NULL, NULL, flags);
 
-  std::map<std::string, float> params{
+  std::map<std::string, double> params{
       std::make_pair(std::string(variables[x_axis]), -1),
       std::make_pair(std::string(variables[y_axis]), -1)};
   for (int i = 0; i < 6; i++) {
@@ -240,14 +245,13 @@ void Windowing::ConfigPanel::Render() {
 
   std::array<std::string, 2> to_vary{variables[x_axis], variables[y_axis]};
 
-  typedef std::array<float, 2> Point2D;
+  typedef std::array<double, 2> Point2D;
   Models::BlackScholes bs(Models::PayoffType::Call, params, to_vary);
   graph_panel_->SetModel(
       std::make_shared<Data::Bounds2D>(Point2D{min_x, min_y}, steps_x, steps_y,
                                        step_size_x, step_size_y),
-      bs.GetComputeFunction());
-  auto f = bs.GetComputeFunction();
-  // Later on we can get delta gamma theta vega function if this works
+      bs.GetComputeFunction(pos_image_vars[z_axis]), z_scaling);
+  auto f = bs.GetComputeFunction(pos_image_vars[z_axis]);
 
   if (ImGui::Button("Reload")) {
     graph_panel_->ReloadModel();

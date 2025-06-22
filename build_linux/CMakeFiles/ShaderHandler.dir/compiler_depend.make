@@ -68,6 +68,7 @@ CMakeFiles/ShaderHandler.dir/src/ShaderHandler.cpp.o: ../src/ShaderHandler.cpp \
   /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h \
   /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h \
+  /usr/include/x86_64-linux-gnu/bits/select2.h \
   /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h \
   /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h \
   /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h \
@@ -75,7 +76,9 @@ CMakeFiles/ShaderHandler.dir/src/ShaderHandler.cpp.o: ../src/ShaderHandler.cpp \
   /usr/include/x86_64-linux-gnu/bits/struct_mutex.h \
   /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h \
   /usr/include/alloca.h \
+  /usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h \
   /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
+  /usr/include/x86_64-linux-gnu/bits/stdlib.h \
   /usr/include/c++/11/bits/specfun.h \
   /usr/include/c++/11/bits/stl_algobase.h \
   /usr/include/c++/11/bits/functexcept.h \
@@ -84,12 +87,19 @@ CMakeFiles/ShaderHandler.dir/src/ShaderHandler.cpp.o: ../src/ShaderHandler.cpp \
   /usr/include/c++/11/bits/stl_pair.h \
   /usr/include/c++/11/bits/move.h \
   /usr/include/c++/11/type_traits \
+  /usr/include/c++/11/compare \
+  /usr/include/c++/11/concepts \
   /usr/include/c++/11/bits/stl_iterator_base_types.h \
+  /usr/include/c++/11/bits/iterator_concepts.h \
+  /usr/include/c++/11/bits/ptr_traits.h \
+  /usr/include/c++/11/bits/ranges_cmp.h \
   /usr/include/c++/11/bits/stl_iterator_base_funcs.h \
   /usr/include/c++/11/bits/concept_check.h \
   /usr/include/c++/11/debug/assertions.h \
   /usr/include/c++/11/bits/stl_iterator.h \
-  /usr/include/c++/11/bits/ptr_traits.h \
+  /usr/include/c++/11/new \
+  /usr/include/c++/11/bits/exception.h \
+  /usr/include/c++/11/bits/stl_construct.h \
   /usr/include/c++/11/debug/debug.h \
   /usr/include/c++/11/bits/predefined_ops.h \
   /usr/include/c++/11/limits \
@@ -306,6 +316,8 @@ CMakeFiles/ShaderHandler.dir/src/ShaderHandler.cpp.o: ../src/ShaderHandler.cpp \
   /usr/include/c++/11/cstring \
   /usr/include/string.h \
   /usr/include/strings.h \
+  /usr/include/x86_64-linux-gnu/bits/strings_fortified.h \
+  /usr/include/x86_64-linux-gnu/bits/string_fortified.h \
   /usr/include/glm/gtc/type_ptr.inl \
   /usr/include/c++/11/fstream \
   /usr/include/c++/11/istream \
@@ -322,13 +334,12 @@ CMakeFiles/ShaderHandler.dir/src/ShaderHandler.cpp.o: ../src/ShaderHandler.cpp \
   /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/__FILE.h \
   /usr/include/x86_64-linux-gnu/bits/types/FILE.h \
+  /usr/include/x86_64-linux-gnu/bits/wchar2.h \
   /usr/include/c++/11/exception \
-  /usr/include/c++/11/bits/exception.h \
   /usr/include/c++/11/bits/exception_ptr.h \
   /usr/include/c++/11/bits/cxxabi_init_exception.h \
   /usr/include/c++/11/typeinfo \
   /usr/include/c++/11/bits/hash_bytes.h \
-  /usr/include/c++/11/new \
   /usr/include/c++/11/bits/nested_exception.h \
   /usr/include/c++/11/bits/char_traits.h \
   /usr/include/c++/11/bits/localefwd.h \
@@ -365,17 +376,24 @@ CMakeFiles/ShaderHandler.dir/src/ShaderHandler.cpp.o: ../src/ShaderHandler.cpp \
   /usr/include/c++/11/bits/cxxabi_forced.h \
   /usr/include/c++/11/bits/stl_function.h \
   /usr/include/c++/11/backward/binders.h \
-  /usr/include/c++/11/bits/range_access.h \
+  /usr/include/c++/11/bits/stl_algo.h \
+  /usr/include/c++/11/cstdlib \
+  /usr/include/c++/11/bits/algorithmfwd.h \
   /usr/include/c++/11/initializer_list \
+  /usr/include/c++/11/bits/stl_heap.h \
+  /usr/include/c++/11/bits/stl_tempbuf.h \
+  /usr/include/c++/11/bits/uniform_int_dist.h \
+  /usr/include/c++/11/bits/range_access.h \
   /usr/include/c++/11/bits/basic_string.h \
   /usr/include/c++/11/ext/alloc_traits.h \
   /usr/include/c++/11/bits/alloc_traits.h \
-  /usr/include/c++/11/bits/stl_construct.h \
   /usr/include/c++/11/string_view \
   /usr/include/c++/11/bits/functional_hash.h \
+  /usr/include/c++/11/bits/ranges_base.h \
+  /usr/include/c++/11/bits/max_size_type.h \
+  /usr/include/c++/11/numbers \
   /usr/include/c++/11/bits/string_view.tcc \
   /usr/include/c++/11/ext/string_conversions.h \
-  /usr/include/c++/11/cstdlib \
   /usr/include/c++/11/cstdio \
   /usr/include/stdio.h \
   /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h \
@@ -383,6 +401,8 @@ CMakeFiles/ShaderHandler.dir/src/ShaderHandler.cpp.o: ../src/ShaderHandler.cpp \
   /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h \
   /usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h \
   /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio2.h \
   /usr/include/c++/11/cerrno \
   /usr/include/errno.h \
   /usr/include/x86_64-linux-gnu/bits/errno.h \
@@ -467,13 +487,25 @@ CMakeFiles/ShaderHandler.dir/src/ShaderHandler.cpp.o: ../src/ShaderHandler.cpp \
 
 /usr/include/c++/11/cerrno:
 
+/usr/include/x86_64-linux-gnu/bits/stdio2.h:
+
 /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h:
 
 /usr/include/stdio.h:
 
-/usr/include/c++/11/cstdlib:
-
 /usr/include/c++/11/bits/string_view.tcc:
+
+/usr/include/c++/11/numbers:
+
+/usr/include/c++/11/bits/max_size_type.h:
+
+/usr/include/c++/11/bits/uniform_int_dist.h:
+
+/usr/include/c++/11/bits/stl_tempbuf.h:
+
+/usr/include/c++/11/bits/algorithmfwd.h:
+
+/usr/include/c++/11/cstdlib:
 
 /usr/include/c++/11/backward/binders.h:
 
@@ -507,11 +539,7 @@ CMakeFiles/ShaderHandler.dir/src/ShaderHandler.cpp.o: ../src/ShaderHandler.cpp \
 
 /usr/include/c++/11/bits/char_traits.h:
 
-/usr/include/c++/11/new:
-
 /usr/include/c++/11/typeinfo:
-
-/usr/include/c++/11/bits/exception.h:
 
 /usr/include/c++/11/exception:
 
@@ -536,6 +564,8 @@ CMakeFiles/ShaderHandler.dir/src/ShaderHandler.cpp.o: ../src/ShaderHandler.cpp \
 /usr/include/c++/11/ios:
 
 /usr/include/c++/11/fstream:
+
+/usr/include/x86_64-linux-gnu/bits/strings_fortified.h:
 
 /usr/include/string.h:
 
@@ -581,8 +611,6 @@ CMakeFiles/ShaderHandler.dir/src/ShaderHandler.cpp.o: ../src/ShaderHandler.cpp \
 
 /usr/include/glm/ext/quaternion_relational.hpp:
 
-/usr/include/glm/ext/quaternion_common.inl:
-
 /usr/include/glm/ext/quaternion_geometric.inl:
 
 /usr/include/glm/gtc/type_ptr.inl:
@@ -613,11 +641,25 @@ CMakeFiles/ShaderHandler.dir/src/ShaderHandler.cpp.o: ../src/ShaderHandler.cpp \
 
 /usr/include/glm/ext/matrix_clip_space.inl:
 
-/usr/include/glm/detail/qualifier.hpp:
+/usr/include/glm/ext/scalar_constants.hpp:
 
-/usr/include/x86_64-linux-gnu/bits/uio_lim.h:
+/usr/include/c++/11/cctype:
 
-/usr/include/x86_64-linux-gnu/bits/xopen_lim.h:
+/usr/include/glm/ext/matrix_projection.hpp:
+
+/usr/include/glm/gtc/constants.inl:
+
+/usr/include/glm/integer.hpp:
+
+/usr/include/glm/detail/type_half.inl:
+
+/usr/include/glm/ext/matrix_projection.inl:
+
+/usr/include/glm/detail/type_half.hpp:
+
+/usr/include/x86_64-linux-gnu/bits/sched.h:
+
+/usr/include/glm/detail/func_packing.inl:
 
 /usr/include/x86_64-linux-gnu/bits/local_lim.h:
 
@@ -631,9 +673,9 @@ CMakeFiles/ShaderHandler.dir/src/ShaderHandler.cpp.o: ../src/ShaderHandler.cpp \
 
 /usr/include/glm/simd/platform.h:
 
-/usr/include/c++/11/bits/stl_construct.h:
+/usr/include/glm/ext/scalar_constants.inl:
 
-/usr/include/glm/ext/vector_float3.hpp:
+/usr/include/c++/11/cstddef:
 
 /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h:
 
@@ -642,6 +684,8 @@ CMakeFiles/ShaderHandler.dir/src/ShaderHandler.cpp.o: ../src/ShaderHandler.cpp \
 /usr/include/glm/detail/type_mat2x4.inl:
 
 /usr/include/c++/11/tr1/poly_laguerre.tcc:
+
+/usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h:
 
 /usr/local/include/GLFW/glfw3.h:
 
@@ -663,12 +707,6 @@ CMakeFiles/ShaderHandler.dir/src/ShaderHandler.cpp.o: ../src/ShaderHandler.cpp \
 
 /usr/include/glm/detail/type_mat3x2.hpp:
 
-/usr/include/x86_64-linux-gnu/bits/pthread_stack_min-dynamic.h:
-
-/usr/include/c++/11/cctype:
-
-/usr/include/glm/ext/matrix_projection.hpp:
-
 /usr/include/c++/11/tr1/bessel_function.tcc:
 
 /usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h:
@@ -683,15 +721,9 @@ CMakeFiles/ShaderHandler.dir/src/ShaderHandler.cpp.o: ../src/ShaderHandler.cpp \
 
 /usr/include/glm/detail/_vectorize.hpp:
 
-/usr/include/c++/11/sstream:
+/usr/include/glm/ext/vector_float3.hpp:
 
-/usr/include/glm/detail/type_float.hpp:
-
-/usr/include/c++/11/bits/ptr_traits.h:
-
-/usr/include/c++/11/istream:
-
-/usr/include/glm/ext/vector_double2_precision.hpp:
+/usr/include/c++/11/bits/stl_construct.h:
 
 /usr/include/c++/11/bits/stl_iterator.h:
 
@@ -707,6 +739,16 @@ CMakeFiles/ShaderHandler.dir/src/ShaderHandler.cpp.o: ../src/ShaderHandler.cpp \
 
 /usr/include/c++/11/bits/concept_check.h:
 
+/usr/include/c++/11/sstream:
+
+/usr/include/glm/detail/type_float.hpp:
+
+/usr/include/c++/11/bits/ptr_traits.h:
+
+/usr/include/c++/11/istream:
+
+/usr/include/glm/ext/vector_double2_precision.hpp:
+
 /usr/lib/gcc/x86_64-linux-gnu/11/include/stdint.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/11/include/limits.h:
@@ -717,15 +759,11 @@ CMakeFiles/ShaderHandler.dir/src/ShaderHandler.cpp.o: ../src/ShaderHandler.cpp \
 
 /usr/include/c++/11/bits/move.h:
 
+/usr/include/c++/11/concepts:
+
 /usr/include/c++/11/bits/functexcept.h:
 
-/usr/include/glm/fwd.hpp:
-
-/usr/include/KHR/khrplatform.h:
-
-/usr/include/glm/ext/matrix_float3x3_precision.hpp:
-
-/usr/include/glm/ext/matrix_float4x3_precision.hpp:
+/usr/include/x86_64-linux-gnu/bits/stdlib.h:
 
 /usr/include/glm/ext/vector_uint1_sized.hpp:
 
@@ -749,6 +787,8 @@ CMakeFiles/ShaderHandler.dir/src/ShaderHandler.cpp.o: ../src/ShaderHandler.cpp \
 
 /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h:
 
+/usr/include/c++/11/bits/exception.h:
+
 /usr/include/x86_64-linux-gnu/sys/select.h:
 
 /usr/include/limits.h:
@@ -762,6 +802,8 @@ CMakeFiles/ShaderHandler.dir/src/ShaderHandler.cpp.o: ../src/ShaderHandler.cpp \
 /usr/include/c++/11/cmath:
 
 /usr/include/glm/detail/_fixes.hpp:
+
+/usr/include/x86_64-linux-gnu/bits/xopen_lim.h:
 
 /usr/include/c++/11/bits/cxxabi_forced.h:
 
@@ -783,6 +825,8 @@ CMakeFiles/ShaderHandler.dir/src/ShaderHandler.cpp.o: ../src/ShaderHandler.cpp \
 
 /usr/include/glm/detail/type_mat3x2.inl:
 
+/usr/include/x86_64-linux-gnu/bits/stdio.h:
+
 /usr/include/glm/detail/type_mat4x4.inl:
 
 /usr/include/glm/ext/matrix_double3x2.hpp:
@@ -790,10 +834,6 @@ CMakeFiles/ShaderHandler.dir/src/ShaderHandler.cpp.o: ../src/ShaderHandler.cpp \
 /usr/include/x86_64-linux-gnu/bits/mathcalls.h:
 
 /usr/include/x86_64-linux-gnu/bits/math-vector.h:
-
-/usr/include/glm/ext/vector_uint3_sized.hpp:
-
-/usr/include/glm/ext/matrix_double3x4.hpp:
 
 /usr/include/c++/11/tr1/gamma.tcc:
 
@@ -811,11 +851,11 @@ CMakeFiles/ShaderHandler.dir/src/ShaderHandler.cpp.o: ../src/ShaderHandler.cpp \
 
 /usr/include/glm/detail/type_mat2x3.hpp:
 
+/usr/include/c++/11/new:
+
 /usr/include/stdc-predef.h:
 
 /usr/include/x86_64-linux-gnu/bits/wordsize.h:
-
-/usr/include/c++/11/cfloat:
 
 /usr/include/glm/ext/quaternion_transform.inl:
 
@@ -843,9 +883,11 @@ CMakeFiles/ShaderHandler.dir/src/ShaderHandler.cpp.o: ../src/ShaderHandler.cpp \
 
 /usr/include/c++/11/cassert:
 
-/usr/include/x86_64-linux-gnu/bits/sched.h:
+/usr/include/c++/11/type_traits:
 
-/usr/include/glm/detail/func_packing.inl:
+/usr/include/glm/ext/vector_int2.hpp:
+
+/usr/include/glm/ext/vector_int3_sized.hpp:
 
 /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h:
 
@@ -858,6 +900,12 @@ CMakeFiles/ShaderHandler.dir/src/ShaderHandler.cpp.o: ../src/ShaderHandler.cpp \
 /usr/include/glad/glad.h:
 
 /usr/include/features.h:
+
+/usr/include/glm/ext/quaternion_common.inl:
+
+/usr/include/c++/11/bits/ranges_cmp.h:
+
+/usr/include/x86_64-linux-gnu/bits/uintn-identity.h:
 
 /usr/include/c++/11/bits/exception_ptr.h:
 
@@ -875,6 +923,14 @@ CMakeFiles/ShaderHandler.dir/src/ShaderHandler.cpp.o: ../src/ShaderHandler.cpp \
 
 /usr/include/x86_64-linux-gnu/bits/mathcalls-narrow.h:
 
+/usr/include/glm/mat2x2.hpp:
+
+/usr/include/x86_64-linux-gnu/bits/select2.h:
+
+/usr/include/glm/ext/vector_int3.hpp:
+
+/usr/include/glm/ext/matrix_double4x4_precision.hpp:
+
 /usr/include/x86_64-linux-gnu/bits/types/clock_t.h:
 
 /usr/include/c++/11/ext/alloc_traits.h:
@@ -890,8 +946,6 @@ CMakeFiles/ShaderHandler.dir/src/ShaderHandler.cpp.o: ../src/ShaderHandler.cpp \
 /usr/include/glm/mat3x2.hpp:
 
 /usr/include/c++/11/bits/stl_pair.h:
-
-/usr/include/x86_64-linux-gnu/bits/uintn-identity.h:
 
 /usr/include/c++/11/cstring:
 
@@ -939,8 +993,6 @@ CMakeFiles/ShaderHandler.dir/src/ShaderHandler.cpp.o: ../src/ShaderHandler.cpp \
 
 /usr/include/glm/ext/vector_int4.hpp:
 
-/usr/include/glm/ext/scalar_constants.hpp:
-
 ../src/ShaderHandler.cpp:
 
 /usr/include/c++/11/bits/sstream.tcc:
@@ -963,15 +1015,15 @@ CMakeFiles/ShaderHandler.dir/src/ShaderHandler.cpp.o: ../src/ShaderHandler.cpp \
 
 /usr/include/glm/detail/type_mat4x3.inl:
 
-/usr/include/c++/11/cstddef:
-
-/usr/include/glm/ext/scalar_constants.inl:
-
 /usr/include/linux/errno.h:
 
 /usr/include/x86_64-linux-gnu/sys/types.h:
 
+/usr/include/x86_64-linux-gnu/bits/wchar2.h:
+
 /usr/include/glm/detail/compute_vector_relational.hpp:
+
+/usr/include/c++/11/compare:
 
 /usr/include/stdlib.h:
 
@@ -979,11 +1031,19 @@ CMakeFiles/ShaderHandler.dir/src/ShaderHandler.cpp.o: ../src/ShaderHandler.cpp \
 
 /usr/include/c++/11/tr1/poly_hermite.tcc:
 
-/usr/include/c++/11/cwctype:
+/usr/include/KHR/khrplatform.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/11/include/float.h:
+/usr/include/glm/fwd.hpp:
 
-/usr/include/c++/11/bits/stl_iterator_base_types.h:
+/usr/include/c++/11/bits/ranges_base.h:
+
+/usr/include/glm/ext/matrix_double3x4.hpp:
+
+/usr/include/glm/ext/vector_uint3_sized.hpp:
+
+/usr/include/glm/ext/matrix_float3x3_precision.hpp:
+
+/usr/include/glm/ext/matrix_float4x3_precision.hpp:
 
 /usr/include/glm/ext/matrix_float4x4.hpp:
 
@@ -1003,7 +1063,29 @@ CMakeFiles/ShaderHandler.dir/src/ShaderHandler.cpp.o: ../src/ShaderHandler.cpp \
 
 /usr/include/math.h:
 
+/usr/include/c++/11/bits/alloc_traits.h:
+
+/usr/include/glm/gtc/constants.hpp:
+
+/usr/include/x86_64-linux-gnu/bits/endian.h:
+
+/usr/include/x86_64-linux-gnu/bits/pthread_stack_min-dynamic.h:
+
+/usr/include/x86_64-linux-gnu/bits/uio_lim.h:
+
+/usr/include/c++/11/cfloat:
+
+/usr/include/c++/11/cwctype:
+
+/usr/include/c++/11/bits/stl_iterator_base_types.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/11/include/float.h:
+
+/usr/include/glm/detail/qualifier.hpp:
+
 /usr/include/ctype.h:
+
+/usr/include/x86_64-linux-gnu/bits/string_fortified.h:
 
 /usr/include/glm/detail/type_vec2.inl:
 
@@ -1015,6 +1097,8 @@ CMakeFiles/ShaderHandler.dir/src/ShaderHandler.cpp.o: ../src/ShaderHandler.cpp \
 
 /usr/include/glm/ext/matrix_float2x4.hpp:
 
+/usr/include/c++/11/bits/iterator_concepts.h:
+
 /usr/include/glm/ext/vector_float2.hpp:
 
 /usr/include/glm/ext/vector_bool2.hpp:
@@ -1024,12 +1108,6 @@ CMakeFiles/ShaderHandler.dir/src/ShaderHandler.cpp.o: ../src/ShaderHandler.cpp \
 /usr/include/glm/ext/vector_float2_precision.hpp:
 
 /usr/include/glm/ext/matrix_double4x3.hpp:
-
-/usr/include/c++/11/type_traits:
-
-/usr/include/glm/ext/vector_int3_sized.hpp:
-
-/usr/include/glm/ext/vector_int2.hpp:
 
 /usr/include/glm/ext/vector_int2_sized.hpp:
 
@@ -1061,10 +1139,6 @@ CMakeFiles/ShaderHandler.dir/src/ShaderHandler.cpp.o: ../src/ShaderHandler.cpp \
 
 /usr/include/glm/detail/type_vec3.hpp:
 
-/usr/include/glm/ext/matrix_projection.inl:
-
-/usr/include/glm/detail/type_half.hpp:
-
 /usr/include/glm/gtc/matrix_transform.hpp:
 
 /usr/include/glm/ext/vector_bool3_precision.hpp:
@@ -1080,10 +1154,6 @@ CMakeFiles/ShaderHandler.dir/src/ShaderHandler.cpp.o: ../src/ShaderHandler.cpp \
 /usr/include/glm/ext/vector_double3.hpp:
 
 /usr/include/glm/ext/vector_double3_precision.hpp:
-
-/usr/include/glm/ext/vector_int3.hpp:
-
-/usr/include/glm/ext/matrix_double4x4_precision.hpp:
 
 /usr/include/alloca.h:
 
@@ -1117,8 +1187,6 @@ CMakeFiles/ShaderHandler.dir/src/ShaderHandler.cpp.o: ../src/ShaderHandler.cpp \
 
 /usr/include/glm/geometric.hpp:
 
-/usr/include/glm/mat2x2.hpp:
-
 /usr/include/glm/detail/func_trigonometric.inl:
 
 /usr/include/glm/ext/matrix_double2x2.hpp:
@@ -1141,11 +1209,11 @@ CMakeFiles/ShaderHandler.dir/src/ShaderHandler.cpp.o: ../src/ShaderHandler.cpp \
 
 /usr/include/glm/ext/matrix_float2x3.hpp:
 
-/usr/include/glm/ext/matrix_float2x4_precision.hpp:
-
 /usr/include/glm/ext/vector_uint2.hpp:
 
 /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h:
+
+/usr/include/glm/ext/matrix_float2x4_precision.hpp:
 
 /usr/include/glm/ext/matrix_float2x3_precision.hpp:
 
@@ -1223,7 +1291,11 @@ CMakeFiles/ShaderHandler.dir/src/ShaderHandler.cpp.o: ../src/ShaderHandler.cpp \
 
 /usr/include/glm/exponential.hpp:
 
+/usr/include/c++/11/bits/stl_algo.h:
+
 /usr/include/glm/detail/func_exponential.inl:
+
+/usr/include/c++/11/bits/stl_heap.h:
 
 /usr/include/glm/detail/func_integer.inl:
 
@@ -1238,15 +1310,3 @@ CMakeFiles/ShaderHandler.dir/src/ShaderHandler.cpp.o: ../src/ShaderHandler.cpp \
 /usr/include/glm/ext/matrix_clip_space.hpp:
 
 /usr/include/glm/packing.hpp:
-
-/usr/include/glm/detail/type_half.inl:
-
-/usr/include/glm/gtc/constants.inl:
-
-/usr/include/glm/integer.hpp:
-
-/usr/include/c++/11/bits/alloc_traits.h:
-
-/usr/include/x86_64-linux-gnu/bits/endian.h:
-
-/usr/include/glm/gtc/constants.hpp:

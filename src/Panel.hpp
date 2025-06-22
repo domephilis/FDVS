@@ -26,7 +26,7 @@
 #include "imgui_impl_opengl3.h"
 #include "imgui_internal.h"
 
-typedef std::array<float, 2> Point2D;
+typedef std::array<double, 2> Point2D;
 
 namespace Windowing {
 
@@ -46,13 +46,17 @@ public:
              std::shared_ptr<Events::Controller> io_ctr);
   void Render();
   void SetModel(std::shared_ptr<Data::Bounds2D> b,
-                std::function<float(float, float)> f) {
+                std::function<float(float, float)> f, double z_scaling) {
     bounds = b;
     domain_R2_function_ = f;
+    z_scaling_ = z_scaling;
   }
   void ReloadModel() {
     if (bounds != nullptr) {
       data_ = std::make_shared<Data::OffMeshData>(bounds, domain_R2_function_);
+      data_->ScaleZ(z_scaling_);
+      data_->ExportToOff("output_scaled");
+      std::cerr << z_scaling_ << std::endl;
       graph->updateData(data_);
     } else {
       throw Data::INVALID_BOUNDS_EXCEPTION{};
@@ -64,6 +68,7 @@ public:
 
 private:
   float depth;
+  double z_scaling_;
 
   std::shared_ptr<Shader> shader;
   std::shared_ptr<Events::Controller> io_ctr_;

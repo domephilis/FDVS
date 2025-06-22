@@ -6,5 +6,5 @@ CXX_DEFINES = -DBOOST_ALL_NO_LIB -DCGAL_USE_GMPXX=1
 
 CXX_INCLUDES = 
 
-CXX_FLAGS = -g -frounding-math
+CXX_FLAGS =  -std=c++20 -O3 -DNDEBUG -frounding-math
 

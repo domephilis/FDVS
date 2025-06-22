@@ -25,19 +25,19 @@ std::ostream &operator<<(std::ostream &os, const std::array<std::size_t, 3> &f);
 
 namespace Data {
 
-typedef std::array<float, 2> Point2D;
+typedef std::array<double, 2> Point2D;
 
 struct INVALID_BOUNDS_EXCEPTION {};
 struct Bounds2D {
   Bounds2D(Point2D in_min, unsigned int in_steps_x, unsigned int in_steps_y,
-           float in_step_size_x, float in_step_size_y)
+           double in_step_size_x, double in_step_size_y)
       : min(in_min), steps_x(in_steps_x), steps_y(in_steps_y),
         step_size_x(in_step_size_x), step_size_y(in_step_size_y) {}
   Point2D min;
   unsigned int steps_x;
   unsigned int steps_y;
-  float step_size_x;
-  float step_size_y;
+  double step_size_x;
+  double step_size_y;
 };
 
 typedef CGAL::Simple_cartesian<double> K;
@@ -84,7 +84,7 @@ struct OffMeshData {
               std::vector<unsigned int> in_faces);
   OffMeshData(std::string filename);
   OffMeshData(std::shared_ptr<Data::Bounds2D> b,
-              std::function<float(float, float)> f);
+              std::function<float(double, double)> f);
 
   // Properties
   unsigned int num_of_vertices = 0;
@@ -99,6 +99,7 @@ struct OffMeshData {
   std::vector<unsigned int> faces;
   void Meshify(double per = 20.0f, double radius_ratio_bound = 5.0f);
   void ExportToOff(std::string file_name);
+  void ScaleZ(double z_scaling);
 
 private:
   std::vector<Point_3> points;
