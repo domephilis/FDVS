@@ -221,6 +221,19 @@ imgui_widgets/fast:
 .PHONY : imgui_widgets/fast
 
 #=============================================================================
+# Target rules for targets named Themes
+
+# Build rule for target.
+Themes: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 Themes
+.PHONY : Themes
+
+# fast build rule for target.
+Themes/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Themes.dir/build.make CMakeFiles/Themes.dir/build
+.PHONY : Themes/fast
+
+#=============================================================================
 # Target rules for targets named ShaderHandler
 
 # Build rule for target.
@@ -761,6 +774,30 @@ src/ShaderHandler.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ShaderHandler.dir/build.make CMakeFiles/ShaderHandler.dir/src/ShaderHandler.cpp.s
 .PHONY : src/ShaderHandler.cpp.s
 
+src/Themes.o: src/Themes.cpp.o
+.PHONY : src/Themes.o
+
+# target to build an object file
+src/Themes.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Themes.dir/build.make CMakeFiles/Themes.dir/src/Themes.cpp.o
+.PHONY : src/Themes.cpp.o
+
+src/Themes.i: src/Themes.cpp.i
+.PHONY : src/Themes.i
+
+# target to preprocess a source file
+src/Themes.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Themes.dir/build.make CMakeFiles/Themes.dir/src/Themes.cpp.i
+.PHONY : src/Themes.cpp.i
+
+src/Themes.s: src/Themes.cpp.s
+.PHONY : src/Themes.s
+
+# target to generate assembly for a file
+src/Themes.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Themes.dir/build.make CMakeFiles/Themes.dir/src/Themes.cpp.s
+.PHONY : src/Themes.cpp.s
+
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
 
@@ -802,6 +839,7 @@ help:
 	@echo "... Models"
 	@echo "... Panel"
 	@echo "... ShaderHandler"
+	@echo "... Themes"
 	@echo "... glad"
 	@echo "... imgui"
 	@echo "... imgui_backend"
@@ -862,6 +900,9 @@ help:
 	@echo "... src/ShaderHandler.o"
 	@echo "... src/ShaderHandler.i"
 	@echo "... src/ShaderHandler.s"
+	@echo "... src/Themes.o"
+	@echo "... src/Themes.i"
+	@echo "... src/Themes.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

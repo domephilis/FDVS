@@ -94,9 +94,10 @@ program.out: CMakeFiles/program.out.dir/src/main.cpp.o
 program.out: CMakeFiles/program.out.dir/build.make
 program.out: libApplication.a
 program.out: libPanel.a
-program.out: libimgui.a
 program.out: libimgui_renderer.a
 program.out: libimgui_demo.a
+program.out: libThemes.a
+program.out: libimgui.a
 program.out: libimgui_draw.a
 program.out: libimgui_tables.a
 program.out: libimgui_widgets.a

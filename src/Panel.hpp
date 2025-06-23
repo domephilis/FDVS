@@ -26,6 +26,8 @@
 #include "imgui_impl_opengl3.h"
 #include "imgui_internal.h"
 
+#include "Themes.hpp"
+
 typedef std::array<double, 2> Point2D;
 
 namespace Windowing {

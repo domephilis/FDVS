@@ -141,11 +141,11 @@ void Application::SetupImGui() {
   io->ConfigFlags |= ImGuiConfigFlags_DockingEnable; // IF using Docking Branch
 
   // Setup Dear ImGui Style
-  ImGui::StyleColorsDark();
+  Themes::SetMoonlightStyle();
 }
 
 void Application::RenderMain() {
-  ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+  ImVec4 clear_color = ImVec4(1.00f, 1.00f, 1.00f, 1.00f);
   glClearColor(clear_color.x * clear_color.w, clear_color.y * clear_color.w,
                clear_color.z * clear_color.w, clear_color.w);
   glClear(GL_COLOR_BUFFER_BIT);

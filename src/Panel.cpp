@@ -16,6 +16,7 @@ Windowing::GraphPanel::GraphPanel(GLFWwindow *window,
     this->window = window;
     ImGui_ImplGlfw_InitForOpenGL(this->window, false);
     ImGui_ImplOpenGL3_Init("#version 330 core");
+    Themes::SetMoonlightStyle();
     // ImGuiIO io = ImGui::GetIO();
     // io.ConfigWindowsMoveFromTitleBarOnly = true;
     ImGui::SetCurrentContext(g);
@@ -128,9 +129,12 @@ void Windowing::GraphPanel::Render() {
   // Reminder: Call shader->use() everytime you pop a matrix
   mv_stack_->pushProduct(
       glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -20.0f)));
-  proj_stack_->pushMatrix(glm::perspective(
-      glm::radians(45.0f), (float)size_avail.x / (float)size_avail.y, 0.1f,
-      5 * depth * static_cast<float>(z_scaling_)));
+  float aspect = std::isnan((float)size_avail.x / (float)size_avail.y)
+                     ? 1.0f
+                     : ((float)size_avail.x / (float)size_avail.y);
+  proj_stack_->pushMatrix(
+      glm::perspective(glm::radians(45.0f), aspect, 0.1f,
+                       5 * depth * static_cast<float>(z_scaling_)));
   mv_stack_->popMatrix();
   proj_stack_->popMatrix();
   graph->drawToBuffer(size_avail.x, size_avail.y);
@@ -156,6 +160,7 @@ Windowing::ConfigPanel::ConfigPanel(GLFWwindow *window,
   ImGui_ImplGlfw_InitForOpenGL(window_, false);
   ImGui_ImplOpenGL3_Init("#version 330 core");
   io = ImGui::GetIO();
+  Themes::SetMoonlightStyle();
   ImGui::SetCurrentContext(prev_context_);
 
   // Events Subscriptions
@@ -261,7 +266,6 @@ void Windowing::ConfigPanel::Render() {
   }
 
   ImGui::End();
-
   ImGui::Render();
   ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
   ImGui::SetCurrentContext(prev_context_);
