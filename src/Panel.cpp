@@ -17,8 +17,6 @@ Windowing::GraphPanel::GraphPanel(GLFWwindow *window,
     ImGui_ImplGlfw_InitForOpenGL(this->window, false);
     ImGui_ImplOpenGL3_Init("#version 330 core");
     Themes::SetMoonlightStyle();
-    // ImGuiIO io = ImGui::GetIO();
-    // io.ConfigWindowsMoveFromTitleBarOnly = true;
     ImGui::SetCurrentContext(g);
   }
 
@@ -188,84 +186,173 @@ void Windowing::ConfigPanel::Render() {
   ImGui_ImplOpenGL3_NewFrame();
   ImGui_ImplGlfw_NewFrame();
   ImGui::NewFrame();
+  static ImGuiTabBarFlags tab_bar_flags = ImGuiTabBarFlags_TabListPopupButton;
+  static std::vector<int> active_tabs;
+  static int next_tab_id = 0;
+  if (ImGui::Begin("Strategies")) {
+    if (ImGui::BeginTabBar("##Tabs", tab_bar_flags)) {
 
-  ImGui::Begin("Configuration Panel");
-  ImGui::SeparatorText("Graph Configuration");
-  const char *models[] = {"Black Scholes", "Binomial", "Monte Carlo"};
-  static int model = 0;
-  ImGui::Combo("Model", &model, models, IM_ARRAYSIZE(models));
-  const char *variables[] = {"Spot Price",     "Strike Price",
-                             "Time To Expiry", "Implied Volatility",
-                             "Risk Free Rate", "Dividend Rate"};
+      if (ImGui::TabItemButton("+", ImGuiTabItemFlags_Trailing |
+                                        ImGuiTabItemFlags_NoTooltip))
+        active_tabs.push_back(next_tab_id++); // Add new tab
+      if (ImGui::BeginTabItem("20250627 IBM Iron Condor")) {
+        // ImGui::Begin("Configuration Panel");
+        ImGui::SeparatorText("File Operations");
+        // Textbox that takes a string for the file directory
+        static char filename[50];
+        ImGui::InputText("Strategy Filename", filename, IM_ARRAYSIZE(filename));
+        if (ImGui::Button("Load From File"))
+          ;
+        if (ImGui::Button("Save To File"))
+          ;
+        // Save Button
+        // The x_axis, y_axis spots will be unpopulated and ignored
+        ImGui::SeparatorText(
+            "Strategy Computation Parameters and Default Values");
+        const char *variables[] = {"Spot Price",     "Strike Price",
+                                   "Time To Expiry", "Implied Volatility",
+                                   "Risk Free Rate", "Dividend Rate"};
+        const char *models[] = {"Black Scholes", "Binomial", "Monte Carlo"};
+        static int model = 0;
+        ImGui::Combo("Model", &model, models, IM_ARRAYSIZE(models));
+        static std::array<double, 6> arr;
+        for (int i = 0; i < 6; i++) {
+          ImGuiInputTextFlags flags = ImGuiInputTextFlags_None;
+          ImGui::InputScalar(variables[i], ImGuiDataType_Double, &arr[i], NULL,
+                             NULL, NULL, flags);
+        }
+        static double z_scaling = 0.0f;
+        ImGui::InputScalar("Z Scale Factor", ImGuiDataType_Double, &z_scaling,
+                           NULL, NULL, NULL, ImGuiInputTextFlags_None);
 
-  static int x_axis = 0;
-  ImGui::Combo("X Axis Variable", &x_axis, variables, IM_ARRAYSIZE(variables));
-  static double min_x = 0.0f, step_size_x = 0.0f;
-  static unsigned int steps_x = 0;
-  ImGuiInputTextFlags flags = ImGuiInputTextFlags_None;
-  ImGui::InputScalar("X Start", ImGuiDataType_Double, &min_x, NULL, NULL, NULL,
-                     flags);
-  ImGui::InputScalar("X Step Size", ImGuiDataType_Double, &step_size_x, NULL,
-                     NULL, NULL, flags);
-  ImGui::InputScalar("X Steps", ImGuiDataType_U32, &steps_x, NULL, NULL, NULL,
-                     flags);
+        // A Table To Display Contract Parameters
+        // ID | Strike Price | Duration at Purchase (Days)
+        ImGui::SeparatorText("Contracts In Strategy");
+        if (ImGui::BeginTable("Contracts", 3, ImGuiTableFlags_None)) {
+          ImGui::TableSetupColumn("Contract ID");
+          ImGui::TableSetupColumn("Strike Price");
+          ImGui::TableSetupColumn("Duration At Purchase (Days)");
+          ImGui::TableHeadersRow();
+          static char text_bufs[3 * 5][16]; // Mini text storage for 3x5 cells
+          static bool init = true;
+          for (int cell = 0; cell < 3 * 5; cell++) {
+            ImGui::TableNextColumn();
+            if (init)
+              strcpy(text_bufs[cell], "edit me");
+            ImGui::SetNextItemWidth(-FLT_MIN);
+            ImGui::PushID(cell);
+            ImGui::InputText("##cell", text_bufs[cell],
+                             IM_ARRAYSIZE(text_bufs[cell]));
+            ImGui::PopID();
+          }
+          init = false;
+          ImGui::EndTable();
+        }
 
-  static int y_axis = 0;
-  ImGui::Combo("Y Axis Variable", &y_axis, variables, IM_ARRAYSIZE(variables));
-  static double min_y = 0.0f, step_size_y = 0.0f;
-  static unsigned int steps_y = 0;
-  ImGui::InputScalar("Y Start", ImGuiDataType_Double, &min_y, NULL, NULL, NULL,
-                     flags);
-  ImGui::InputScalar("Y Step Size", ImGuiDataType_Double, &step_size_y, NULL,
-                     NULL, NULL, flags);
-  ImGui::InputScalar("Y Steps", ImGuiDataType_U32, &steps_y, NULL, NULL, NULL,
-                     flags);
+        if (ImGui::Button("Add New Contract"))
+          ;
 
-  static int z_axis = 0;
-  const char *pos_image_vars[] = {"Option Price", "Delta", "Gamma", "Theta",
-                                  "Vega"};
-  ImGui::Combo("Z Axis Variable", &z_axis, pos_image_vars,
-               IM_ARRAYSIZE(pos_image_vars));
+        ImGui::SeparatorText("Configuration of Variables");
+        static int x_axis = 0;
+        ImGui::Combo("X Axis Variable", &x_axis, variables,
+                     IM_ARRAYSIZE(variables));
+        static double min_x = 0.0f, step_size_x = 0.0f;
+        static unsigned int steps_x = 0;
+        ImGuiInputTextFlags flags = ImGuiInputTextFlags_None;
+        ImGui::InputScalar("X Start", ImGuiDataType_Double, &min_x, NULL, NULL,
+                           NULL, flags);
+        ImGui::InputScalar("X Step Size", ImGuiDataType_Double, &step_size_x,
+                           NULL, NULL, NULL, flags);
+        ImGui::InputScalar("X Steps", ImGuiDataType_U32, &steps_x, NULL, NULL,
+                           NULL, flags);
 
-  // The x_axis, y_axis spots will be unpopulated and ignored
-  static std::array<double, 6> arr;
-  for (int i = 0; i < 6; i++) {
-    if (i != x_axis && i != y_axis) {
-      ImGuiInputTextFlags flags = ImGuiInputTextFlags_None;
-      ImGui::InputScalar(variables[i], ImGuiDataType_Double, &arr[i], NULL,
-                         NULL, NULL, flags);
+        static int y_axis = 0;
+        ImGui::Combo("Y Axis Variable", &y_axis, variables,
+                     IM_ARRAYSIZE(variables));
+        static double min_y = 0.0f, step_size_y = 0.0f;
+        static unsigned int steps_y = 0;
+        ImGui::InputScalar("Y Start", ImGuiDataType_Double, &min_y, NULL, NULL,
+                           NULL, flags);
+        ImGui::InputScalar("Y Step Size", ImGuiDataType_Double, &step_size_y,
+                           NULL, NULL, NULL, flags);
+        ImGui::InputScalar("Y Steps", ImGuiDataType_U32, &steps_y, NULL, NULL,
+                           NULL, flags);
+
+        static int z_axis = 0;
+        const char *pos_image_vars[] = {"Option Price", "Delta", "Gamma",
+                                        "Theta", "Vega"};
+        ImGui::Combo("Z Axis Variable", &z_axis, pos_image_vars,
+                     IM_ARRAYSIZE(pos_image_vars));
+
+        // Connection to Backend
+
+        float x_default = 1.0f;
+        float y_default = 1.0f;
+        std::map<std::string, double> params;
+        for (int i = 0; i < 6; i++) {
+          params.insert(std::make_pair(std::string(variables[i]), arr[i]));
+        }
+
+        std::array<std::string, 2> to_vary{variables[x_axis],
+                                           variables[y_axis]};
+        typedef std::array<double, 2> Point2D;
+        Strategy::Strategy op(
+            std::string("Single-Contract"),
+            std::unordered_map<std::string, Models::OptionContract>{
+                {"Contract 1-1",
+                 Models::OptionContract(1, Models::PayoffType::Call, params,
+                                        to_vary)}},
+            to_vary,
+            std::dynamic_pointer_cast<Models::PricingPolicy>(
+                std::make_shared<Models::BlackScholes>()));
+        graph_panel_->SetModel(
+            std::make_shared<Data::Bounds2D>(Point2D{min_x, min_y}, steps_x,
+                                             steps_y, step_size_x, step_size_y),
+            op.GetFunction(pos_image_vars[z_axis]), z_scaling);
+        auto f = op.GetFunction(pos_image_vars[z_axis]);
+
+        if (ImGui::Button("Reload")) {
+          graph_panel_->ReloadModel();
+          graph_panel_->data_->ExportToOff("output_recalculated");
+          std::cerr << "f(100, 100)" << f(100.0f, 100.0f) << std::endl;
+          std::cerr << "f(150, 200)" << f(150.0f, 200.0f) << std::endl;
+        }
+
+        ImGui::SeparatorText("Strategy Statistics");
+        if (ImGui::BeginTable("Statistics", 2, ImGuiTableFlags_None)) {
+          ImGui::TableSetupColumn("Title");
+          ImGui::TableSetupColumn("Value");
+          static char text_bufs[2 * 5][16]; // Mini text storage for 3x5 cells
+          static bool init = true;
+          for (int cell = 0; cell < 2 * 5; cell++) {
+            ImGui::TableNextColumn();
+            if (init)
+              strcpy(text_bufs[cell], "edit me");
+            ImGui::SetNextItemWidth(-FLT_MIN);
+            ImGui::PushID(cell);
+            ImGui::InputText("##cell", text_bufs[cell],
+                             IM_ARRAYSIZE(text_bufs[cell]));
+            ImGui::PopID();
+          }
+          init = false;
+          ImGui::EndTable();
+        }
+
+        ImGui::EndTabItem();
+      }
+      if (ImGui::BeginTabItem("20250623 CRWD Calendar Spread")) {
+        ImGui::EndTabItem();
+      }
+      for (auto i : active_tabs) {
+        if (ImGui::BeginTabItem("New Strategy")) {
+          ImGui::EndTabItem();
+        }
+      }
+      ImGui::EndTabBar();
     }
+
+    ImGui::End();
   }
-  static double z_scaling = 0.0f;
-  ImGui::InputScalar("Z Scale Factor", ImGuiDataType_Double, &z_scaling, NULL,
-                     NULL, NULL, flags);
-
-  std::map<std::string, double> params{
-      std::make_pair(std::string(variables[x_axis]), -1),
-      std::make_pair(std::string(variables[y_axis]), -1)};
-  for (int i = 0; i < 6; i++) {
-    if (i != x_axis && i != y_axis)
-      params.insert(std::make_pair(std::string(variables[i]), arr[i]));
-  }
-
-  std::array<std::string, 2> to_vary{variables[x_axis], variables[y_axis]};
-
-  typedef std::array<double, 2> Point2D;
-  Models::BlackScholes bs(Models::PayoffType::Call, params, to_vary);
-  graph_panel_->SetModel(
-      std::make_shared<Data::Bounds2D>(Point2D{min_x, min_y}, steps_x, steps_y,
-                                       step_size_x, step_size_y),
-      bs.GetComputeFunction(pos_image_vars[z_axis]), z_scaling);
-  auto f = bs.GetComputeFunction(pos_image_vars[z_axis]);
-
-  if (ImGui::Button("Reload")) {
-    graph_panel_->ReloadModel();
-    graph_panel_->data_->ExportToOff("output_recalculated");
-    std::cerr << "f(100, 100)" << f(100.0f, 100.0f) << std::endl;
-    std::cerr << "f(150, 200)" << f(150.0f, 200.0f) << std::endl;
-  }
-
-  ImGui::End();
   ImGui::Render();
   ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
   ImGui::SetCurrentContext(prev_context_);

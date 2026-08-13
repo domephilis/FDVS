@@ -2,6 +2,10 @@
 
 - Data Generation -
 
+The overarching object structure is this:
+We will have a OptionContract class, a OptionStrategy class, and several PricingPolicy Classes.
+
+
 - Config Window -
 
 - Tabulardata Window -
@@ -11,34 +15,33 @@
 [x]  Create FBO and a Texture
 [x]  Link FBO to Texture
 [x]  Bind to FBO and Draw into the Buffer
-[]   Event Controller Class
-     []  Publisher / Subscriber Model
+[x]   Event Controller Class
+     [x]  Publisher / Subscriber Model
 [x]  Use Shader Programs to Draw Each Item on Scene
     [x]  Draw a Cube containing the entire viewing volume inside ImGui Window
     [x]  Create a projection matrix with Perspective Division that maps
         my coordinates (0,100 in xyz) to viewing frustrum from (-1, 1 in xyz)
-    []  Create a view matrix handling class with the following functions:
-        [] Store the following values:
-            [] Camera/Actor up vector
-            [] Camera/Actor location vector
-            [] Camera/Actor forward vector
-        [] Getter and Setter functions for vectors (Note that camera
+    [x]  Create a view matrix handling class with the following functions:
+        [x] Store the following values:
+            [x] Camera/Actor up vector
+            [x] Camera/Actor location vector
+            [x] Camera/Actor forward vector
+        [x] Getter and Setter functions for vectors (Note that camera
            transformations shall interface with the setter functions)
-        [] Keyboard input handler (Up Down Left Right for the up and forward
+        [x] Keyboard input handler (Up Down Left Right for the up and forward
            vectors and WASD for the location vector)
-        [] Push/Pop functions that store matrices at some intermediate point
-        [] Create a matrix that transforms everything into the camera/actor's 
+        [x] Push/Pop functions that store matrices at some intermediate point
+        [x] Create a matrix that transforms everything into the camera/actor's 
            frame of reference.  Ultimately the matrix is concatenated with the
            perspective matrix and any translation/rotation matrices (which now
            moves the camera about).
-    []  Create a camera and test the keyboard functionality 
-    []  Get rid of the cube and draw 3 axis in one VAO
-    []  Add in the output.off faces and vertices to another VAO
+    [x]  Create a camera and test the keyboard functionality 
+    [x]  Get rid of the cube and draw 3 axis in one VAO
+    [x]  Add in the output.off faces and vertices to another VAO
     []  Use a large GL_POINT to draw a cursor on the screen; use the home row
         hjkl keys to move the cursor on the surface (by supplying the func 
         to be plotted with new input values); show the value at the cursor on 
         a separate ImGui window
-    []  Use some tga images to texture over some rectangles to label the axes (optional)
     []  Refactor code 
         [x] Create a Setup function that sets up the window, the buffers, ...
         [x] Create functions that draw each of the above elements separately
@@ -56,10 +59,10 @@
                 The flags are: GPH_SURFACE, GPH_POINTCLOUD, GPH_WIREFRAME,
                 GPH_LINE...
             [] gphSetValf(), gphSetVali(), ...
-            [] gphDrawAxes(gphVec4 ptMin, gphVec4 ptMax);
+            [x] gphDrawAxes(gphVec4 ptMin, gphVec4 ptMax);
             [] gphDrawTicks(m_tick_density);
-            [] gphDrawGraph();
-            [] gphUpdateData(); - Call gphDrawGraph(); after
+            [x] gphDrawGraph();
+            [x] gphUpdateData(); - Call gphDrawGraph(); after
             [] private:
             []    p_DrawVbarGraph();
             []    p_DrawHbarGraph();

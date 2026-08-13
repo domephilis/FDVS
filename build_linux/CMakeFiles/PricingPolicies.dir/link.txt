@@ -1,0 +1,2 @@
+/usr/bin/ar qc libPricingPolicies.a CMakeFiles/PricingPolicies.dir/src/PricingPolicies.cpp.o
+/usr/bin/ranlib libPricingPolicies.a

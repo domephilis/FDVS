@@ -20,6 +20,7 @@
 #include "MatrixHandler.hpp"
 #include "Models.hpp"
 #include "ShaderHandler.hpp"
+#include "Strategy.hpp"
 
 #include "imgui.h"
 #include "imgui_impl_glfw.h"

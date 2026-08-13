@@ -78,6 +78,15 @@ struct Perimeter {
   }
 };
 
+struct Grid {
+	Grid(unsigned int y_n = 100, unsigned int x_n = 100);
+	void m_scale(const Data::Bounds2D& b);
+	void gengrid(unsigned int y_n = 100, unsigned int x_n = 100);
+	std::vector<float> m_vertices;
+	std::vector<unsigned int> m_faces;
+	unsigned int m_yn, m_xn;
+};
+
 // Store Data Retrieved from Off Files
 struct OffMeshData {
   OffMeshData(std::vector<float> in_vertices,

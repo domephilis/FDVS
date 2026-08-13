@@ -312,6 +312,19 @@ Models/fast:
 .PHONY : Models/fast
 
 #=============================================================================
+# Target rules for targets named Strategy
+
+# Build rule for target.
+Strategy: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 Strategy
+.PHONY : Strategy
+
+# fast build rule for target.
+Strategy/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Strategy.dir/build.make CMakeFiles/Strategy.dir/build
+.PHONY : Strategy/fast
+
+#=============================================================================
 # Target rules for targets named Panel
 
 # Build rule for target.
@@ -349,6 +362,19 @@ Application: cmake_check_build_system
 Application/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Application.dir/build.make CMakeFiles/Application.dir/build
 .PHONY : Application/fast
+
+#=============================================================================
+# Target rules for targets named PricingPolicies
+
+# Build rule for target.
+PricingPolicies: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 PricingPolicies
+.PHONY : PricingPolicies
+
+# fast build rule for target.
+PricingPolicies/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PricingPolicies.dir/build.make CMakeFiles/PricingPolicies.dir/build
+.PHONY : PricingPolicies/fast
 
 #=============================================================================
 # Target rules for targets named program.out
@@ -750,6 +776,30 @@ src/Panel.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Panel.dir/build.make CMakeFiles/Panel.dir/src/Panel.cpp.s
 .PHONY : src/Panel.cpp.s
 
+src/PricingPolicies.o: src/PricingPolicies.cpp.o
+.PHONY : src/PricingPolicies.o
+
+# target to build an object file
+src/PricingPolicies.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PricingPolicies.dir/build.make CMakeFiles/PricingPolicies.dir/src/PricingPolicies.cpp.o
+.PHONY : src/PricingPolicies.cpp.o
+
+src/PricingPolicies.i: src/PricingPolicies.cpp.i
+.PHONY : src/PricingPolicies.i
+
+# target to preprocess a source file
+src/PricingPolicies.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PricingPolicies.dir/build.make CMakeFiles/PricingPolicies.dir/src/PricingPolicies.cpp.i
+.PHONY : src/PricingPolicies.cpp.i
+
+src/PricingPolicies.s: src/PricingPolicies.cpp.s
+.PHONY : src/PricingPolicies.s
+
+# target to generate assembly for a file
+src/PricingPolicies.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PricingPolicies.dir/build.make CMakeFiles/PricingPolicies.dir/src/PricingPolicies.cpp.s
+.PHONY : src/PricingPolicies.cpp.s
+
 src/ShaderHandler.o: src/ShaderHandler.cpp.o
 .PHONY : src/ShaderHandler.o
 
@@ -773,6 +823,30 @@ src/ShaderHandler.s: src/ShaderHandler.cpp.s
 src/ShaderHandler.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ShaderHandler.dir/build.make CMakeFiles/ShaderHandler.dir/src/ShaderHandler.cpp.s
 .PHONY : src/ShaderHandler.cpp.s
+
+src/Strategy.o: src/Strategy.cpp.o
+.PHONY : src/Strategy.o
+
+# target to build an object file
+src/Strategy.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Strategy.dir/build.make CMakeFiles/Strategy.dir/src/Strategy.cpp.o
+.PHONY : src/Strategy.cpp.o
+
+src/Strategy.i: src/Strategy.cpp.i
+.PHONY : src/Strategy.i
+
+# target to preprocess a source file
+src/Strategy.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Strategy.dir/build.make CMakeFiles/Strategy.dir/src/Strategy.cpp.i
+.PHONY : src/Strategy.cpp.i
+
+src/Strategy.s: src/Strategy.cpp.s
+.PHONY : src/Strategy.s
+
+# target to generate assembly for a file
+src/Strategy.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Strategy.dir/build.make CMakeFiles/Strategy.dir/src/Strategy.cpp.s
+.PHONY : src/Strategy.cpp.s
 
 src/Themes.o: src/Themes.cpp.o
 .PHONY : src/Themes.o
@@ -838,7 +912,9 @@ help:
 	@echo "... MatrixHandler"
 	@echo "... Models"
 	@echo "... Panel"
+	@echo "... PricingPolicies"
 	@echo "... ShaderHandler"
+	@echo "... Strategy"
 	@echo "... Themes"
 	@echo "... glad"
 	@echo "... imgui"
@@ -897,9 +973,15 @@ help:
 	@echo "... src/Panel.o"
 	@echo "... src/Panel.i"
 	@echo "... src/Panel.s"
+	@echo "... src/PricingPolicies.o"
+	@echo "... src/PricingPolicies.i"
+	@echo "... src/PricingPolicies.s"
 	@echo "... src/ShaderHandler.o"
 	@echo "... src/ShaderHandler.i"
 	@echo "... src/ShaderHandler.s"
+	@echo "... src/Strategy.o"
+	@echo "... src/Strategy.i"
+	@echo "... src/Strategy.s"
 	@echo "... src/Themes.o"
 	@echo "... src/Themes.i"
 	@echo "... src/Themes.s"

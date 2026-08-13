@@ -4,6 +4,73 @@
 
 #include "Data.hpp"
 
+void Data::Grid::gengrid(unsigned int y_n, unsigned int x_n)
+{
+	// Runs in linear time with respect to the grid size
+	m_vertices.reserve(x_n * y_n);
+	for(unsigned int x = 0; x < x_n; x++)
+	{
+		for(unsigned int y = 0; y < y_n; y++)
+		{
+			m_vertices.push_back(x);
+			m_vertices.push_back(y);
+			m_vertices.push_back(0);
+		}
+	}
+
+	for(unsigned int i = 0; i < m_vertices.size(); i++)
+	{
+		if((i + 1) % x_n != 0 && i % x_n != 0)
+		{
+			// The two triangles above
+			m_faces.insert(m_faces.end(), {i, x_n + i, x_n + i - 1});
+			m_faces.insert(m_faces.end(), {i, i + 1, x_n + i});
+		} else if((i + 1) % x_n == 0)
+			m_faces.insert(m_faces.end(), {i, x_n + i, x_n + i - 1});
+		else
+			m_faces.insert(m_faces.end(), {i, i + 1, x_n + i});
+
+	}
+}
+
+Data::Grid::Grid(unsigned int y_n, unsigned int x_n) : m_yn(y_n), m_xn(x_n)
+{
+	gengrid(y_n, x_n);
+}
+
+/*
+ *
+ *  Point2D min;
+ *  unsigned int steps_x;
+ *  unsigned int steps_y;
+ *  double step_size_x;
+ *  double step_size_y;
+ */
+
+
+void Data::Grid::m_scale(const Data::Bounds2D& b)
+{
+	// Translate (0,0) to min 
+	for(int i = 0; i < m_vertices.size(); i++)
+	{
+		switch (i % 3)
+		{
+			case 0: m_vertices[i] *= b.step_size_x; m_vertices[i] += b.min[0]; break;
+			case 1: m_vertices[i] *= b.step_size_y; m_vertices[i] += b.min[1]; break;
+		}
+
+	}
+	
+	// Regenerate Grid if Needed
+	// Hopefully, this doesn't happen too often
+	if(b.steps_x != m_xn || b.steps_y != m_yn)
+	{
+		m_vertices = {};
+		m_faces = {};
+		gengrid(b.steps_x, b.steps_y);
+	}
+}
+
 Data::OffMeshData::OffMeshData(std::vector<float> in_vertices,
                                std::vector<unsigned int> in_faces)
     : vertices(in_vertices), faces(in_faces) {

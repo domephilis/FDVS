@@ -78,14 +78,17 @@ all: CMakeFiles/MatrixHandler.dir/all
 all: CMakeFiles/Buffers.dir/all
 all: CMakeFiles/Data.dir/all
 all: CMakeFiles/Models.dir/all
+all: CMakeFiles/Strategy.dir/all
 all: CMakeFiles/Panel.dir/all
 all: CMakeFiles/Graphics.dir/all
 all: CMakeFiles/Application.dir/all
+all: CMakeFiles/PricingPolicies.dir/all
 all: CMakeFiles/program.out.dir/all
+all: extern/nlohmann_json/all
 .PHONY : all
 
 # The main recursive "preinstall" target.
-preinstall:
+preinstall: extern/nlohmann_json/preinstall
 .PHONY : preinstall
 
 # The main recursive "clean" target.
@@ -104,11 +107,29 @@ clean: CMakeFiles/MatrixHandler.dir/clean
 clean: CMakeFiles/Buffers.dir/clean
 clean: CMakeFiles/Data.dir/clean
 clean: CMakeFiles/Models.dir/clean
+clean: CMakeFiles/Strategy.dir/clean
 clean: CMakeFiles/Panel.dir/clean
 clean: CMakeFiles/Graphics.dir/clean
 clean: CMakeFiles/Application.dir/clean
+clean: CMakeFiles/PricingPolicies.dir/clean
 clean: CMakeFiles/program.out.dir/clean
+clean: extern/nlohmann_json/clean
 .PHONY : clean
+
+#=============================================================================
+# Directory level rules for directory extern/nlohmann_json
+
+# Recursive "all" directory target.
+extern/nlohmann_json/all:
+.PHONY : extern/nlohmann_json/all
+
+# Recursive "preinstall" directory target.
+extern/nlohmann_json/preinstall:
+.PHONY : extern/nlohmann_json/preinstall
+
+# Recursive "clean" directory target.
+extern/nlohmann_json/clean:
+.PHONY : extern/nlohmann_json/clean
 
 #=============================================================================
 # Target rules for target CMakeFiles/glad.dir
@@ -117,7 +138,7 @@ clean: CMakeFiles/program.out.dir/clean
 CMakeFiles/glad.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/glad.dir/build.make CMakeFiles/glad.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/glad.dir/build.make CMakeFiles/glad.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/build_linux/CMakeFiles" --progress-num=22,23 "Built target glad"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/build_linux/CMakeFiles" --progress-num=26,27 "Built target glad"
 .PHONY : CMakeFiles/glad.dir/all
 
 # Build rule for subdir invocation for target.
@@ -143,7 +164,7 @@ CMakeFiles/glad.dir/clean:
 CMakeFiles/imgui.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/imgui.dir/build.make CMakeFiles/imgui.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/imgui.dir/build.make CMakeFiles/imgui.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/build_linux/CMakeFiles" --progress-num=24,25 "Built target imgui"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/build_linux/CMakeFiles" --progress-num=28,29 "Built target imgui"
 .PHONY : CMakeFiles/imgui.dir/all
 
 # Build rule for subdir invocation for target.
@@ -169,7 +190,7 @@ CMakeFiles/imgui.dir/clean:
 CMakeFiles/imgui_backend.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/imgui_backend.dir/build.make CMakeFiles/imgui_backend.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/imgui_backend.dir/build.make CMakeFiles/imgui_backend.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/build_linux/CMakeFiles" --progress-num=26,27 "Built target imgui_backend"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/build_linux/CMakeFiles" --progress-num=30,31 "Built target imgui_backend"
 .PHONY : CMakeFiles/imgui_backend.dir/all
 
 # Build rule for subdir invocation for target.
@@ -195,7 +216,7 @@ CMakeFiles/imgui_backend.dir/clean:
 CMakeFiles/imgui_renderer.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/imgui_renderer.dir/build.make CMakeFiles/imgui_renderer.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/imgui_renderer.dir/build.make CMakeFiles/imgui_renderer.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/build_linux/CMakeFiles" --progress-num=32,33 "Built target imgui_renderer"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/build_linux/CMakeFiles" --progress-num=36,37 "Built target imgui_renderer"
 .PHONY : CMakeFiles/imgui_renderer.dir/all
 
 # Build rule for subdir invocation for target.
@@ -221,7 +242,7 @@ CMakeFiles/imgui_renderer.dir/clean:
 CMakeFiles/imgui_demo.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/imgui_demo.dir/build.make CMakeFiles/imgui_demo.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/imgui_demo.dir/build.make CMakeFiles/imgui_demo.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/build_linux/CMakeFiles" --progress-num=28,29 "Built target imgui_demo"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/build_linux/CMakeFiles" --progress-num=32,33 "Built target imgui_demo"
 .PHONY : CMakeFiles/imgui_demo.dir/all
 
 # Build rule for subdir invocation for target.
@@ -247,7 +268,7 @@ CMakeFiles/imgui_demo.dir/clean:
 CMakeFiles/imgui_draw.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/imgui_draw.dir/build.make CMakeFiles/imgui_draw.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/imgui_draw.dir/build.make CMakeFiles/imgui_draw.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/build_linux/CMakeFiles" --progress-num=30,31 "Built target imgui_draw"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/build_linux/CMakeFiles" --progress-num=34,35 "Built target imgui_draw"
 .PHONY : CMakeFiles/imgui_draw.dir/all
 
 # Build rule for subdir invocation for target.
@@ -273,7 +294,7 @@ CMakeFiles/imgui_draw.dir/clean:
 CMakeFiles/imgui_tables.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/imgui_tables.dir/build.make CMakeFiles/imgui_tables.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/imgui_tables.dir/build.make CMakeFiles/imgui_tables.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/build_linux/CMakeFiles" --progress-num=34,35 "Built target imgui_tables"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/build_linux/CMakeFiles" --progress-num=38,39 "Built target imgui_tables"
 .PHONY : CMakeFiles/imgui_tables.dir/all
 
 # Build rule for subdir invocation for target.
@@ -299,7 +320,7 @@ CMakeFiles/imgui_tables.dir/clean:
 CMakeFiles/imgui_widgets.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/imgui_widgets.dir/build.make CMakeFiles/imgui_widgets.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/imgui_widgets.dir/build.make CMakeFiles/imgui_widgets.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/build_linux/CMakeFiles" --progress-num=36,37 "Built target imgui_widgets"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/build_linux/CMakeFiles" --progress-num=40,41 "Built target imgui_widgets"
 .PHONY : CMakeFiles/imgui_widgets.dir/all
 
 # Build rule for subdir invocation for target.
@@ -328,7 +349,7 @@ CMakeFiles/Themes.dir/all: CMakeFiles/imgui_tables.dir/all
 CMakeFiles/Themes.dir/all: CMakeFiles/imgui_widgets.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Themes.dir/build.make CMakeFiles/Themes.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Themes.dir/build.make CMakeFiles/Themes.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/build_linux/CMakeFiles" --progress-num=20,21 "Built target Themes"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/build_linux/CMakeFiles" --progress-num=24,25 "Built target Themes"
 .PHONY : CMakeFiles/Themes.dir/all
 
 # Build rule for subdir invocation for target.
@@ -354,7 +375,7 @@ CMakeFiles/Themes.dir/clean:
 CMakeFiles/ShaderHandler.dir/all: CMakeFiles/glad.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ShaderHandler.dir/build.make CMakeFiles/ShaderHandler.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ShaderHandler.dir/build.make CMakeFiles/ShaderHandler.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/build_linux/CMakeFiles" --progress-num=18,19 "Built target ShaderHandler"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/build_linux/CMakeFiles" --progress-num=20,21 "Built target ShaderHandler"
 .PHONY : CMakeFiles/ShaderHandler.dir/all
 
 # Build rule for subdir invocation for target.
@@ -403,8 +424,8 @@ CMakeFiles/Events.dir/clean:
 # Target rules for target CMakeFiles/MatrixHandler.dir
 
 # All Build rule for target.
-CMakeFiles/MatrixHandler.dir/all: CMakeFiles/imgui_backend.dir/all
 CMakeFiles/MatrixHandler.dir/all: CMakeFiles/glad.dir/all
+CMakeFiles/MatrixHandler.dir/all: CMakeFiles/imgui_backend.dir/all
 CMakeFiles/MatrixHandler.dir/all: CMakeFiles/ShaderHandler.dir/all
 CMakeFiles/MatrixHandler.dir/all: CMakeFiles/Events.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/MatrixHandler.dir/build.make CMakeFiles/MatrixHandler.dir/depend
@@ -508,14 +529,40 @@ CMakeFiles/Models.dir/clean:
 .PHONY : CMakeFiles/Models.dir/clean
 
 #=============================================================================
+# Target rules for target CMakeFiles/Strategy.dir
+
+# All Build rule for target.
+CMakeFiles/Strategy.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Strategy.dir/build.make CMakeFiles/Strategy.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Strategy.dir/build.make CMakeFiles/Strategy.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/build_linux/CMakeFiles" --progress-num=22,23 "Built target Strategy"
+.PHONY : CMakeFiles/Strategy.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/Strategy.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/build_linux/CMakeFiles" 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/Strategy.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/build_linux/CMakeFiles" 0
+.PHONY : CMakeFiles/Strategy.dir/rule
+
+# Convenience name for target.
+Strategy: CMakeFiles/Strategy.dir/rule
+.PHONY : Strategy
+
+# clean rule for target.
+CMakeFiles/Strategy.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Strategy.dir/build.make CMakeFiles/Strategy.dir/clean
+.PHONY : CMakeFiles/Strategy.dir/clean
+
+#=============================================================================
 # Target rules for target CMakeFiles/Panel.dir
 
 # All Build rule for target.
+CMakeFiles/Panel.dir/all: CMakeFiles/glad.dir/all
 CMakeFiles/Panel.dir/all: CMakeFiles/imgui.dir/all
 CMakeFiles/Panel.dir/all: CMakeFiles/imgui_backend.dir/all
 CMakeFiles/Panel.dir/all: CMakeFiles/imgui_renderer.dir/all
 CMakeFiles/Panel.dir/all: CMakeFiles/imgui_demo.dir/all
-CMakeFiles/Panel.dir/all: CMakeFiles/glad.dir/all
 CMakeFiles/Panel.dir/all: CMakeFiles/imgui_draw.dir/all
 CMakeFiles/Panel.dir/all: CMakeFiles/imgui_tables.dir/all
 CMakeFiles/Panel.dir/all: CMakeFiles/imgui_widgets.dir/all
@@ -526,7 +573,9 @@ CMakeFiles/Panel.dir/all: CMakeFiles/MatrixHandler.dir/all
 CMakeFiles/Panel.dir/all: CMakeFiles/Buffers.dir/all
 CMakeFiles/Panel.dir/all: CMakeFiles/Data.dir/all
 CMakeFiles/Panel.dir/all: CMakeFiles/Models.dir/all
+CMakeFiles/Panel.dir/all: CMakeFiles/Strategy.dir/all
 CMakeFiles/Panel.dir/all: CMakeFiles/Graphics.dir/all
+CMakeFiles/Panel.dir/all: CMakeFiles/PricingPolicies.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Panel.dir/build.make CMakeFiles/Panel.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Panel.dir/build.make CMakeFiles/Panel.dir/build
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/build_linux/CMakeFiles" --progress-num=16,17 "Built target Panel"
@@ -534,7 +583,7 @@ CMakeFiles/Panel.dir/all: CMakeFiles/Graphics.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/Panel.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/build_linux/CMakeFiles" 34
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/build_linux/CMakeFiles" 38
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/Panel.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start "/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/build_linux/CMakeFiles" 0
 .PHONY : CMakeFiles/Panel.dir/rule
@@ -552,8 +601,8 @@ CMakeFiles/Panel.dir/clean:
 # Target rules for target CMakeFiles/Graphics.dir
 
 # All Build rule for target.
-CMakeFiles/Graphics.dir/all: CMakeFiles/imgui_backend.dir/all
 CMakeFiles/Graphics.dir/all: CMakeFiles/glad.dir/all
+CMakeFiles/Graphics.dir/all: CMakeFiles/imgui_backend.dir/all
 CMakeFiles/Graphics.dir/all: CMakeFiles/ShaderHandler.dir/all
 CMakeFiles/Graphics.dir/all: CMakeFiles/Events.dir/all
 CMakeFiles/Graphics.dir/all: CMakeFiles/MatrixHandler.dir/all
@@ -584,11 +633,11 @@ CMakeFiles/Graphics.dir/clean:
 # Target rules for target CMakeFiles/Application.dir
 
 # All Build rule for target.
+CMakeFiles/Application.dir/all: CMakeFiles/glad.dir/all
 CMakeFiles/Application.dir/all: CMakeFiles/imgui.dir/all
 CMakeFiles/Application.dir/all: CMakeFiles/imgui_backend.dir/all
 CMakeFiles/Application.dir/all: CMakeFiles/imgui_renderer.dir/all
 CMakeFiles/Application.dir/all: CMakeFiles/imgui_demo.dir/all
-CMakeFiles/Application.dir/all: CMakeFiles/glad.dir/all
 CMakeFiles/Application.dir/all: CMakeFiles/imgui_draw.dir/all
 CMakeFiles/Application.dir/all: CMakeFiles/imgui_tables.dir/all
 CMakeFiles/Application.dir/all: CMakeFiles/imgui_widgets.dir/all
@@ -599,8 +648,10 @@ CMakeFiles/Application.dir/all: CMakeFiles/MatrixHandler.dir/all
 CMakeFiles/Application.dir/all: CMakeFiles/Buffers.dir/all
 CMakeFiles/Application.dir/all: CMakeFiles/Data.dir/all
 CMakeFiles/Application.dir/all: CMakeFiles/Models.dir/all
+CMakeFiles/Application.dir/all: CMakeFiles/Strategy.dir/all
 CMakeFiles/Application.dir/all: CMakeFiles/Panel.dir/all
 CMakeFiles/Application.dir/all: CMakeFiles/Graphics.dir/all
+CMakeFiles/Application.dir/all: CMakeFiles/PricingPolicies.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Application.dir/build.make CMakeFiles/Application.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Application.dir/build.make CMakeFiles/Application.dir/build
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/build_linux/CMakeFiles" --progress-num=1,2,3 "Built target Application"
@@ -608,7 +659,7 @@ CMakeFiles/Application.dir/all: CMakeFiles/Graphics.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/Application.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/build_linux/CMakeFiles" 37
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/build_linux/CMakeFiles" 41
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/Application.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start "/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/build_linux/CMakeFiles" 0
 .PHONY : CMakeFiles/Application.dir/rule
@@ -623,14 +674,40 @@ CMakeFiles/Application.dir/clean:
 .PHONY : CMakeFiles/Application.dir/clean
 
 #=============================================================================
+# Target rules for target CMakeFiles/PricingPolicies.dir
+
+# All Build rule for target.
+CMakeFiles/PricingPolicies.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PricingPolicies.dir/build.make CMakeFiles/PricingPolicies.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PricingPolicies.dir/build.make CMakeFiles/PricingPolicies.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/build_linux/CMakeFiles" --progress-num=18,19 "Built target PricingPolicies"
+.PHONY : CMakeFiles/PricingPolicies.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/PricingPolicies.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/build_linux/CMakeFiles" 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/PricingPolicies.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/build_linux/CMakeFiles" 0
+.PHONY : CMakeFiles/PricingPolicies.dir/rule
+
+# Convenience name for target.
+PricingPolicies: CMakeFiles/PricingPolicies.dir/rule
+.PHONY : PricingPolicies
+
+# clean rule for target.
+CMakeFiles/PricingPolicies.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PricingPolicies.dir/build.make CMakeFiles/PricingPolicies.dir/clean
+.PHONY : CMakeFiles/PricingPolicies.dir/clean
+
+#=============================================================================
 # Target rules for target CMakeFiles/program.out.dir
 
 # All Build rule for target.
+CMakeFiles/program.out.dir/all: CMakeFiles/glad.dir/all
 CMakeFiles/program.out.dir/all: CMakeFiles/imgui.dir/all
 CMakeFiles/program.out.dir/all: CMakeFiles/imgui_backend.dir/all
 CMakeFiles/program.out.dir/all: CMakeFiles/imgui_renderer.dir/all
 CMakeFiles/program.out.dir/all: CMakeFiles/imgui_demo.dir/all
-CMakeFiles/program.out.dir/all: CMakeFiles/glad.dir/all
 CMakeFiles/program.out.dir/all: CMakeFiles/imgui_draw.dir/all
 CMakeFiles/program.out.dir/all: CMakeFiles/imgui_tables.dir/all
 CMakeFiles/program.out.dir/all: CMakeFiles/imgui_widgets.dir/all
@@ -641,17 +718,19 @@ CMakeFiles/program.out.dir/all: CMakeFiles/MatrixHandler.dir/all
 CMakeFiles/program.out.dir/all: CMakeFiles/Buffers.dir/all
 CMakeFiles/program.out.dir/all: CMakeFiles/Data.dir/all
 CMakeFiles/program.out.dir/all: CMakeFiles/Models.dir/all
+CMakeFiles/program.out.dir/all: CMakeFiles/Strategy.dir/all
 CMakeFiles/program.out.dir/all: CMakeFiles/Panel.dir/all
 CMakeFiles/program.out.dir/all: CMakeFiles/Graphics.dir/all
 CMakeFiles/program.out.dir/all: CMakeFiles/Application.dir/all
+CMakeFiles/program.out.dir/all: CMakeFiles/PricingPolicies.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/program.out.dir/build.make CMakeFiles/program.out.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/program.out.dir/build.make CMakeFiles/program.out.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/build_linux/CMakeFiles" --progress-num=38,39 "Built target program.out"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/build_linux/CMakeFiles" --progress-num=42,43 "Built target program.out"
 .PHONY : CMakeFiles/program.out.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/program.out.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/build_linux/CMakeFiles" 39
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/build_linux/CMakeFiles" 43
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/program.out.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start "/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/build_linux/CMakeFiles" 0
 .PHONY : CMakeFiles/program.out.dir/rule

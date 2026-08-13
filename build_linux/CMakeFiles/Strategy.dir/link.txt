@@ -1,0 +1,2 @@
+/usr/bin/ar qc libStrategy.a CMakeFiles/Strategy.dir/src/Strategy.cpp.o
+/usr/bin/ranlib libStrategy.a

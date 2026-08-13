@@ -1,5 +1,18 @@
 #include "Models.hpp"
 
+void Models::to_json(json &j, const Models::OptionContract &op) {
+  j = json{{"Qty", static_cast<int>(op.qty_)},
+           {"Payoff Type", static_cast<int>(op.payoff_type_)}};
+  j.push_back({"params", json(op.params_)});
+  j.push_back({"to_vary", json(op.to_vary_)});
+}
+void Models::from_json(const json &j, Models::OptionContract &op) {
+  op.qty_ = j["Qty"];
+  op.payoff_type_ = j["Payoff Type"];
+  op.params_ = j["params"];
+  op.to_vary_ = j["to_vary"];
+}
+
 Models::ComputeFuncs Models::GetFuncID(const std::string &func_name) {
   try {
     return funcs.at(func_name);
@@ -8,154 +21,82 @@ Models::ComputeFuncs Models::GetFuncID(const std::string &func_name) {
   }
 }
 
-Models::OptionsPricer::OptionsPricer(PayoffType payoff_type,
-                                     std::map<std::string, double> params,
-                                     std::array<std::string, 2> to_vary)
-    : payoff_type_(payoff_type), params_(params), to_vary_(to_vary) {
+Models::OptionContract::OptionContract(int qty, PayoffType payoff_type,
+                                       std::map<std::string, double> params,
+                                       std::array<std::string, 2> to_vary)
+    : qty_(qty), payoff_type_(payoff_type), params_(params), to_vary_(to_vary) {
 
   // Later on I want to check preconditions, but I just need an MVP for now
   //
+  for (auto it = to_vary_.begin(); it < to_vary_.end(); it++)
+    defaults.insert(std::make_pair(*it, params_.at(*it)));
+}
+/*
+double Models::OptionContract::ModeledPL() {
+  return qty_ * (policy_->Price(this) - params_.at("Purchase Price"));
 }
 
-Models::BlackScholes::BlackScholes(PayoffType payoff_type,
-                                   std::map<std::string, double> params,
-                                   std::array<std::string, 2> to_vary)
-    : OptionsPricer(payoff_type, params, to_vary) {
-
-  norm_cdf = [](double x) -> double {
-    return (1.0 + std::erf(x / std::sqrt(2))) / 2.0f;
-  };
-  norm_pdf = [](double x) -> double {
-    return (std::exp(-std::pow(x, 2) / 2)) / std::sqrt(2 * std::numbers::pi);
-  };
-}
-
-float Models::BlackScholes::PricingFunction() {
-  double S, K, time_to_exp, sigma, rate, div;
-  S = params_["Spot Price"];
-  K = params_["Strike Price"];
-  time_to_exp = params_["Time To Expiry"];
-  sigma = params_["Implied Volatility"];
-  rate = params_["Risk Free Rate"];
-  div = params_["Dividend Rate"];
-
-  const int phi = static_cast<int>(payoff_type_);
-
-  if (time_to_exp > 0.0) {
-    double d1 = (std::log(S / K) +
-                 (rate - div + (std::pow(sigma, 2) / 2.0f)) * time_to_exp) /
-                (sigma * std::sqrt(time_to_exp));
-    double d2 = d1 - sigma * std::sqrt(time_to_exp);
-
-    double nd_1 = norm_cdf(phi * d1);
-    double nd_2 = norm_cdf(phi * d2);
-    double disc_fctr = std::exp(-rate * time_to_exp);
-    return static_cast<float>(phi * (S * std::exp(-div * time_to_exp)) * nd_1 -
-                              disc_fctr * K * nd_2);
-  } else {
-    return static_cast<float>(
-        std::max(phi * (K - S), static_cast<double>(0.0f)));
+std::function<float(double, double)>
+Models::OptionContract::GetFunction(std::string name) {
+  switch (GetFuncID(name)) {
+  case ComputeFuncs::Price:
+    return std::bind(&Models::OptionContract::ComputePrice, this,
+                     std::placeholders::_1, std::placeholders::_2);
+    break;
+  case ComputeFuncs::PL:
+    return std::bind(&Models::OptionContract::ComputeModeledPL, this,
+                     std::placeholders::_1, std::placeholders::_2);
+    break;
+  case ComputeFuncs::Delta:
+    return std::bind(&Models::OptionContract::ComputeDelta, this,
+                     std::placeholders::_1, std::placeholders::_2);
+    break;
+  case ComputeFuncs::Gamma:
+    return std::bind(&Models::OptionContract::ComputeGamma, this,
+                     std::placeholders::_1, std::placeholders::_2);
+    break;
+  case ComputeFuncs::Theta:
+    return std::bind(&Models::OptionContract::ComputeTheta, this,
+                     std::placeholders::_1, std::placeholders::_2);
+    break;
+  case ComputeFuncs::Vega:
+    return std::bind(&Models::OptionContract::ComputeVega, this,
+                     std::placeholders::_1, std::placeholders::_2);
+    break;
+  default:
+    std::cerr << "Did not pass in the right name." << std::endl;
+    return std::function<float(double, double)>();
+    break;
   }
 }
 
-float Models::BlackScholes::Delta() {
-  double S, K, time_to_exp, sigma, rate, div;
-  double delta = 0;
-  S = params_["Spot Price"];
-  K = params_["Strike Price"];
-  time_to_exp = params_["Time To Expiry"];
-  sigma = params_["Implied Volatility"];
-  rate = params_["Risk Free Rate"];
-  div = params_["Dividend Rate"];
-
-  const int phi = static_cast<int>(payoff_type_);
-
-  double d1 = (std::log(S / K) +
-               (rate - div + (std::pow(sigma, 2) / 2.0f)) * time_to_exp) /
-              (sigma * std::sqrt(time_to_exp));
-  double d2 = d1 - sigma * std::sqrt(time_to_exp);
-
-  // Note: There's an extra discount term if you want dividends;
-  // For now, I just want to replicate what worked before.
-
-  if (phi == 1)
-    delta = norm_cdf(d1);
-  else if (phi == -1)
-    delta = norm_cdf(d1) - 1;
-  return delta;
+float Models::OptionContract::ComputePrice(double x, double y) {
+  SetParam(to_vary_[0], x);
+  SetParam(to_vary_[1], y);
+  return policy_->Price(this);
 }
-
-float Models::BlackScholes::Gamma() {
-  double S, K, time_to_exp, sigma, rate, div;
-  double gamma = 0;
-  S = params_["Spot Price"];
-  K = params_["Strike Price"];
-  time_to_exp = params_["Time To Expiry"];
-  sigma = params_["Implied Volatility"];
-  rate = params_["Risk Free Rate"];
-  div = params_["Dividend Rate"];
-
-  double d1 = (std::log(S / K) +
-               (rate - div + (std::pow(sigma, 2) / 2.0f)) * time_to_exp) /
-              (sigma * std::sqrt(time_to_exp));
-  double d2 = d1 - sigma * std::sqrt(time_to_exp);
-
-  // Note: Gamma is the same regardless of put/call
-  gamma = norm_pdf(d1) / (S * sigma * std::sqrt(time_to_exp));
-  return gamma;
+float Models::OptionContract::ComputeModeledPL(double x, double y) {
+  SetParam(to_vary_[0], x);
+  SetParam(to_vary_[1], y);
+  return ModeledPL();
 }
-
-float Models::BlackScholes::Theta() {
-  double S, K, time_to_exp, sigma, rate, div;
-  double theta = 0;
-  S = params_["Spot Price"];
-  K = params_["Strike Price"];
-  time_to_exp = params_["Time To Expiry"];
-  sigma = params_["Implied Volatility"];
-  rate = params_["Risk Free Rate"];
-  div = params_["Dividend Rate"];
-
-  const int phi = static_cast<int>(payoff_type_);
-  // Could be calendar days or trading days (in which case 252)
-  const double days_per_year = 365.0f;
-
-  double d1 = (std::log(S / K) +
-               (rate - div + (std::pow(sigma, 2) / 2.0f)) * time_to_exp) /
-              (sigma * std::sqrt(time_to_exp));
-  double d2 = d1 - sigma * std::sqrt(time_to_exp);
-
-  if (phi == 1)
-    theta = ((-(S * norm_pdf(d1) * sigma) / (2 * std::sqrt(time_to_exp))) -
-             ((rate * K * std::exp(-rate * time_to_exp)) * norm_cdf(d2)) +
-             (div * S * std::exp(-div * time_to_exp) * norm_cdf(d1))) /
-            days_per_year;
-  else if (phi == -1)
-    theta = ((-(S * norm_pdf(d1) * sigma) / (2 * std::sqrt(time_to_exp))) +
-             ((rate * K * std::exp(-rate * time_to_exp)) * norm_cdf(-d2)) -
-             (div * S * std::exp(-div * time_to_exp) * norm_cdf(-d1))) /
-            days_per_year;
-  return theta;
+float Models::OptionContract::ComputeDelta(double x, double y) {
+  SetParam(to_vary_[0], x);
+  SetParam(to_vary_[1], y);
+  return policy_->Delta(this);
 }
-
-float Models::BlackScholes::Vega() {
-  double S, K, time_to_exp, sigma, rate, div;
-  double vega = 0;
-  S = params_["Spot Price"];
-  K = params_["Strike Price"];
-  time_to_exp = params_["Time To Expiry"];
-  sigma = params_["Implied Volatility"];
-  rate = params_["Risk Free Rate"];
-  div = params_["Dividend Rate"];
-
-  double d1 = (std::log(S / K) +
-               (rate - div + (std::pow(sigma, 2) / 2.0f)) * time_to_exp) /
-              (sigma * std::sqrt(time_to_exp));
-  double d2 = d1 - sigma * std::sqrt(time_to_exp);
-
-  // Same for puts and calls
-  // Divide by 100 to get change in V / 1 percentage point change in Volatility
-
-  vega =
-      S * std::exp(-div * time_to_exp) * std::sqrt(time_to_exp) * norm_pdf(d1);
-  return (vega / 100);
+float Models::OptionContract::ComputeGamma(double x, double y) {
+  SetParam(to_vary_[0], x);
+  SetParam(to_vary_[1], y);
+  return policy_->Gamma(this);
 }
+float Models::OptionContract::ComputeTheta(double x, double y) {
+  SetParam(to_vary_[0], x);
+  SetParam(to_vary_[1], y);
+  return policy_->Theta(this);
+}
+float Models::OptionContract::ComputeVega(double x, double y) {
+  SetParam(to_vary_[0], x);
+  SetParam(to_vary_[1], y);
+  return policy_->Vega(this);
+} */

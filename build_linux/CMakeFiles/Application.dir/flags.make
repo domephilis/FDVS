@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = -DCMAKE_CURRENT_SOURCE_DIR="/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github"
 
-CXX_INCLUDES = -I"/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/extern/imgui"
+CXX_INCLUDES = -I"/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/extern/imgui" -I"/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/extern/nlohmann_json/include"
 
-CXX_FLAGS =  -std=c++20 -O3 -DNDEBUG
+CXX_FLAGS =  -std=c++20 -g
 

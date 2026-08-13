@@ -1,0 +1,720 @@
+diff --git a/src/Graphics.cpp b/src/Graphics.cpp
+index e67e7d3..f3dc224 100644
+--- a/src/Graphics.cpp
++++ b/src/Graphics.cpp
+@@ -30,17 +30,6 @@ void Graphics::Box::drawToBuffer(GLsizei s_x, GLsizei s_y) {
+   glClear(GL_COLOR_BUFFER_BIT);
+   glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+ 
+-  // Set up projection matrix
+-  /*
+-  ProjectionMatrices perspective = ProjectionMatrices(
+-      glm::translate(glm::mat4(1.0f), glm::vec3(-100.0f, 20.0f, 0.0f)),
+-      glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -10.0f)),
+-      glm::perspective(glm::radians(45.0f), 1.0f, 0.1f, 100.0f));
+-  /*
+-  ProjectionMatrices perspective =
+-      ProjectionMatrices(glm::mat4(1.0f), glm::mat4(1.0f), glm::mat4(1.0f));*/
+-  // perspective.pushToShader(*element_shader_);
+-
+   // Draw what is in the buffer
+   vao_->Bind();
+   vao_->BindEBO();
+diff --git a/src/Models.cpp b/src/Models.cpp
+index 5a48a68..8d73fc1 100644
+--- a/src/Models.cpp
++++ b/src/Models.cpp
+@@ -1,5 +1,18 @@
+ #include "Models.hpp"
+ 
++void Models::to_json(json &j, const Models::OptionContract &op) {
++  j = json{{"Qty", static_cast<int>(op.qty_)},
++           {"Payoff Type", static_cast<int>(op.payoff_type_)}};
++  j.push_back({"params", json(op.params_)});
++  j.push_back({"to_vary", json(op.to_vary_)});
++}
++void Models::from_json(const json &j, Models::OptionContract &op) {
++  op.qty_ = j["Qty"];
++  op.payoff_type_ = j["Payoff Type"];
++  op.params_ = j["params"];
++  op.to_vary_ = j["to_vary"];
++}
++
+ Models::ComputeFuncs Models::GetFuncID(const std::string &func_name) {
+   try {
+     return funcs.at(func_name);
+@@ -8,154 +21,82 @@ Models::ComputeFuncs Models::GetFuncID(const std::string &func_name) {
+   }
+ }
+ 
+-Models::OptionsPricer::OptionsPricer(PayoffType payoff_type,
+-                                     std::map<std::string, double> params,
+-                                     std::array<std::string, 2> to_vary)
+-    : payoff_type_(payoff_type), params_(params), to_vary_(to_vary) {
++Models::OptionContract::OptionContract(int qty, PayoffType payoff_type,
++                                       std::map<std::string, double> params,
++                                       std::array<std::string, 2> to_vary)
++    : qty_(qty), payoff_type_(payoff_type), params_(params), to_vary_(to_vary) {
+ 
+   // Later on I want to check preconditions, but I just need an MVP for now
+   //
++  for (auto it = to_vary_.begin(); it < to_vary_.end(); it++)
++    defaults.insert(std::make_pair(*it, params_.at(*it)));
+ }
+-
+-Models::BlackScholes::BlackScholes(PayoffType payoff_type,
+-                                   std::map<std::string, double> params,
+-                                   std::array<std::string, 2> to_vary)
+-    : OptionsPricer(payoff_type, params, to_vary) {
+-
+-  norm_cdf = [](double x) -> double {
+-    return (1.0 + std::erf(x / std::sqrt(2))) / 2.0f;
+-  };
+-  norm_pdf = [](double x) -> double {
+-    return (std::exp(-std::pow(x, 2) / 2)) / std::sqrt(2 * std::numbers::pi);
+-  };
++/*
++double Models::OptionContract::ModeledPL() {
++  return qty_ * (policy_->Price(this) - params_.at("Purchase Price"));
+ }
+ 
+-float Models::BlackScholes::PricingFunction() {
+-  double S, K, time_to_exp, sigma, rate, div;
+-  S = params_["Spot Price"];
+-  K = params_["Strike Price"];
+-  time_to_exp = params_["Time To Expiry"];
+-  sigma = params_["Implied Volatility"];
+-  rate = params_["Risk Free Rate"];
+-  div = params_["Dividend Rate"];
+-
+-  const int phi = static_cast<int>(payoff_type_);
+-
+-  if (time_to_exp > 0.0) {
+-    double d1 = (std::log(S / K) +
+-                 (rate - div + (std::pow(sigma, 2) / 2.0f)) * time_to_exp) /
+-                (sigma * std::sqrt(time_to_exp));
+-    double d2 = d1 - sigma * std::sqrt(time_to_exp);
+-
+-    double nd_1 = norm_cdf(phi * d1);
+-    double nd_2 = norm_cdf(phi * d2);
+-    double disc_fctr = std::exp(-rate * time_to_exp);
+-    return static_cast<float>(phi * (S * std::exp(-div * time_to_exp)) * nd_1 -
+-                              disc_fctr * K * nd_2);
+-  } else {
+-    return static_cast<float>(
+-        std::max(phi * (K - S), static_cast<double>(0.0f)));
++std::function<float(double, double)>
++Models::OptionContract::GetFunction(std::string name) {
++  switch (GetFuncID(name)) {
++  case ComputeFuncs::Price:
++    return std::bind(&Models::OptionContract::ComputePrice, this,
++                     std::placeholders::_1, std::placeholders::_2);
++    break;
++  case ComputeFuncs::PL:
++    return std::bind(&Models::OptionContract::ComputeModeledPL, this,
++                     std::placeholders::_1, std::placeholders::_2);
++    break;
++  case ComputeFuncs::Delta:
++    return std::bind(&Models::OptionContract::ComputeDelta, this,
++                     std::placeholders::_1, std::placeholders::_2);
++    break;
++  case ComputeFuncs::Gamma:
++    return std::bind(&Models::OptionContract::ComputeGamma, this,
++                     std::placeholders::_1, std::placeholders::_2);
++    break;
++  case ComputeFuncs::Theta:
++    return std::bind(&Models::OptionContract::ComputeTheta, this,
++                     std::placeholders::_1, std::placeholders::_2);
++    break;
++  case ComputeFuncs::Vega:
++    return std::bind(&Models::OptionContract::ComputeVega, this,
++                     std::placeholders::_1, std::placeholders::_2);
++    break;
++  default:
++    std::cerr << "Did not pass in the right name." << std::endl;
++    return std::function<float(double, double)>();
++    break;
+   }
+ }
+ 
+-float Models::BlackScholes::Delta() {
+-  double S, K, time_to_exp, sigma, rate, div;
+-  double delta = 0;
+-  S = params_["Spot Price"];
+-  K = params_["Strike Price"];
+-  time_to_exp = params_["Time To Expiry"];
+-  sigma = params_["Implied Volatility"];
+-  rate = params_["Risk Free Rate"];
+-  div = params_["Dividend Rate"];
+-
+-  const int phi = static_cast<int>(payoff_type_);
+-
+-  double d1 = (std::log(S / K) +
+-               (rate - div + (std::pow(sigma, 2) / 2.0f)) * time_to_exp) /
+-              (sigma * std::sqrt(time_to_exp));
+-  double d2 = d1 - sigma * std::sqrt(time_to_exp);
+-
+-  // Note: There's an extra discount term if you want dividends;
+-  // For now, I just want to replicate what worked before.
+-
+-  if (phi == 1)
+-    delta = norm_cdf(d1);
+-  else if (phi == -1)
+-    delta = norm_cdf(d1) - 1;
+-  return delta;
++float Models::OptionContract::ComputePrice(double x, double y) {
++  SetParam(to_vary_[0], x);
++  SetParam(to_vary_[1], y);
++  return policy_->Price(this);
+ }
+-
+-float Models::BlackScholes::Gamma() {
+-  double S, K, time_to_exp, sigma, rate, div;
+-  double gamma = 0;
+-  S = params_["Spot Price"];
+-  K = params_["Strike Price"];
+-  time_to_exp = params_["Time To Expiry"];
+-  sigma = params_["Implied Volatility"];
+-  rate = params_["Risk Free Rate"];
+-  div = params_["Dividend Rate"];
+-
+-  double d1 = (std::log(S / K) +
+-               (rate - div + (std::pow(sigma, 2) / 2.0f)) * time_to_exp) /
+-              (sigma * std::sqrt(time_to_exp));
+-  double d2 = d1 - sigma * std::sqrt(time_to_exp);
+-
+-  // Note: Gamma is the same regardless of put/call
+-  gamma = norm_pdf(d1) / (S * sigma * std::sqrt(time_to_exp));
+-  return gamma;
++float Models::OptionContract::ComputeModeledPL(double x, double y) {
++  SetParam(to_vary_[0], x);
++  SetParam(to_vary_[1], y);
++  return ModeledPL();
+ }
+-
+-float Models::BlackScholes::Theta() {
+-  double S, K, time_to_exp, sigma, rate, div;
+-  double theta = 0;
+-  S = params_["Spot Price"];
+-  K = params_["Strike Price"];
+-  time_to_exp = params_["Time To Expiry"];
+-  sigma = params_["Implied Volatility"];
+-  rate = params_["Risk Free Rate"];
+-  div = params_["Dividend Rate"];
+-
+-  const int phi = static_cast<int>(payoff_type_);
+-  // Could be calendar days or trading days (in which case 252)
+-  const double days_per_year = 365.0f;
+-
+-  double d1 = (std::log(S / K) +
+-               (rate - div + (std::pow(sigma, 2) / 2.0f)) * time_to_exp) /
+-              (sigma * std::sqrt(time_to_exp));
+-  double d2 = d1 - sigma * std::sqrt(time_to_exp);
+-
+-  if (phi == 1)
+-    theta = ((-(S * norm_pdf(d1) * sigma) / (2 * std::sqrt(time_to_exp))) -
+-             ((rate * K * std::exp(-rate * time_to_exp)) * norm_cdf(d2)) +
+-             (div * S * std::exp(-div * time_to_exp) * norm_cdf(d1))) /
+-            days_per_year;
+-  else if (phi == -1)
+-    theta = ((-(S * norm_pdf(d1) * sigma) / (2 * std::sqrt(time_to_exp))) +
+-             ((rate * K * std::exp(-rate * time_to_exp)) * norm_cdf(-d2)) -
+-             (div * S * std::exp(-div * time_to_exp) * norm_cdf(-d1))) /
+-            days_per_year;
+-  return theta;
++float Models::OptionContract::ComputeDelta(double x, double y) {
++  SetParam(to_vary_[0], x);
++  SetParam(to_vary_[1], y);
++  return policy_->Delta(this);
+ }
+-
+-float Models::BlackScholes::Vega() {
+-  double S, K, time_to_exp, sigma, rate, div;
+-  double vega = 0;
+-  S = params_["Spot Price"];
+-  K = params_["Strike Price"];
+-  time_to_exp = params_["Time To Expiry"];
+-  sigma = params_["Implied Volatility"];
+-  rate = params_["Risk Free Rate"];
+-  div = params_["Dividend Rate"];
+-
+-  double d1 = (std::log(S / K) +
+-               (rate - div + (std::pow(sigma, 2) / 2.0f)) * time_to_exp) /
+-              (sigma * std::sqrt(time_to_exp));
+-  double d2 = d1 - sigma * std::sqrt(time_to_exp);
+-
+-  // Same for puts and calls
+-  // Divide by 100 to get change in V / 1 percentage point change in Volatility
+-
+-  vega =
+-      S * std::exp(-div * time_to_exp) * std::sqrt(time_to_exp) * norm_pdf(d1);
+-  return (vega / 100);
++float Models::OptionContract::ComputeGamma(double x, double y) {
++  SetParam(to_vary_[0], x);
++  SetParam(to_vary_[1], y);
++  return policy_->Gamma(this);
++}
++float Models::OptionContract::ComputeTheta(double x, double y) {
++  SetParam(to_vary_[0], x);
++  SetParam(to_vary_[1], y);
++  return policy_->Theta(this);
+ }
++float Models::OptionContract::ComputeVega(double x, double y) {
++  SetParam(to_vary_[0], x);
++  SetParam(to_vary_[1], y);
++  return policy_->Vega(this);
++} */
+diff --git a/src/Models.hpp b/src/Models.hpp
+index 931da8e..acc8fa4 100644
+--- a/src/Models.hpp
++++ b/src/Models.hpp
+@@ -5,117 +5,86 @@
+ #include <functional>
+ #include <iostream>
+ #include <map>
++#include <nlohmann/json.hpp>
+ #include <numbers>
+ #include <string>
+ #include <unordered_map>
+ 
++using json = nlohmann::json;
++
+ namespace Models {
+ 
+ enum class PayoffType { Call = 1, Put = -1 };
+-enum class ComputeFuncs { Price, Delta, Gamma, Theta, Vega, None };
++enum class ComputeFuncs { Price, PL, Delta, Gamma, Theta, Vega, None };
+ const std::unordered_map<std::string, ComputeFuncs> funcs{
+-    {"Option Price", ComputeFuncs::Price},
+-    {"Delta", ComputeFuncs::Delta},
+-    {"Gamma", ComputeFuncs::Gamma},
+-    {"Theta", ComputeFuncs::Theta},
+-    {"Vega", ComputeFuncs::Vega}};
++
++    {"Option Price", ComputeFuncs::Price}, {"PL", ComputeFuncs::PL},
++    {"Delta", ComputeFuncs::Delta},        {"Gamma", ComputeFuncs::Gamma},
++    {"Theta", ComputeFuncs::Theta},        {"Vega", ComputeFuncs::Vega}};
+ 
+ ComputeFuncs GetFuncID(const std::string &func_name);
+ 
+-class OptionsPricer {
++class R2RFuncsGenerator {
+ public:
+-  // Preconditions:
+-  // 1. params must contain everything even if it is unknown
+-  // 2. There may be at most 2 values that one may vary initialized to -1
+-  // 3. Any string in to_vary must be one of the keys
+-  OptionsPricer(PayoffType payoff_type, std::map<std::string, double> params,
+-                std::array<std::string, 2> to_vary);
+-  void SetParam(std::string name, float val) { params_.at(name) = val; }
+-  void SetParam(PayoffType payoff_type) { payoff_type_ = payoff_type; }
+-  float ComputePrice(double x, double y) {
+-    SetParam(to_vary_[0], x);
+-    SetParam(to_vary_[1], y);
+-    return PricingFunction();
+-  }
+-  float ComputeDelta(double x, double y) {
+-    SetParam(to_vary_[0], x);
+-    SetParam(to_vary_[1], y);
+-    return Delta();
+-  }
+-  float ComputeGamma(double x, double y) {
+-    SetParam(to_vary_[0], x);
+-    SetParam(to_vary_[1], y);
+-    return Gamma();
++  R2RFuncsGenerator() = default;
++  std::function<float(double, double)> GetFunction(std::string name);
++};
++
++struct OptionContract {
++
++  // Constructors
++  OptionContract() = default;
++  OptionContract(int qty, PayoffType payoff_type,
++                 std::map<std::string, double> params,
++                 std::array<std::string, 2> to_vary);
++  //            std::shared_ptr<PricingPolicy> policy);
++  /*
++  // Implementation of R2RFuncsGenerator Interface
++  std::function<float(double, double)> GetFunction(std::string name);
++
++  // Computations
++  void SetPricingPolicy(std::shared_ptr<PricingPolicy> policy) {
++    policy_ = policy;
+   }
+-  float ComputeTheta(double x, double y) {
+-    SetParam(to_vary_[0], x);
+-    SetParam(to_vary_[1], y);
+-    return Theta();
++  float ComputePrice(double x, double y);
++  float ComputeModeledPL(double x, double y);
++  float ComputeDelta(double x, double y);
++  float ComputeGamma(double x, double y);
++  float ComputeTheta(double x, double y);
++  float ComputeVega(double x, double y);
++  */
++  double PL(double current_price) {
++    current_price_ = current_price;
++    return qty_ * (current_price - params_.at("Purchase Price"));
+   }
+-  float ComputeVega(double x, double y) {
+-    SetParam(to_vary_[0], x);
+-    SetParam(to_vary_[1], y);
+-    return Vega();
++  double PL() { return qty_ * (current_price_ - params_.at("Purchase Price")); }
++  double ModeledPL();
++
++  // Set Parameters
++  void SetParam(std::string name, double val) { params_.at(name) = val; }
++  void SetParam(PayoffType payoff_type) { payoff_type_ = payoff_type; }
++  void SetParam(int qty) { qty_ = qty; }
++  void SetDefaults() {
++    for (auto &[key, value] : defaults)
++      SetParam(key, value);
+   }
+-  virtual std::function<float(double, double)>
+-  GetComputeFunction(std::string to_compute_) = 0;
+-  virtual float PricingFunction() = 0;
+-  virtual float Delta() = 0;
+-  virtual float Gamma() = 0;
+-  virtual float Theta() = 0;
+-  virtual float Vega() = 0;
+-  virtual ~OptionsPricer() {}
+ 
+-protected:
++  ~OptionContract() {}
++
+   PayoffType payoff_type_;
++  int qty_;
++  double current_price_ = 0.0f;
+   std::map<std::string, double> params_;
+   std::array<std::string, 2> to_vary_;
+-};
+ 
+-class BlackScholes : public OptionsPricer {
+-public:
+-  BlackScholes(PayoffType payoff_type, std::map<std::string, double> params,
+-               std::array<std::string, 2> to_vary);
+-  std::function<float(double, double)>
+-  GetComputeFunction(std::string name) override {
+-    switch (GetFuncID(name)) {
+-    case ComputeFuncs::Price:
+-      return std::bind(&BlackScholes::ComputePrice, this, std::placeholders::_1,
+-                       std::placeholders::_2);
+-      break;
+-    case ComputeFuncs::Delta:
+-      return std::bind(&BlackScholes::ComputeDelta, this, std::placeholders::_1,
+-                       std::placeholders::_2);
+-      break;
+-    case ComputeFuncs::Gamma:
+-      return std::bind(&BlackScholes::ComputeGamma, this, std::placeholders::_1,
+-                       std::placeholders::_2);
+-      break;
+-    case ComputeFuncs::Theta:
+-      return std::bind(&BlackScholes::ComputeTheta, this, std::placeholders::_1,
+-                       std::placeholders::_2);
+-      break;
+-    case ComputeFuncs::Vega:
+-      return std::bind(&BlackScholes::ComputeVega, this, std::placeholders::_1,
+-                       std::placeholders::_2);
+-      break;
+-    default:
+-      std::cerr << "Did not pass in the right name." << std::endl;
+-      return std::function<float(double, double)>();
+-      break;
+-    }
+-  }
+-  float PricingFunction() override;
+-  float Delta() override;
+-  float Gamma() override;
+-  float Theta() override;
+-  float Vega() override;
+-
+-private:
+-  std::function<double(double)> norm_cdf;
+-  std::function<double(double)> norm_pdf;
++protected:
++  // std::shared_ptr<PricingPolicy> policy_;
++  std::unordered_map<std::string, double> defaults;
+ };
+ 
++void to_json(json &j, const OptionContract &op);
++void from_json(const json &j, OptionContract &op);
++
+ } // namespace Models
+ 
+ #endif // !FDVS_SRC_MODELS_HPP
+diff --git a/src/Panel.cpp b/src/Panel.cpp
+index 982c37a..6546c96 100644
+--- a/src/Panel.cpp
++++ b/src/Panel.cpp
+@@ -17,8 +17,6 @@ Windowing::GraphPanel::GraphPanel(GLFWwindow *window,
+     ImGui_ImplGlfw_InitForOpenGL(this->window, false);
+     ImGui_ImplOpenGL3_Init("#version 330 core");
+     Themes::SetMoonlightStyle();
+-    // ImGuiIO io = ImGui::GetIO();
+-    // io.ConfigWindowsMoveFromTitleBarOnly = true;
+     ImGui::SetCurrentContext(g);
+   }
+ 
+@@ -188,84 +186,173 @@ void Windowing::ConfigPanel::Render() {
+   ImGui_ImplOpenGL3_NewFrame();
+   ImGui_ImplGlfw_NewFrame();
+   ImGui::NewFrame();
+-
+-  ImGui::Begin("Configuration Panel");
+-  ImGui::SeparatorText("Graph Configuration");
+-  const char *models[] = {"Black Scholes", "Binomial", "Monte Carlo"};
+-  static int model = 0;
+-  ImGui::Combo("Model", &model, models, IM_ARRAYSIZE(models));
+-  const char *variables[] = {"Spot Price",     "Strike Price",
+-                             "Time To Expiry", "Implied Volatility",
+-                             "Risk Free Rate", "Dividend Rate"};
+-
+-  static int x_axis = 0;
+-  ImGui::Combo("X Axis Variable", &x_axis, variables, IM_ARRAYSIZE(variables));
+-  static double min_x = 0.0f, step_size_x = 0.0f;
+-  static unsigned int steps_x = 0;
+-  ImGuiInputTextFlags flags = ImGuiInputTextFlags_None;
+-  ImGui::InputScalar("X Start", ImGuiDataType_Double, &min_x, NULL, NULL, NULL,
+-                     flags);
+-  ImGui::InputScalar("X Step Size", ImGuiDataType_Double, &step_size_x, NULL,
+-                     NULL, NULL, flags);
+-  ImGui::InputScalar("X Steps", ImGuiDataType_U32, &steps_x, NULL, NULL, NULL,
+-                     flags);
+-
+-  static int y_axis = 0;
+-  ImGui::Combo("Y Axis Variable", &y_axis, variables, IM_ARRAYSIZE(variables));
+-  static double min_y = 0.0f, step_size_y = 0.0f;
+-  static unsigned int steps_y = 0;
+-  ImGui::InputScalar("Y Start", ImGuiDataType_Double, &min_y, NULL, NULL, NULL,
+-                     flags);
+-  ImGui::InputScalar("Y Step Size", ImGuiDataType_Double, &step_size_y, NULL,
+-                     NULL, NULL, flags);
+-  ImGui::InputScalar("Y Steps", ImGuiDataType_U32, &steps_y, NULL, NULL, NULL,
+-                     flags);
+-
+-  static int z_axis = 0;
+-  const char *pos_image_vars[] = {"Option Price", "Delta", "Gamma", "Theta",
+-                                  "Vega"};
+-  ImGui::Combo("Z Axis Variable", &z_axis, pos_image_vars,
+-               IM_ARRAYSIZE(pos_image_vars));
+-
+-  // The x_axis, y_axis spots will be unpopulated and ignored
+-  static std::array<double, 6> arr;
+-  for (int i = 0; i < 6; i++) {
+-    if (i != x_axis && i != y_axis) {
+-      ImGuiInputTextFlags flags = ImGuiInputTextFlags_None;
+-      ImGui::InputScalar(variables[i], ImGuiDataType_Double, &arr[i], NULL,
+-                         NULL, NULL, flags);
++  static ImGuiTabBarFlags tab_bar_flags = ImGuiTabBarFlags_TabListPopupButton;
++  static std::vector<int> active_tabs;
++  static int next_tab_id = 0;
++  if (ImGui::Begin("Strategies")) {
++    if (ImGui::BeginTabBar("##Tabs", tab_bar_flags)) {
++
++      if (ImGui::TabItemButton("+", ImGuiTabItemFlags_Trailing |
++                                        ImGuiTabItemFlags_NoTooltip))
++        active_tabs.push_back(next_tab_id++); // Add new tab
++      if (ImGui::BeginTabItem("20250627 IBM Iron Condor")) {
++        // ImGui::Begin("Configuration Panel");
++        ImGui::SeparatorText("File Operations");
++        // Textbox that takes a string for the file directory
++        static char filename[50];
++        ImGui::InputText("Strategy Filename", filename, IM_ARRAYSIZE(filename));
++        if (ImGui::Button("Load From File"))
++          ;
++        if (ImGui::Button("Save To File"))
++          ;
++        // Save Button
++        // The x_axis, y_axis spots will be unpopulated and ignored
++        ImGui::SeparatorText(
++            "Strategy Computation Parameters and Default Values");
++        const char *variables[] = {"Spot Price",     "Strike Price",
++                                   "Time To Expiry", "Implied Volatility",
++                                   "Risk Free Rate", "Dividend Rate"};
++        const char *models[] = {"Black Scholes", "Binomial", "Monte Carlo"};
++        static int model = 0;
++        ImGui::Combo("Model", &model, models, IM_ARRAYSIZE(models));
++        static std::array<double, 6> arr;
++        for (int i = 0; i < 6; i++) {
++          ImGuiInputTextFlags flags = ImGuiInputTextFlags_None;
++          ImGui::InputScalar(variables[i], ImGuiDataType_Double, &arr[i], NULL,
++                             NULL, NULL, flags);
++        }
++        static double z_scaling = 0.0f;
++        ImGui::InputScalar("Z Scale Factor", ImGuiDataType_Double, &z_scaling,
++                           NULL, NULL, NULL, ImGuiInputTextFlags_None);
++
++        // A Table To Display Contract Parameters
++        // ID | Strike Price | Duration at Purchase (Days)
++        ImGui::SeparatorText("Contracts In Strategy");
++        if (ImGui::BeginTable("Contracts", 3, ImGuiTableFlags_None)) {
++          ImGui::TableSetupColumn("Contract ID");
++          ImGui::TableSetupColumn("Strike Price");
++          ImGui::TableSetupColumn("Duration At Purchase (Days)");
++          ImGui::TableHeadersRow();
++          static char text_bufs[3 * 5][16]; // Mini text storage for 3x5 cells
++          static bool init = true;
++          for (int cell = 0; cell < 3 * 5; cell++) {
++            ImGui::TableNextColumn();
++            if (init)
++              strcpy(text_bufs[cell], "edit me");
++            ImGui::SetNextItemWidth(-FLT_MIN);
++            ImGui::PushID(cell);
++            ImGui::InputText("##cell", text_bufs[cell],
++                             IM_ARRAYSIZE(text_bufs[cell]));
++            ImGui::PopID();
++          }
++          init = false;
++          ImGui::EndTable();
++        }
++
++        if (ImGui::Button("Add New Contract"))
++          ;
++
++        ImGui::SeparatorText("Configuration of Variables");
++        static int x_axis = 0;
++        ImGui::Combo("X Axis Variable", &x_axis, variables,
++                     IM_ARRAYSIZE(variables));
++        static double min_x = 0.0f, step_size_x = 0.0f;
++        static unsigned int steps_x = 0;
++        ImGuiInputTextFlags flags = ImGuiInputTextFlags_None;
++        ImGui::InputScalar("X Start", ImGuiDataType_Double, &min_x, NULL, NULL,
++                           NULL, flags);
++        ImGui::InputScalar("X Step Size", ImGuiDataType_Double, &step_size_x,
++                           NULL, NULL, NULL, flags);
++        ImGui::InputScalar("X Steps", ImGuiDataType_U32, &steps_x, NULL, NULL,
++                           NULL, flags);
++
++        static int y_axis = 0;
++        ImGui::Combo("Y Axis Variable", &y_axis, variables,
++                     IM_ARRAYSIZE(variables));
++        static double min_y = 0.0f, step_size_y = 0.0f;
++        static unsigned int steps_y = 0;
++        ImGui::InputScalar("Y Start", ImGuiDataType_Double, &min_y, NULL, NULL,
++                           NULL, flags);
++        ImGui::InputScalar("Y Step Size", ImGuiDataType_Double, &step_size_y,
++                           NULL, NULL, NULL, flags);
++        ImGui::InputScalar("Y Steps", ImGuiDataType_U32, &steps_y, NULL, NULL,
++                           NULL, flags);
++
++        static int z_axis = 0;
++        const char *pos_image_vars[] = {"Option Price", "Delta", "Gamma",
++                                        "Theta", "Vega"};
++        ImGui::Combo("Z Axis Variable", &z_axis, pos_image_vars,
++                     IM_ARRAYSIZE(pos_image_vars));
++
++        // Connection to Backend
++
++        float x_default = 1.0f;
++        float y_default = 1.0f;
++        std::map<std::string, double> params;
++        for (int i = 0; i < 6; i++) {
++          params.insert(std::make_pair(std::string(variables[i]), arr[i]));
++        }
++
++        std::array<std::string, 2> to_vary{variables[x_axis],
++                                           variables[y_axis]};
++        typedef std::array<double, 2> Point2D;
++        Strategy::Strategy op(
++            std::string("Single-Contract"),
++            std::unordered_map<std::string, Models::OptionContract>{
++                {"Contract 1-1",
++                 Models::OptionContract(1, Models::PayoffType::Call, params,
++                                        to_vary)}},
++            to_vary,
++            std::dynamic_pointer_cast<Models::PricingPolicy>(
++                std::make_shared<Models::BlackScholes>()));
++        graph_panel_->SetModel(
++            std::make_shared<Data::Bounds2D>(Point2D{min_x, min_y}, steps_x,
++                                             steps_y, step_size_x, step_size_y),
++            op.GetFunction(pos_image_vars[z_axis]), z_scaling);
++        auto f = op.GetFunction(pos_image_vars[z_axis]);
++
++        if (ImGui::Button("Reload")) {
++          graph_panel_->ReloadModel();
++          graph_panel_->data_->ExportToOff("output_recalculated");
++          std::cerr << "f(100, 100)" << f(100.0f, 100.0f) << std::endl;
++          std::cerr << "f(150, 200)" << f(150.0f, 200.0f) << std::endl;
++        }
++
++        ImGui::SeparatorText("Strategy Statistics");
++        if (ImGui::BeginTable("Statistics", 2, ImGuiTableFlags_None)) {
++          ImGui::TableSetupColumn("Title");
++          ImGui::TableSetupColumn("Value");
++          static char text_bufs[2 * 5][16]; // Mini text storage for 3x5 cells
++          static bool init = true;
++          for (int cell = 0; cell < 2 * 5; cell++) {
++            ImGui::TableNextColumn();
++            if (init)
++              strcpy(text_bufs[cell], "edit me");
++            ImGui::SetNextItemWidth(-FLT_MIN);
++            ImGui::PushID(cell);
++            ImGui::InputText("##cell", text_bufs[cell],
++                             IM_ARRAYSIZE(text_bufs[cell]));
++            ImGui::PopID();
++          }
++          init = false;
++          ImGui::EndTable();
++        }
++
++        ImGui::EndTabItem();
++      }
++      if (ImGui::BeginTabItem("20250623 CRWD Calendar Spread")) {
++        ImGui::EndTabItem();
++      }
++      for (auto i : active_tabs) {
++        if (ImGui::BeginTabItem("New Strategy")) {
++          ImGui::EndTabItem();
++        }
++      }
++      ImGui::EndTabBar();
+     }
+-  }
+-  static double z_scaling = 0.0f;
+-  ImGui::InputScalar("Z Scale Factor", ImGuiDataType_Double, &z_scaling, NULL,
+-                     NULL, NULL, flags);
+-
+-  std::map<std::string, double> params{
+-      std::make_pair(std::string(variables[x_axis]), -1),
+-      std::make_pair(std::string(variables[y_axis]), -1)};
+-  for (int i = 0; i < 6; i++) {
+-    if (i != x_axis && i != y_axis)
+-      params.insert(std::make_pair(std::string(variables[i]), arr[i]));
+-  }
+ 
+-  std::array<std::string, 2> to_vary{variables[x_axis], variables[y_axis]};
+-
+-  typedef std::array<double, 2> Point2D;
+-  Models::BlackScholes bs(Models::PayoffType::Call, params, to_vary);
+-  graph_panel_->SetModel(
+-      std::make_shared<Data::Bounds2D>(Point2D{min_x, min_y}, steps_x, steps_y,
+-                                       step_size_x, step_size_y),
+-      bs.GetComputeFunction(pos_image_vars[z_axis]), z_scaling);
+-  auto f = bs.GetComputeFunction(pos_image_vars[z_axis]);
+-
+-  if (ImGui::Button("Reload")) {
+-    graph_panel_->ReloadModel();
+-    graph_panel_->data_->ExportToOff("output_recalculated");
+-    std::cerr << "f(100, 100)" << f(100.0f, 100.0f) << std::endl;
+-    std::cerr << "f(150, 200)" << f(150.0f, 200.0f) << std::endl;
++    ImGui::End();
+   }
+-
+-  ImGui::End();
+   ImGui::Render();
+   ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+   ImGui::SetCurrentContext(prev_context_);
+diff --git a/src/Panel.hpp b/src/Panel.hpp
+index cf6d641..c50f3da 100644
+--- a/src/Panel.hpp
++++ b/src/Panel.hpp
+@@ -20,6 +20,7 @@
+ #include "MatrixHandler.hpp"
+ #include "Models.hpp"
+ #include "ShaderHandler.hpp"
++#include "Strategy.hpp"
+ 
+ #include "imgui.h"
+ #include "imgui_impl_glfw.h"

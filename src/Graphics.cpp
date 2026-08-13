@@ -30,17 +30,6 @@ void Graphics::Box::drawToBuffer(GLsizei s_x, GLsizei s_y) {
   glClear(GL_COLOR_BUFFER_BIT);
   glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-  // Set up projection matrix
-  /*
-  ProjectionMatrices perspective = ProjectionMatrices(
-      glm::translate(glm::mat4(1.0f), glm::vec3(-100.0f, 20.0f, 0.0f)),
-      glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -10.0f)),
-      glm::perspective(glm::radians(45.0f), 1.0f, 0.1f, 100.0f));
-  /*
-  ProjectionMatrices perspective =
-      ProjectionMatrices(glm::mat4(1.0f), glm::mat4(1.0f), glm::mat4(1.0f));*/
-  // perspective.pushToShader(*element_shader_);
-
   // Draw what is in the buffer
   vao_->Bind();
   vao_->BindEBO();

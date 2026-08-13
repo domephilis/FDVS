@@ -69,16 +69,13 @@ CMakeFiles/Application.dir/src/Application.cpp.o: \
  /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h \
  /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h \
- /usr/include/x86_64-linux-gnu/bits/select2.h \
  /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h \
  /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h \
  /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h \
  /usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h \
  /usr/include/x86_64-linux-gnu/bits/struct_mutex.h \
  /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h /usr/include/alloca.h \
- /usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h \
  /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
- /usr/include/x86_64-linux-gnu/bits/stdlib.h \
  /usr/include/c++/11/bits/std_abs.h \
  /usr/include/c++/11/bits/algorithmfwd.h \
  /usr/include/c++/11/bits/stl_heap.h \
@@ -95,7 +92,6 @@ CMakeFiles/Application.dir/src/Application.cpp.o: \
  /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/__FILE.h \
  /usr/include/x86_64-linux-gnu/bits/types/FILE.h \
- /usr/include/x86_64-linux-gnu/bits/wchar2.h \
  /usr/include/c++/11/bits/stream_iterator.h \
  /usr/include/c++/11/bits/streambuf_iterator.h \
  /usr/include/c++/11/streambuf /usr/include/c++/11/bits/localefwd.h \
@@ -143,10 +139,9 @@ CMakeFiles/Application.dir/src/Application.cpp.o: \
  /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h \
  /usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h \
  /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
- /usr/include/x86_64-linux-gnu/bits/stdio.h \
- /usr/include/x86_64-linux-gnu/bits/stdio2.h /usr/include/c++/11/cerrno \
- /usr/include/errno.h /usr/include/x86_64-linux-gnu/bits/errno.h \
- /usr/include/linux/errno.h /usr/include/x86_64-linux-gnu/asm/errno.h \
+ /usr/include/c++/11/cerrno /usr/include/errno.h \
+ /usr/include/x86_64-linux-gnu/bits/errno.h /usr/include/linux/errno.h \
+ /usr/include/x86_64-linux-gnu/asm/errno.h \
  /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h \
  /usr/include/x86_64-linux-gnu/bits/types/error_t.h \
  /usr/include/c++/11/bits/charconv.h \
@@ -213,8 +208,7 @@ CMakeFiles/Application.dir/src/Application.cpp.o: \
  /usr/include/c++/11/tr1/poly_hermite.tcc \
  /usr/include/c++/11/tr1/poly_laguerre.tcc \
  /usr/include/c++/11/tr1/riemann_zeta.tcc /usr/include/c++/11/csetjmp \
- /usr/include/setjmp.h /usr/include/x86_64-linux-gnu/bits/setjmp2.h \
- /usr/include/c++/11/csignal /usr/include/signal.h \
+ /usr/include/setjmp.h /usr/include/c++/11/csignal /usr/include/signal.h \
  /usr/include/x86_64-linux-gnu/bits/signum-generic.h \
  /usr/include/x86_64-linux-gnu/bits/signum-arch.h \
  /usr/include/x86_64-linux-gnu/bits/types/sig_atomic_t.h \
@@ -237,7 +231,6 @@ CMakeFiles/Application.dir/src/Application.cpp.o: \
  /usr/include/x86_64-linux-gnu/bits/confname.h \
  /usr/include/x86_64-linux-gnu/bits/getopt_posix.h \
  /usr/include/x86_64-linux-gnu/bits/getopt_core.h \
- /usr/include/x86_64-linux-gnu/bits/unistd.h \
  /usr/include/x86_64-linux-gnu/bits/unistd_ext.h \
  /usr/include/linux/close_range.h \
  /usr/include/x86_64-linux-gnu/bits/ss_flags.h \
@@ -246,8 +239,6 @@ CMakeFiles/Application.dir/src/Application.cpp.o: \
  /usr/include/x86_64-linux-gnu/bits/signal_ext.h \
  /usr/include/c++/11/cstdarg /usr/include/c++/11/cstddef \
  /usr/include/c++/11/cstring /usr/include/string.h /usr/include/strings.h \
- /usr/include/x86_64-linux-gnu/bits/strings_fortified.h \
- /usr/include/x86_64-linux-gnu/bits/string_fortified.h \
  /usr/include/c++/11/ctime /usr/include/c++/11/cwctype \
  /usr/include/wctype.h /usr/include/x86_64-linux-gnu/bits/wctype-wchar.h \
  /usr/include/c++/11/ccomplex /usr/include/c++/11/complex \
@@ -2528,6 +2519,54 @@ CMakeFiles/Application.dir/src/Application.cpp.o: \
  /usr/include/glm/gtx/rotate_vector.inl \
  /home/eric/Documents/Learning/Computer\ Science/OpenGL/FDVS_github/src/ShaderHandler.hpp \
  /home/eric/Documents/Learning/Computer\ Science/OpenGL/FDVS_github/src/Models.hpp \
+ /home/eric/Documents/Learning/Computer\ Science/OpenGL/FDVS_github/extern/nlohmann_json/include/nlohmann/json.hpp \
+ /home/eric/Documents/Learning/Computer\ Science/OpenGL/FDVS_github/extern/nlohmann_json/include/nlohmann/adl_serializer.hpp \
+ /home/eric/Documents/Learning/Computer\ Science/OpenGL/FDVS_github/extern/nlohmann_json/include/nlohmann/detail/abi_macros.hpp \
+ /home/eric/Documents/Learning/Computer\ Science/OpenGL/FDVS_github/extern/nlohmann_json/include/nlohmann/detail/conversions/from_json.hpp \
+ /home/eric/Documents/Learning/Computer\ Science/OpenGL/FDVS_github/extern/nlohmann_json/include/nlohmann/detail/exceptions.hpp \
+ /home/eric/Documents/Learning/Computer\ Science/OpenGL/FDVS_github/extern/nlohmann_json/include/nlohmann/detail/value_t.hpp \
+ /home/eric/Documents/Learning/Computer\ Science/OpenGL/FDVS_github/extern/nlohmann_json/include/nlohmann/detail/macro_scope.hpp \
+ /home/eric/Documents/Learning/Computer\ Science/OpenGL/FDVS_github/extern/nlohmann_json/include/nlohmann/detail/meta/detected.hpp \
+ /home/eric/Documents/Learning/Computer\ Science/OpenGL/FDVS_github/extern/nlohmann_json/include/nlohmann/detail/meta/void_t.hpp \
+ /home/eric/Documents/Learning/Computer\ Science/OpenGL/FDVS_github/extern/nlohmann_json/include/nlohmann/thirdparty/hedley/hedley.hpp \
+ /home/eric/Documents/Learning/Computer\ Science/OpenGL/FDVS_github/extern/nlohmann_json/include/nlohmann/detail/string_escape.hpp \
+ /home/eric/Documents/Learning/Computer\ Science/OpenGL/FDVS_github/extern/nlohmann_json/include/nlohmann/detail/input/position_t.hpp \
+ /home/eric/Documents/Learning/Computer\ Science/OpenGL/FDVS_github/extern/nlohmann_json/include/nlohmann/detail/meta/cpp_future.hpp \
+ /home/eric/Documents/Learning/Computer\ Science/OpenGL/FDVS_github/extern/nlohmann_json/include/nlohmann/detail/meta/type_traits.hpp \
+ /home/eric/Documents/Learning/Computer\ Science/OpenGL/FDVS_github/extern/nlohmann_json/include/nlohmann/detail/iterators/iterator_traits.hpp \
+ /home/eric/Documents/Learning/Computer\ Science/OpenGL/FDVS_github/extern/nlohmann_json/include/nlohmann/detail/meta/call_std/begin.hpp \
+ /home/eric/Documents/Learning/Computer\ Science/OpenGL/FDVS_github/extern/nlohmann_json/include/nlohmann/detail/meta/call_std/end.hpp \
+ /home/eric/Documents/Learning/Computer\ Science/OpenGL/FDVS_github/extern/nlohmann_json/include/nlohmann/json_fwd.hpp \
+ /home/eric/Documents/Learning/Computer\ Science/OpenGL/FDVS_github/extern/nlohmann_json/include/nlohmann/detail/string_concat.hpp \
+ /home/eric/Documents/Learning/Computer\ Science/OpenGL/FDVS_github/extern/nlohmann_json/include/nlohmann/detail/meta/identity_tag.hpp \
+ /home/eric/Documents/Learning/Computer\ Science/OpenGL/FDVS_github/extern/nlohmann_json/include/nlohmann/detail/meta/std_fs.hpp \
+ /home/eric/Documents/Learning/Computer\ Science/OpenGL/FDVS_github/extern/nlohmann_json/include/nlohmann/detail/conversions/to_json.hpp \
+ /home/eric/Documents/Learning/Computer\ Science/OpenGL/FDVS_github/extern/nlohmann_json/include/nlohmann/detail/iterators/iteration_proxy.hpp \
+ /home/eric/Documents/Learning/Computer\ Science/OpenGL/FDVS_github/extern/nlohmann_json/include/nlohmann/detail/string_utils.hpp \
+ /home/eric/Documents/Learning/Computer\ Science/OpenGL/FDVS_github/extern/nlohmann_json/include/nlohmann/byte_container_with_subtype.hpp \
+ /home/eric/Documents/Learning/Computer\ Science/OpenGL/FDVS_github/extern/nlohmann_json/include/nlohmann/detail/hash.hpp \
+ /home/eric/Documents/Learning/Computer\ Science/OpenGL/FDVS_github/extern/nlohmann_json/include/nlohmann/detail/input/binary_reader.hpp \
+ /home/eric/Documents/Learning/Computer\ Science/OpenGL/FDVS_github/extern/nlohmann_json/include/nlohmann/detail/input/input_adapters.hpp \
+ /home/eric/Documents/Learning/Computer\ Science/OpenGL/FDVS_github/extern/nlohmann_json/include/nlohmann/detail/input/json_sax.hpp \
+ /home/eric/Documents/Learning/Computer\ Science/OpenGL/FDVS_github/extern/nlohmann_json/include/nlohmann/detail/input/lexer.hpp \
+ /home/eric/Documents/Learning/Computer\ Science/OpenGL/FDVS_github/extern/nlohmann_json/include/nlohmann/detail/meta/is_sax.hpp \
+ /home/eric/Documents/Learning/Computer\ Science/OpenGL/FDVS_github/extern/nlohmann_json/include/nlohmann/detail/input/parser.hpp \
+ /home/eric/Documents/Learning/Computer\ Science/OpenGL/FDVS_github/extern/nlohmann_json/include/nlohmann/detail/iterators/internal_iterator.hpp \
+ /home/eric/Documents/Learning/Computer\ Science/OpenGL/FDVS_github/extern/nlohmann_json/include/nlohmann/detail/iterators/primitive_iterator.hpp \
+ /home/eric/Documents/Learning/Computer\ Science/OpenGL/FDVS_github/extern/nlohmann_json/include/nlohmann/detail/iterators/iter_impl.hpp \
+ /home/eric/Documents/Learning/Computer\ Science/OpenGL/FDVS_github/extern/nlohmann_json/include/nlohmann/detail/iterators/json_reverse_iterator.hpp \
+ /home/eric/Documents/Learning/Computer\ Science/OpenGL/FDVS_github/extern/nlohmann_json/include/nlohmann/detail/json_custom_base_class.hpp \
+ /home/eric/Documents/Learning/Computer\ Science/OpenGL/FDVS_github/extern/nlohmann_json/include/nlohmann/detail/json_pointer.hpp \
+ /home/eric/Documents/Learning/Computer\ Science/OpenGL/FDVS_github/extern/nlohmann_json/include/nlohmann/detail/json_ref.hpp \
+ /home/eric/Documents/Learning/Computer\ Science/OpenGL/FDVS_github/extern/nlohmann_json/include/nlohmann/detail/output/binary_writer.hpp \
+ /home/eric/Documents/Learning/Computer\ Science/OpenGL/FDVS_github/extern/nlohmann_json/include/nlohmann/detail/output/output_adapters.hpp \
+ /home/eric/Documents/Learning/Computer\ Science/OpenGL/FDVS_github/extern/nlohmann_json/include/nlohmann/detail/output/serializer.hpp \
+ /home/eric/Documents/Learning/Computer\ Science/OpenGL/FDVS_github/extern/nlohmann_json/include/nlohmann/detail/conversions/to_chars.hpp \
+ /home/eric/Documents/Learning/Computer\ Science/OpenGL/FDVS_github/extern/nlohmann_json/include/nlohmann/ordered_map.hpp \
+ /home/eric/Documents/Learning/Computer\ Science/OpenGL/FDVS_github/extern/nlohmann_json/include/nlohmann/detail/macro_unscope.hpp \
+ /home/eric/Documents/Learning/Computer\ Science/OpenGL/FDVS_github/extern/nlohmann_json/include/nlohmann/thirdparty/hedley/hedley_undef.hpp \
+ /home/eric/Documents/Learning/Computer\ Science/OpenGL/FDVS_github/src/Strategy.hpp \
+ /home/eric/Documents/Learning/Computer\ Science/OpenGL/FDVS_github/src/PricingPolicies.hpp \
  /home/eric/Documents/Learning/Computer\ Science/OpenGL/FDVS_github/extern/imgui/imgui_impl_opengl3.h \
  /home/eric/Documents/Learning/Computer\ Science/OpenGL/FDVS_github/extern/imgui/imgui_internal.h \
  /usr/lib/gcc/x86_64-linux-gnu/11/include/immintrin.h \
