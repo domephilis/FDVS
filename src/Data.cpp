@@ -7,10 +7,10 @@
 void Data::Grid::gengrid(unsigned int y_n, unsigned int x_n)
 {
 	// Runs in linear time with respect to the grid size
-	m_vertices.reserve(x_n * y_n);
-	for(unsigned int x = 0; x < x_n; x++)
+	m_vertices.reserve(3 * x_n * y_n);
+	for(unsigned int y = 0; y < y_n; y++)
 	{
-		for(unsigned int y = 0; y < y_n; y++)
+		for(unsigned int x = 0; x < x_n; x++)
 		{
 			m_vertices.push_back(x);
 			m_vertices.push_back(y);
@@ -18,7 +18,7 @@ void Data::Grid::gengrid(unsigned int y_n, unsigned int x_n)
 		}
 	}
 
-	for(unsigned int i = 0; i < m_vertices.size(); i++)
+	for(unsigned int i = 0; i < m_vertices.size() / 3 - x_n; i++)
 	{
 		if((i + 1) % x_n != 0 && i % x_n != 0)
 		{
@@ -38,18 +38,18 @@ Data::Grid::Grid(unsigned int y_n, unsigned int x_n) : m_yn(y_n), m_xn(x_n)
 	gengrid(y_n, x_n);
 }
 
-/*
- *
- *  Point2D min;
- *  unsigned int steps_x;
- *  unsigned int steps_y;
- *  double step_size_x;
- *  double step_size_y;
- */
-
-
 void Data::Grid::m_scale(const Data::Bounds2D& b)
 {
+	// Regenerate Grid if Needed
+	// Hopefully, this doesn't happen too often
+	if(b.steps_x != m_xn || b.steps_y != m_yn)
+	{
+		m_xn = b.steps_x;
+		m_yn = b.steps_y;
+		m_vertices = {};
+		m_faces = {};
+		gengrid(b.steps_x, b.steps_y);
+	}
 	// Translate (0,0) to min 
 	for(int i = 0; i < m_vertices.size(); i++)
 	{
@@ -61,14 +61,6 @@ void Data::Grid::m_scale(const Data::Bounds2D& b)
 
 	}
 	
-	// Regenerate Grid if Needed
-	// Hopefully, this doesn't happen too often
-	if(b.steps_x != m_xn || b.steps_y != m_yn)
-	{
-		m_vertices = {};
-		m_faces = {};
-		gengrid(b.steps_x, b.steps_y);
-	}
 }
 
 Data::OffMeshData::OffMeshData(std::vector<float> in_vertices,

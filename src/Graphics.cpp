@@ -110,7 +110,7 @@ void Graphics::TriangleMesh::drawToBuffer(GLsizei s_x, GLsizei s_y) {
   element_shader_->use();
   glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
   glClear(GL_COLOR_BUFFER_BIT);
-  glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+  // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
   /*
   // Set up projection matrix

@@ -12,6 +12,7 @@
 
 #include <functional>
 #include <memory>
+#include <cmath>
 
 #include "Buffers.hpp"
 #include "Data.hpp"

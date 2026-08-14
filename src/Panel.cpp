@@ -21,9 +21,18 @@ Windowing::GraphPanel::GraphPanel(GLFWwindow *window,
   }
 
   // Construct from a file
-  data_ = std::make_shared<Data::OffMeshData>("output.off");
+  // data_ = std::make_shared<Data::OffMeshData>("output.off");
+  Data::Grid input_grid{};
+  auto f = [](double x, double y) {
+      double dx = x - 50.0;
+      double dy = y - 50.0;
+      double r = std::sqrt(dx*dx + dy*dy);
+  
+      return static_cast<float>(100.0 * std::sin(r / 5.0) * std::exp(-r / 45.0));
+  };
+  data_ = std::make_shared<Data::OffMeshData>(input_grid, f);
 
-  std::array<float, 3> max({data_->max[0], data_->max[0], data_->max[0]});
+  std::array<float, 3> max({data_->max[0], data_->max[1], data_->max[2]});
   depth = *std::max_element(max.begin(), max.end());
 
   // Configure MatrixStack
@@ -107,15 +116,18 @@ void Windowing::GraphPanel::Render() {
   ImGui::End();
 
   // Antialiasing
-  glEnable(GL_BLEND);
-  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-  glEnable(GL_LINE_SMOOTH);
-  glEnable(GL_POLYGON_SMOOTH);
+  // glEnable(GL_BLEND);
+  glEnable(GL_MULTISAMPLE);
+  // glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+  // glEnable(GL_LINE_SMOOTH);
+  // glEnable(GL_POLYGON_SMOOTH);
 
   int success = 0;
   glGetProgramiv(shader->ID, GL_LINK_STATUS, &success);
   shader->use();
   glGetProgramiv(shader->ID, GL_LINK_STATUS, &success);
+  shader->setFloat("minHeight", -100.0f);
+  shader->setFloat("maxHeight", 100.0f);
 
   // Set Camera
   mv_stack_->pushMatrix(glm::mat4(1.0f));

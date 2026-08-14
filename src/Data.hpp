@@ -18,6 +18,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <concepts>
 
 namespace std {
 std::ostream &operator<<(std::ostream &os, const std::array<std::size_t, 3> &f);
@@ -30,7 +31,7 @@ typedef std::array<double, 2> Point2D;
 struct INVALID_BOUNDS_EXCEPTION {};
 struct Bounds2D {
   Bounds2D(Point2D in_min, unsigned int in_steps_x, unsigned int in_steps_y,
-           double in_step_size_x, double in_step_size_y)
+double in_step_size_x, double in_step_size_y)
       : min(in_min), steps_x(in_steps_x), steps_y(in_steps_y),
         step_size_x(in_step_size_x), step_size_y(in_step_size_y) {}
   Point2D min;
@@ -94,6 +95,20 @@ struct OffMeshData {
   OffMeshData(std::string filename);
   OffMeshData(std::shared_ptr<Data::Bounds2D> b,
               std::function<float(double, double)> f);
+
+  template<typename F>
+	  requires std::invocable<F, double, double>
+	  	&& std::same_as<std::invoke_result_t<F, double, double>, float>
+  OffMeshData(const Grid& input_grid, F&& f)
+  {
+	  vertices = input_grid.m_vertices;
+	  for(int i = 2; i < input_grid.m_vertices.size(); i += 3)
+		  vertices[i] = std::invoke(f, static_cast<double>(vertices[i-2]), static_cast<double>(vertices[i-1]));
+	  faces = input_grid.m_faces;
+	  num_of_vertices = input_grid.m_vertices.size() / 3;
+	  num_of_faces = input_grid.m_faces.size() / 3;
+	  ComputeProperties();
+  }
 
   // Properties
   unsigned int num_of_vertices = 0;
