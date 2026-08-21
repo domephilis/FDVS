@@ -69,3 +69,6 @@ We will have a OptionContract class, a OptionStrategy class, and several Pricing
             []    p_Draw3DLineGraph();
             []    p_Draw3DSurfaceGraph();
             []    // 2D Graphs are 3D graphs at fixed z
+
+For the shared object compilation in the graphing thing, do the following:
+gcc -shared -fPIC ../src/toplot.c -o ./libfunc.so -lm

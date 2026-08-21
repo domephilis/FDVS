@@ -50,7 +50,7 @@ void main()
 
     // Light direction in VIEW SPACE.
     // Positive z points roughly toward the camera depending on your convention.
-    vec3 lightDir = normalize(vec3(0.4, 0.6, 1.0));
+    vec3 lightDir = normalize(-ViewPos);
 
     float diffuse = max(dot(normal, lightDir), 0.0);
 

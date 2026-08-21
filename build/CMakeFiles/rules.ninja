@@ -7,14 +7,14 @@
 
 # =============================================================================
 # Project: FDVS
-# Configurations: Release
+# Configurations: Debug
 # =============================================================================
 # =============================================================================
 
 #############################################
 # Rule for compiling C files.
 
-rule C_COMPILER__glad_Release
+rule C_COMPILER__glad_Debug
   depfile = $DEP_FILE
   deps = gcc
   command = /usr/bin/gcc $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
@@ -24,7 +24,7 @@ rule C_COMPILER__glad_Release
 #############################################
 # Rule for linking C static library.
 
-rule C_STATIC_LIBRARY_LINKER__glad_Release
+rule C_STATIC_LIBRARY_LINKER__glad_Debug
   command = $PRE_LINK && /usr/bin/cmake -E rm -f $TARGET_FILE && /usr/bin/ar qc $TARGET_FILE $LINK_FLAGS $in && /usr/bin/ranlib $TARGET_FILE && $POST_BUILD
   description = Linking C static library $TARGET_FILE
   restat = $RESTAT
@@ -33,7 +33,7 @@ rule C_STATIC_LIBRARY_LINKER__glad_Release
 #############################################
 # Rule for compiling CXX files.
 
-rule CXX_COMPILER__imgui_Release
+rule CXX_COMPILER__imgui_Debug
   depfile = $DEP_FILE
   deps = gcc
   command = /usr/bin/g++ $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
@@ -43,7 +43,7 @@ rule CXX_COMPILER__imgui_Release
 #############################################
 # Rule for linking CXX static library.
 
-rule CXX_STATIC_LIBRARY_LINKER__imgui_Release
+rule CXX_STATIC_LIBRARY_LINKER__imgui_Debug
   command = $PRE_LINK && /usr/bin/cmake -E rm -f $TARGET_FILE && /usr/bin/ar qc $TARGET_FILE $LINK_FLAGS $in && /usr/bin/ranlib $TARGET_FILE && $POST_BUILD
   description = Linking CXX static library $TARGET_FILE
   restat = $RESTAT
@@ -52,7 +52,7 @@ rule CXX_STATIC_LIBRARY_LINKER__imgui_Release
 #############################################
 # Rule for compiling CXX files.
 
-rule CXX_COMPILER__imgui_backend_Release
+rule CXX_COMPILER__imgui_backend_Debug
   depfile = $DEP_FILE
   deps = gcc
   command = /usr/bin/g++ $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
@@ -62,7 +62,7 @@ rule CXX_COMPILER__imgui_backend_Release
 #############################################
 # Rule for linking CXX static library.
 
-rule CXX_STATIC_LIBRARY_LINKER__imgui_backend_Release
+rule CXX_STATIC_LIBRARY_LINKER__imgui_backend_Debug
   command = $PRE_LINK && /usr/bin/cmake -E rm -f $TARGET_FILE && /usr/bin/ar qc $TARGET_FILE $LINK_FLAGS $in && /usr/bin/ranlib $TARGET_FILE && $POST_BUILD
   description = Linking CXX static library $TARGET_FILE
   restat = $RESTAT
@@ -71,7 +71,7 @@ rule CXX_STATIC_LIBRARY_LINKER__imgui_backend_Release
 #############################################
 # Rule for compiling CXX files.
 
-rule CXX_COMPILER__imgui_renderer_Release
+rule CXX_COMPILER__imgui_renderer_Debug
   depfile = $DEP_FILE
   deps = gcc
   command = /usr/bin/g++ $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
@@ -81,7 +81,7 @@ rule CXX_COMPILER__imgui_renderer_Release
 #############################################
 # Rule for linking CXX static library.
 
-rule CXX_STATIC_LIBRARY_LINKER__imgui_renderer_Release
+rule CXX_STATIC_LIBRARY_LINKER__imgui_renderer_Debug
   command = $PRE_LINK && /usr/bin/cmake -E rm -f $TARGET_FILE && /usr/bin/ar qc $TARGET_FILE $LINK_FLAGS $in && /usr/bin/ranlib $TARGET_FILE && $POST_BUILD
   description = Linking CXX static library $TARGET_FILE
   restat = $RESTAT
@@ -90,7 +90,7 @@ rule CXX_STATIC_LIBRARY_LINKER__imgui_renderer_Release
 #############################################
 # Rule for compiling CXX files.
 
-rule CXX_COMPILER__imgui_demo_Release
+rule CXX_COMPILER__imgui_demo_Debug
   depfile = $DEP_FILE
   deps = gcc
   command = /usr/bin/g++ $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
@@ -100,7 +100,7 @@ rule CXX_COMPILER__imgui_demo_Release
 #############################################
 # Rule for linking CXX static library.
 
-rule CXX_STATIC_LIBRARY_LINKER__imgui_demo_Release
+rule CXX_STATIC_LIBRARY_LINKER__imgui_demo_Debug
   command = $PRE_LINK && /usr/bin/cmake -E rm -f $TARGET_FILE && /usr/bin/ar qc $TARGET_FILE $LINK_FLAGS $in && /usr/bin/ranlib $TARGET_FILE && $POST_BUILD
   description = Linking CXX static library $TARGET_FILE
   restat = $RESTAT
@@ -109,7 +109,7 @@ rule CXX_STATIC_LIBRARY_LINKER__imgui_demo_Release
 #############################################
 # Rule for compiling CXX files.
 
-rule CXX_COMPILER__imgui_draw_Release
+rule CXX_COMPILER__imgui_draw_Debug
   depfile = $DEP_FILE
   deps = gcc
   command = /usr/bin/g++ $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
@@ -119,7 +119,7 @@ rule CXX_COMPILER__imgui_draw_Release
 #############################################
 # Rule for linking CXX static library.
 
-rule CXX_STATIC_LIBRARY_LINKER__imgui_draw_Release
+rule CXX_STATIC_LIBRARY_LINKER__imgui_draw_Debug
   command = $PRE_LINK && /usr/bin/cmake -E rm -f $TARGET_FILE && /usr/bin/ar qc $TARGET_FILE $LINK_FLAGS $in && /usr/bin/ranlib $TARGET_FILE && $POST_BUILD
   description = Linking CXX static library $TARGET_FILE
   restat = $RESTAT
@@ -128,7 +128,7 @@ rule CXX_STATIC_LIBRARY_LINKER__imgui_draw_Release
 #############################################
 # Rule for compiling CXX files.
 
-rule CXX_COMPILER__imgui_tables_Release
+rule CXX_COMPILER__imgui_tables_Debug
   depfile = $DEP_FILE
   deps = gcc
   command = /usr/bin/g++ $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
@@ -138,7 +138,7 @@ rule CXX_COMPILER__imgui_tables_Release
 #############################################
 # Rule for linking CXX static library.
 
-rule CXX_STATIC_LIBRARY_LINKER__imgui_tables_Release
+rule CXX_STATIC_LIBRARY_LINKER__imgui_tables_Debug
   command = $PRE_LINK && /usr/bin/cmake -E rm -f $TARGET_FILE && /usr/bin/ar qc $TARGET_FILE $LINK_FLAGS $in && /usr/bin/ranlib $TARGET_FILE && $POST_BUILD
   description = Linking CXX static library $TARGET_FILE
   restat = $RESTAT
@@ -147,7 +147,7 @@ rule CXX_STATIC_LIBRARY_LINKER__imgui_tables_Release
 #############################################
 # Rule for compiling CXX files.
 
-rule CXX_COMPILER__imgui_widgets_Release
+rule CXX_COMPILER__imgui_widgets_Debug
   depfile = $DEP_FILE
   deps = gcc
   command = /usr/bin/g++ $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
@@ -157,7 +157,7 @@ rule CXX_COMPILER__imgui_widgets_Release
 #############################################
 # Rule for linking CXX static library.
 
-rule CXX_STATIC_LIBRARY_LINKER__imgui_widgets_Release
+rule CXX_STATIC_LIBRARY_LINKER__imgui_widgets_Debug
   command = $PRE_LINK && /usr/bin/cmake -E rm -f $TARGET_FILE && /usr/bin/ar qc $TARGET_FILE $LINK_FLAGS $in && /usr/bin/ranlib $TARGET_FILE && $POST_BUILD
   description = Linking CXX static library $TARGET_FILE
   restat = $RESTAT
@@ -166,7 +166,7 @@ rule CXX_STATIC_LIBRARY_LINKER__imgui_widgets_Release
 #############################################
 # Rule for compiling CXX files.
 
-rule CXX_COMPILER__Themes_Release
+rule CXX_COMPILER__Themes_Debug
   depfile = $DEP_FILE
   deps = gcc
   command = /usr/bin/g++ $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
@@ -176,7 +176,7 @@ rule CXX_COMPILER__Themes_Release
 #############################################
 # Rule for linking CXX static library.
 
-rule CXX_STATIC_LIBRARY_LINKER__Themes_Release
+rule CXX_STATIC_LIBRARY_LINKER__Themes_Debug
   command = $PRE_LINK && /usr/bin/cmake -E rm -f $TARGET_FILE && /usr/bin/ar qc $TARGET_FILE $LINK_FLAGS $in && /usr/bin/ranlib $TARGET_FILE && $POST_BUILD
   description = Linking CXX static library $TARGET_FILE
   restat = $RESTAT
@@ -185,7 +185,7 @@ rule CXX_STATIC_LIBRARY_LINKER__Themes_Release
 #############################################
 # Rule for compiling CXX files.
 
-rule CXX_COMPILER__ShaderHandler_Release
+rule CXX_COMPILER__ShaderHandler_Debug
   depfile = $DEP_FILE
   deps = gcc
   command = /usr/bin/g++ $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
@@ -195,7 +195,7 @@ rule CXX_COMPILER__ShaderHandler_Release
 #############################################
 # Rule for linking CXX static library.
 
-rule CXX_STATIC_LIBRARY_LINKER__ShaderHandler_Release
+rule CXX_STATIC_LIBRARY_LINKER__ShaderHandler_Debug
   command = $PRE_LINK && /usr/bin/cmake -E rm -f $TARGET_FILE && /usr/bin/ar qc $TARGET_FILE $LINK_FLAGS $in && /usr/bin/ranlib $TARGET_FILE && $POST_BUILD
   description = Linking CXX static library $TARGET_FILE
   restat = $RESTAT
@@ -204,7 +204,7 @@ rule CXX_STATIC_LIBRARY_LINKER__ShaderHandler_Release
 #############################################
 # Rule for compiling CXX files.
 
-rule CXX_COMPILER__Events_Release
+rule CXX_COMPILER__Events_Debug
   depfile = $DEP_FILE
   deps = gcc
   command = /usr/bin/g++ $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
@@ -214,7 +214,7 @@ rule CXX_COMPILER__Events_Release
 #############################################
 # Rule for linking CXX static library.
 
-rule CXX_STATIC_LIBRARY_LINKER__Events_Release
+rule CXX_STATIC_LIBRARY_LINKER__Events_Debug
   command = $PRE_LINK && /usr/bin/cmake -E rm -f $TARGET_FILE && /usr/bin/ar qc $TARGET_FILE $LINK_FLAGS $in && /usr/bin/ranlib $TARGET_FILE && $POST_BUILD
   description = Linking CXX static library $TARGET_FILE
   restat = $RESTAT
@@ -223,7 +223,7 @@ rule CXX_STATIC_LIBRARY_LINKER__Events_Release
 #############################################
 # Rule for compiling CXX files.
 
-rule CXX_COMPILER__MatrixHandler_Release
+rule CXX_COMPILER__MatrixHandler_Debug
   depfile = $DEP_FILE
   deps = gcc
   command = /usr/bin/g++ $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
@@ -233,7 +233,7 @@ rule CXX_COMPILER__MatrixHandler_Release
 #############################################
 # Rule for linking CXX static library.
 
-rule CXX_STATIC_LIBRARY_LINKER__MatrixHandler_Release
+rule CXX_STATIC_LIBRARY_LINKER__MatrixHandler_Debug
   command = $PRE_LINK && /usr/bin/cmake -E rm -f $TARGET_FILE && /usr/bin/ar qc $TARGET_FILE $LINK_FLAGS $in && /usr/bin/ranlib $TARGET_FILE && $POST_BUILD
   description = Linking CXX static library $TARGET_FILE
   restat = $RESTAT
@@ -242,7 +242,7 @@ rule CXX_STATIC_LIBRARY_LINKER__MatrixHandler_Release
 #############################################
 # Rule for compiling CXX files.
 
-rule CXX_COMPILER__Buffers_Release
+rule CXX_COMPILER__Buffers_Debug
   depfile = $DEP_FILE
   deps = gcc
   command = /usr/bin/g++ $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
@@ -252,7 +252,7 @@ rule CXX_COMPILER__Buffers_Release
 #############################################
 # Rule for linking CXX static library.
 
-rule CXX_STATIC_LIBRARY_LINKER__Buffers_Release
+rule CXX_STATIC_LIBRARY_LINKER__Buffers_Debug
   command = $PRE_LINK && /usr/bin/cmake -E rm -f $TARGET_FILE && /usr/bin/ar qc $TARGET_FILE $LINK_FLAGS $in && /usr/bin/ranlib $TARGET_FILE && $POST_BUILD
   description = Linking CXX static library $TARGET_FILE
   restat = $RESTAT
@@ -261,7 +261,7 @@ rule CXX_STATIC_LIBRARY_LINKER__Buffers_Release
 #############################################
 # Rule for compiling CXX files.
 
-rule CXX_COMPILER__Data_Release
+rule CXX_COMPILER__Data_Debug
   depfile = $DEP_FILE
   deps = gcc
   command = /usr/bin/g++ $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
@@ -271,7 +271,7 @@ rule CXX_COMPILER__Data_Release
 #############################################
 # Rule for linking CXX static library.
 
-rule CXX_STATIC_LIBRARY_LINKER__Data_Release
+rule CXX_STATIC_LIBRARY_LINKER__Data_Debug
   command = $PRE_LINK && /usr/bin/cmake -E rm -f $TARGET_FILE && /usr/bin/ar qc $TARGET_FILE $LINK_FLAGS $in && /usr/bin/ranlib $TARGET_FILE && $POST_BUILD
   description = Linking CXX static library $TARGET_FILE
   restat = $RESTAT
@@ -280,7 +280,7 @@ rule CXX_STATIC_LIBRARY_LINKER__Data_Release
 #############################################
 # Rule for compiling CXX files.
 
-rule CXX_COMPILER__Models_Release
+rule CXX_COMPILER__Models_Debug
   depfile = $DEP_FILE
   deps = gcc
   command = /usr/bin/g++ $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
@@ -290,7 +290,7 @@ rule CXX_COMPILER__Models_Release
 #############################################
 # Rule for linking CXX static library.
 
-rule CXX_STATIC_LIBRARY_LINKER__Models_Release
+rule CXX_STATIC_LIBRARY_LINKER__Models_Debug
   command = $PRE_LINK && /usr/bin/cmake -E rm -f $TARGET_FILE && /usr/bin/ar qc $TARGET_FILE $LINK_FLAGS $in && /usr/bin/ranlib $TARGET_FILE && $POST_BUILD
   description = Linking CXX static library $TARGET_FILE
   restat = $RESTAT
@@ -299,7 +299,7 @@ rule CXX_STATIC_LIBRARY_LINKER__Models_Release
 #############################################
 # Rule for compiling CXX files.
 
-rule CXX_COMPILER__Strategy_Release
+rule CXX_COMPILER__Strategy_Debug
   depfile = $DEP_FILE
   deps = gcc
   command = /usr/bin/g++ $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
@@ -309,7 +309,7 @@ rule CXX_COMPILER__Strategy_Release
 #############################################
 # Rule for linking CXX static library.
 
-rule CXX_STATIC_LIBRARY_LINKER__Strategy_Release
+rule CXX_STATIC_LIBRARY_LINKER__Strategy_Debug
   command = $PRE_LINK && /usr/bin/cmake -E rm -f $TARGET_FILE && /usr/bin/ar qc $TARGET_FILE $LINK_FLAGS $in && /usr/bin/ranlib $TARGET_FILE && $POST_BUILD
   description = Linking CXX static library $TARGET_FILE
   restat = $RESTAT
@@ -318,7 +318,7 @@ rule CXX_STATIC_LIBRARY_LINKER__Strategy_Release
 #############################################
 # Rule for compiling CXX files.
 
-rule CXX_COMPILER__Panel_Release
+rule CXX_COMPILER__Panel_Debug
   depfile = $DEP_FILE
   deps = gcc
   command = /usr/bin/g++ $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
@@ -328,7 +328,7 @@ rule CXX_COMPILER__Panel_Release
 #############################################
 # Rule for linking CXX static library.
 
-rule CXX_STATIC_LIBRARY_LINKER__Panel_Release
+rule CXX_STATIC_LIBRARY_LINKER__Panel_Debug
   command = $PRE_LINK && /usr/bin/cmake -E rm -f $TARGET_FILE && /usr/bin/ar qc $TARGET_FILE $LINK_FLAGS $in && /usr/bin/ranlib $TARGET_FILE && $POST_BUILD
   description = Linking CXX static library $TARGET_FILE
   restat = $RESTAT
@@ -337,7 +337,7 @@ rule CXX_STATIC_LIBRARY_LINKER__Panel_Release
 #############################################
 # Rule for compiling CXX files.
 
-rule CXX_COMPILER__Graphics_Release
+rule CXX_COMPILER__Graphics_Debug
   depfile = $DEP_FILE
   deps = gcc
   command = /usr/bin/g++ $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
@@ -347,7 +347,7 @@ rule CXX_COMPILER__Graphics_Release
 #############################################
 # Rule for linking CXX static library.
 
-rule CXX_STATIC_LIBRARY_LINKER__Graphics_Release
+rule CXX_STATIC_LIBRARY_LINKER__Graphics_Debug
   command = $PRE_LINK && /usr/bin/cmake -E rm -f $TARGET_FILE && /usr/bin/ar qc $TARGET_FILE $LINK_FLAGS $in && /usr/bin/ranlib $TARGET_FILE && $POST_BUILD
   description = Linking CXX static library $TARGET_FILE
   restat = $RESTAT
@@ -356,7 +356,7 @@ rule CXX_STATIC_LIBRARY_LINKER__Graphics_Release
 #############################################
 # Rule for compiling CXX files.
 
-rule CXX_COMPILER__Application_Release
+rule CXX_COMPILER__Application_Debug
   depfile = $DEP_FILE
   deps = gcc
   command = /usr/bin/g++ $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
@@ -366,7 +366,7 @@ rule CXX_COMPILER__Application_Release
 #############################################
 # Rule for linking CXX static library.
 
-rule CXX_STATIC_LIBRARY_LINKER__Application_Release
+rule CXX_STATIC_LIBRARY_LINKER__Application_Debug
   command = $PRE_LINK && /usr/bin/cmake -E rm -f $TARGET_FILE && /usr/bin/ar qc $TARGET_FILE $LINK_FLAGS $in && /usr/bin/ranlib $TARGET_FILE && $POST_BUILD
   description = Linking CXX static library $TARGET_FILE
   restat = $RESTAT
@@ -375,7 +375,7 @@ rule CXX_STATIC_LIBRARY_LINKER__Application_Release
 #############################################
 # Rule for compiling CXX files.
 
-rule CXX_COMPILER__PricingPolicies_Release
+rule CXX_COMPILER__PricingPolicies_Debug
   depfile = $DEP_FILE
   deps = gcc
   command = /usr/bin/g++ $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
@@ -385,7 +385,7 @@ rule CXX_COMPILER__PricingPolicies_Release
 #############################################
 # Rule for linking CXX static library.
 
-rule CXX_STATIC_LIBRARY_LINKER__PricingPolicies_Release
+rule CXX_STATIC_LIBRARY_LINKER__PricingPolicies_Debug
   command = $PRE_LINK && /usr/bin/cmake -E rm -f $TARGET_FILE && /usr/bin/ar qc $TARGET_FILE $LINK_FLAGS $in && /usr/bin/ranlib $TARGET_FILE && $POST_BUILD
   description = Linking CXX static library $TARGET_FILE
   restat = $RESTAT
@@ -394,7 +394,7 @@ rule CXX_STATIC_LIBRARY_LINKER__PricingPolicies_Release
 #############################################
 # Rule for compiling CXX files.
 
-rule CXX_COMPILER__program.2eout_Release
+rule CXX_COMPILER__program.2eout_Debug
   depfile = $DEP_FILE
   deps = gcc
   command = /usr/bin/g++ $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
@@ -404,7 +404,7 @@ rule CXX_COMPILER__program.2eout_Release
 #############################################
 # Rule for linking CXX executable.
 
-rule CXX_EXECUTABLE_LINKER__program.2eout_Release
+rule CXX_EXECUTABLE_LINKER__program.2eout_Debug
   command = $PRE_LINK && /usr/bin/g++ $FLAGS $LINK_FLAGS $in -o $TARGET_FILE $LINK_PATH $LINK_LIBRARIES && $POST_BUILD
   description = Linking CXX executable $TARGET_FILE
   restat = $RESTAT
@@ -422,7 +422,7 @@ rule CUSTOM_COMMAND
 # Rule for re-running cmake.
 
 rule RERUN_CMAKE
-  command = /usr/bin/cmake --regenerate-during-build -S"/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github" -B"/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/build"
+  command = /usr/bin/cmake --regenerate-during-build -S/home/eric/Documents/Learning/CS/OpenGL/FDVS_github -B/home/eric/Documents/Learning/CS/OpenGL/FDVS_github/build
   description = Re-running CMake...
   generator = 1
 

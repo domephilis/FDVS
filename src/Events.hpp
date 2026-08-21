@@ -47,12 +47,12 @@ public:
   virtual void Update(double xpos, double ypos) = 0;
   virtual bool WantCaptureMouse() { return true; }
   bool IsLeftMouseButtonPressed() { return click_state_; }
-  void UpdateMouseButtonState(bool click_state) { click_state_ = click_state; }
+  virtual void UpdateMouseButtonState(bool click_state) { click_state_ = click_state; }
   virtual ImGuiContext *GetContext() { return nullptr; }
   virtual void ResetCentre() {}
   virtual ~MouseSubscriber() {}
 
-private:
+protected:
   bool click_state_ = false;
 };
 

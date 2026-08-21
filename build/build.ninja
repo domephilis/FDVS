@@ -12,7 +12,7 @@
 
 # =============================================================================
 # Project: FDVS
-# Configurations: Release
+# Configurations: Debug
 # =============================================================================
 
 #############################################
@@ -24,7 +24,7 @@ ninja_required_version = 1.5
 #############################################
 # Set configuration variable for custom commands.
 
-CONFIGURATION = Release
+CONFIGURATION = Debug
 # =============================================================================
 # Include auxiliary files.
 
@@ -39,7 +39,7 @@ include CMakeFiles/rules.ninja
 #############################################
 # Logical path to working directory; prefix for absolute paths.
 
-cmake_ninja_workdir = /home/eric/Documents/Learning/Computer$ Science/OpenGL/FDVS_github/build/
+cmake_ninja_workdir = /home/eric/Documents/Learning/CS/OpenGL/FDVS_github/build/
 # =============================================================================
 # Object build statements for STATIC_LIBRARY target glad
 
@@ -49,13 +49,11 @@ cmake_ninja_workdir = /home/eric/Documents/Learning/Computer$ Science/OpenGL/FDV
 
 build cmake_object_order_depends_target_glad: phony || CMakeFiles/glad.dir
 
-build CMakeFiles/glad.dir/extern/glad/glad.c.o: C_COMPILER__glad_Release /home/eric/Documents/Learning/Computer$ Science/OpenGL/FDVS_github/extern/glad/glad.c || cmake_object_order_depends_target_glad
+build CMakeFiles/glad.dir/extern/glad/glad.c.o: C_COMPILER__glad_Debug /home/eric/Documents/Learning/CS/OpenGL/FDVS_github/extern/glad/glad.c || cmake_object_order_depends_target_glad
   DEP_FILE = CMakeFiles/glad.dir/extern/glad/glad.c.o.d
-  FLAGS = -O3 -DNDEBUG
+  FLAGS = -g
   OBJECT_DIR = CMakeFiles/glad.dir
   OBJECT_FILE_DIR = CMakeFiles/glad.dir/extern/glad
-  TARGET_COMPILE_PDB = CMakeFiles/glad.dir/glad.pdb
-  TARGET_PDB = libglad.pdb
 
 
 # =============================================================================
@@ -65,14 +63,13 @@ build CMakeFiles/glad.dir/extern/glad/glad.c.o: C_COMPILER__glad_Release /home/e
 #############################################
 # Link the static library libglad.a
 
-build libglad.a: C_STATIC_LIBRARY_LINKER__glad_Release CMakeFiles/glad.dir/extern/glad/glad.c.o
-  LANGUAGE_COMPILE_FLAGS = -O3 -DNDEBUG
+build libglad.a: C_STATIC_LIBRARY_LINKER__glad_Debug CMakeFiles/glad.dir/extern/glad/glad.c.o
+  LANGUAGE_COMPILE_FLAGS = -g
   OBJECT_DIR = CMakeFiles/glad.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = CMakeFiles/glad.dir/glad.pdb
   TARGET_FILE = libglad.a
-  TARGET_PDB = libglad.pdb
+  TARGET_PDB = glad.a.dbg
 
 # =============================================================================
 # Object build statements for STATIC_LIBRARY target imgui
@@ -83,13 +80,11 @@ build libglad.a: C_STATIC_LIBRARY_LINKER__glad_Release CMakeFiles/glad.dir/exter
 
 build cmake_object_order_depends_target_imgui: phony || CMakeFiles/imgui.dir
 
-build CMakeFiles/imgui.dir/extern/imgui/imgui.cpp.o: CXX_COMPILER__imgui_Release /home/eric/Documents/Learning/Computer$ Science/OpenGL/FDVS_github/extern/imgui/imgui.cpp || cmake_object_order_depends_target_imgui
+build CMakeFiles/imgui.dir/extern/imgui/imgui.cpp.o: CXX_COMPILER__imgui_Debug /home/eric/Documents/Learning/CS/OpenGL/FDVS_github/extern/imgui/imgui.cpp || cmake_object_order_depends_target_imgui
   DEP_FILE = CMakeFiles/imgui.dir/extern/imgui/imgui.cpp.o.d
-  FLAGS = -std=c++20 -O3 -DNDEBUG
+  FLAGS = -std=c++20 -g
   OBJECT_DIR = CMakeFiles/imgui.dir
   OBJECT_FILE_DIR = CMakeFiles/imgui.dir/extern/imgui
-  TARGET_COMPILE_PDB = CMakeFiles/imgui.dir/imgui.pdb
-  TARGET_PDB = libimgui.pdb
 
 
 # =============================================================================
@@ -99,14 +94,13 @@ build CMakeFiles/imgui.dir/extern/imgui/imgui.cpp.o: CXX_COMPILER__imgui_Release
 #############################################
 # Link the static library libimgui.a
 
-build libimgui.a: CXX_STATIC_LIBRARY_LINKER__imgui_Release CMakeFiles/imgui.dir/extern/imgui/imgui.cpp.o
-  LANGUAGE_COMPILE_FLAGS = -std=c++20 -O3 -DNDEBUG
+build libimgui.a: CXX_STATIC_LIBRARY_LINKER__imgui_Debug CMakeFiles/imgui.dir/extern/imgui/imgui.cpp.o
+  LANGUAGE_COMPILE_FLAGS = -std=c++20 -g
   OBJECT_DIR = CMakeFiles/imgui.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = CMakeFiles/imgui.dir/imgui.pdb
   TARGET_FILE = libimgui.a
-  TARGET_PDB = libimgui.pdb
+  TARGET_PDB = imgui.a.dbg
 
 # =============================================================================
 # Object build statements for STATIC_LIBRARY target imgui_backend
@@ -117,13 +111,11 @@ build libimgui.a: CXX_STATIC_LIBRARY_LINKER__imgui_Release CMakeFiles/imgui.dir/
 
 build cmake_object_order_depends_target_imgui_backend: phony || CMakeFiles/imgui_backend.dir
 
-build CMakeFiles/imgui_backend.dir/extern/imgui/imgui_impl_glfw.cpp.o: CXX_COMPILER__imgui_backend_Release /home/eric/Documents/Learning/Computer$ Science/OpenGL/FDVS_github/extern/imgui/imgui_impl_glfw.cpp || cmake_object_order_depends_target_imgui_backend
+build CMakeFiles/imgui_backend.dir/extern/imgui/imgui_impl_glfw.cpp.o: CXX_COMPILER__imgui_backend_Debug /home/eric/Documents/Learning/CS/OpenGL/FDVS_github/extern/imgui/imgui_impl_glfw.cpp || cmake_object_order_depends_target_imgui_backend
   DEP_FILE = CMakeFiles/imgui_backend.dir/extern/imgui/imgui_impl_glfw.cpp.o.d
-  FLAGS = -std=c++20 -O3 -DNDEBUG
+  FLAGS = -std=c++20 -g
   OBJECT_DIR = CMakeFiles/imgui_backend.dir
   OBJECT_FILE_DIR = CMakeFiles/imgui_backend.dir/extern/imgui
-  TARGET_COMPILE_PDB = CMakeFiles/imgui_backend.dir/imgui_backend.pdb
-  TARGET_PDB = libimgui_backend.pdb
 
 
 # =============================================================================
@@ -133,14 +125,13 @@ build CMakeFiles/imgui_backend.dir/extern/imgui/imgui_impl_glfw.cpp.o: CXX_COMPI
 #############################################
 # Link the static library libimgui_backend.a
 
-build libimgui_backend.a: CXX_STATIC_LIBRARY_LINKER__imgui_backend_Release CMakeFiles/imgui_backend.dir/extern/imgui/imgui_impl_glfw.cpp.o
-  LANGUAGE_COMPILE_FLAGS = -std=c++20 -O3 -DNDEBUG
+build libimgui_backend.a: CXX_STATIC_LIBRARY_LINKER__imgui_backend_Debug CMakeFiles/imgui_backend.dir/extern/imgui/imgui_impl_glfw.cpp.o
+  LANGUAGE_COMPILE_FLAGS = -std=c++20 -g
   OBJECT_DIR = CMakeFiles/imgui_backend.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = CMakeFiles/imgui_backend.dir/imgui_backend.pdb
   TARGET_FILE = libimgui_backend.a
-  TARGET_PDB = libimgui_backend.pdb
+  TARGET_PDB = imgui_backend.a.dbg
 
 # =============================================================================
 # Object build statements for STATIC_LIBRARY target imgui_renderer
@@ -151,13 +142,11 @@ build libimgui_backend.a: CXX_STATIC_LIBRARY_LINKER__imgui_backend_Release CMake
 
 build cmake_object_order_depends_target_imgui_renderer: phony || CMakeFiles/imgui_renderer.dir
 
-build CMakeFiles/imgui_renderer.dir/extern/imgui/imgui_impl_opengl3.cpp.o: CXX_COMPILER__imgui_renderer_Release /home/eric/Documents/Learning/Computer$ Science/OpenGL/FDVS_github/extern/imgui/imgui_impl_opengl3.cpp || cmake_object_order_depends_target_imgui_renderer
+build CMakeFiles/imgui_renderer.dir/extern/imgui/imgui_impl_opengl3.cpp.o: CXX_COMPILER__imgui_renderer_Debug /home/eric/Documents/Learning/CS/OpenGL/FDVS_github/extern/imgui/imgui_impl_opengl3.cpp || cmake_object_order_depends_target_imgui_renderer
   DEP_FILE = CMakeFiles/imgui_renderer.dir/extern/imgui/imgui_impl_opengl3.cpp.o.d
-  FLAGS = -std=c++20 -O3 -DNDEBUG
+  FLAGS = -std=c++20 -g
   OBJECT_DIR = CMakeFiles/imgui_renderer.dir
   OBJECT_FILE_DIR = CMakeFiles/imgui_renderer.dir/extern/imgui
-  TARGET_COMPILE_PDB = CMakeFiles/imgui_renderer.dir/imgui_renderer.pdb
-  TARGET_PDB = libimgui_renderer.pdb
 
 
 # =============================================================================
@@ -167,14 +156,13 @@ build CMakeFiles/imgui_renderer.dir/extern/imgui/imgui_impl_opengl3.cpp.o: CXX_C
 #############################################
 # Link the static library libimgui_renderer.a
 
-build libimgui_renderer.a: CXX_STATIC_LIBRARY_LINKER__imgui_renderer_Release CMakeFiles/imgui_renderer.dir/extern/imgui/imgui_impl_opengl3.cpp.o
-  LANGUAGE_COMPILE_FLAGS = -std=c++20 -O3 -DNDEBUG
+build libimgui_renderer.a: CXX_STATIC_LIBRARY_LINKER__imgui_renderer_Debug CMakeFiles/imgui_renderer.dir/extern/imgui/imgui_impl_opengl3.cpp.o
+  LANGUAGE_COMPILE_FLAGS = -std=c++20 -g
   OBJECT_DIR = CMakeFiles/imgui_renderer.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = CMakeFiles/imgui_renderer.dir/imgui_renderer.pdb
   TARGET_FILE = libimgui_renderer.a
-  TARGET_PDB = libimgui_renderer.pdb
+  TARGET_PDB = imgui_renderer.a.dbg
 
 # =============================================================================
 # Object build statements for STATIC_LIBRARY target imgui_demo
@@ -185,13 +173,11 @@ build libimgui_renderer.a: CXX_STATIC_LIBRARY_LINKER__imgui_renderer_Release CMa
 
 build cmake_object_order_depends_target_imgui_demo: phony || CMakeFiles/imgui_demo.dir
 
-build CMakeFiles/imgui_demo.dir/extern/imgui/imgui_demo.cpp.o: CXX_COMPILER__imgui_demo_Release /home/eric/Documents/Learning/Computer$ Science/OpenGL/FDVS_github/extern/imgui/imgui_demo.cpp || cmake_object_order_depends_target_imgui_demo
+build CMakeFiles/imgui_demo.dir/extern/imgui/imgui_demo.cpp.o: CXX_COMPILER__imgui_demo_Debug /home/eric/Documents/Learning/CS/OpenGL/FDVS_github/extern/imgui/imgui_demo.cpp || cmake_object_order_depends_target_imgui_demo
   DEP_FILE = CMakeFiles/imgui_demo.dir/extern/imgui/imgui_demo.cpp.o.d
-  FLAGS = -std=c++20 -O3 -DNDEBUG
+  FLAGS = -std=c++20 -g
   OBJECT_DIR = CMakeFiles/imgui_demo.dir
   OBJECT_FILE_DIR = CMakeFiles/imgui_demo.dir/extern/imgui
-  TARGET_COMPILE_PDB = CMakeFiles/imgui_demo.dir/imgui_demo.pdb
-  TARGET_PDB = libimgui_demo.pdb
 
 
 # =============================================================================
@@ -201,14 +187,13 @@ build CMakeFiles/imgui_demo.dir/extern/imgui/imgui_demo.cpp.o: CXX_COMPILER__img
 #############################################
 # Link the static library libimgui_demo.a
 
-build libimgui_demo.a: CXX_STATIC_LIBRARY_LINKER__imgui_demo_Release CMakeFiles/imgui_demo.dir/extern/imgui/imgui_demo.cpp.o
-  LANGUAGE_COMPILE_FLAGS = -std=c++20 -O3 -DNDEBUG
+build libimgui_demo.a: CXX_STATIC_LIBRARY_LINKER__imgui_demo_Debug CMakeFiles/imgui_demo.dir/extern/imgui/imgui_demo.cpp.o
+  LANGUAGE_COMPILE_FLAGS = -std=c++20 -g
   OBJECT_DIR = CMakeFiles/imgui_demo.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = CMakeFiles/imgui_demo.dir/imgui_demo.pdb
   TARGET_FILE = libimgui_demo.a
-  TARGET_PDB = libimgui_demo.pdb
+  TARGET_PDB = imgui_demo.a.dbg
 
 # =============================================================================
 # Object build statements for STATIC_LIBRARY target imgui_draw
@@ -219,13 +204,11 @@ build libimgui_demo.a: CXX_STATIC_LIBRARY_LINKER__imgui_demo_Release CMakeFiles/
 
 build cmake_object_order_depends_target_imgui_draw: phony || CMakeFiles/imgui_draw.dir
 
-build CMakeFiles/imgui_draw.dir/extern/imgui/imgui_draw.cpp.o: CXX_COMPILER__imgui_draw_Release /home/eric/Documents/Learning/Computer$ Science/OpenGL/FDVS_github/extern/imgui/imgui_draw.cpp || cmake_object_order_depends_target_imgui_draw
+build CMakeFiles/imgui_draw.dir/extern/imgui/imgui_draw.cpp.o: CXX_COMPILER__imgui_draw_Debug /home/eric/Documents/Learning/CS/OpenGL/FDVS_github/extern/imgui/imgui_draw.cpp || cmake_object_order_depends_target_imgui_draw
   DEP_FILE = CMakeFiles/imgui_draw.dir/extern/imgui/imgui_draw.cpp.o.d
-  FLAGS = -std=c++20 -O3 -DNDEBUG
+  FLAGS = -std=c++20 -g
   OBJECT_DIR = CMakeFiles/imgui_draw.dir
   OBJECT_FILE_DIR = CMakeFiles/imgui_draw.dir/extern/imgui
-  TARGET_COMPILE_PDB = CMakeFiles/imgui_draw.dir/imgui_draw.pdb
-  TARGET_PDB = libimgui_draw.pdb
 
 
 # =============================================================================
@@ -235,14 +218,13 @@ build CMakeFiles/imgui_draw.dir/extern/imgui/imgui_draw.cpp.o: CXX_COMPILER__img
 #############################################
 # Link the static library libimgui_draw.a
 
-build libimgui_draw.a: CXX_STATIC_LIBRARY_LINKER__imgui_draw_Release CMakeFiles/imgui_draw.dir/extern/imgui/imgui_draw.cpp.o
-  LANGUAGE_COMPILE_FLAGS = -std=c++20 -O3 -DNDEBUG
+build libimgui_draw.a: CXX_STATIC_LIBRARY_LINKER__imgui_draw_Debug CMakeFiles/imgui_draw.dir/extern/imgui/imgui_draw.cpp.o
+  LANGUAGE_COMPILE_FLAGS = -std=c++20 -g
   OBJECT_DIR = CMakeFiles/imgui_draw.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = CMakeFiles/imgui_draw.dir/imgui_draw.pdb
   TARGET_FILE = libimgui_draw.a
-  TARGET_PDB = libimgui_draw.pdb
+  TARGET_PDB = imgui_draw.a.dbg
 
 # =============================================================================
 # Object build statements for STATIC_LIBRARY target imgui_tables
@@ -253,13 +235,11 @@ build libimgui_draw.a: CXX_STATIC_LIBRARY_LINKER__imgui_draw_Release CMakeFiles/
 
 build cmake_object_order_depends_target_imgui_tables: phony || CMakeFiles/imgui_tables.dir
 
-build CMakeFiles/imgui_tables.dir/extern/imgui/imgui_tables.cpp.o: CXX_COMPILER__imgui_tables_Release /home/eric/Documents/Learning/Computer$ Science/OpenGL/FDVS_github/extern/imgui/imgui_tables.cpp || cmake_object_order_depends_target_imgui_tables
+build CMakeFiles/imgui_tables.dir/extern/imgui/imgui_tables.cpp.o: CXX_COMPILER__imgui_tables_Debug /home/eric/Documents/Learning/CS/OpenGL/FDVS_github/extern/imgui/imgui_tables.cpp || cmake_object_order_depends_target_imgui_tables
   DEP_FILE = CMakeFiles/imgui_tables.dir/extern/imgui/imgui_tables.cpp.o.d
-  FLAGS = -std=c++20 -O3 -DNDEBUG
+  FLAGS = -std=c++20 -g
   OBJECT_DIR = CMakeFiles/imgui_tables.dir
   OBJECT_FILE_DIR = CMakeFiles/imgui_tables.dir/extern/imgui
-  TARGET_COMPILE_PDB = CMakeFiles/imgui_tables.dir/imgui_tables.pdb
-  TARGET_PDB = libimgui_tables.pdb
 
 
 # =============================================================================
@@ -269,14 +249,13 @@ build CMakeFiles/imgui_tables.dir/extern/imgui/imgui_tables.cpp.o: CXX_COMPILER_
 #############################################
 # Link the static library libimgui_tables.a
 
-build libimgui_tables.a: CXX_STATIC_LIBRARY_LINKER__imgui_tables_Release CMakeFiles/imgui_tables.dir/extern/imgui/imgui_tables.cpp.o
-  LANGUAGE_COMPILE_FLAGS = -std=c++20 -O3 -DNDEBUG
+build libimgui_tables.a: CXX_STATIC_LIBRARY_LINKER__imgui_tables_Debug CMakeFiles/imgui_tables.dir/extern/imgui/imgui_tables.cpp.o
+  LANGUAGE_COMPILE_FLAGS = -std=c++20 -g
   OBJECT_DIR = CMakeFiles/imgui_tables.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = CMakeFiles/imgui_tables.dir/imgui_tables.pdb
   TARGET_FILE = libimgui_tables.a
-  TARGET_PDB = libimgui_tables.pdb
+  TARGET_PDB = imgui_tables.a.dbg
 
 # =============================================================================
 # Object build statements for STATIC_LIBRARY target imgui_widgets
@@ -287,13 +266,11 @@ build libimgui_tables.a: CXX_STATIC_LIBRARY_LINKER__imgui_tables_Release CMakeFi
 
 build cmake_object_order_depends_target_imgui_widgets: phony || CMakeFiles/imgui_widgets.dir
 
-build CMakeFiles/imgui_widgets.dir/extern/imgui/imgui_widgets.cpp.o: CXX_COMPILER__imgui_widgets_Release /home/eric/Documents/Learning/Computer$ Science/OpenGL/FDVS_github/extern/imgui/imgui_widgets.cpp || cmake_object_order_depends_target_imgui_widgets
+build CMakeFiles/imgui_widgets.dir/extern/imgui/imgui_widgets.cpp.o: CXX_COMPILER__imgui_widgets_Debug /home/eric/Documents/Learning/CS/OpenGL/FDVS_github/extern/imgui/imgui_widgets.cpp || cmake_object_order_depends_target_imgui_widgets
   DEP_FILE = CMakeFiles/imgui_widgets.dir/extern/imgui/imgui_widgets.cpp.o.d
-  FLAGS = -std=c++20 -O3 -DNDEBUG
+  FLAGS = -std=c++20 -g
   OBJECT_DIR = CMakeFiles/imgui_widgets.dir
   OBJECT_FILE_DIR = CMakeFiles/imgui_widgets.dir/extern/imgui
-  TARGET_COMPILE_PDB = CMakeFiles/imgui_widgets.dir/imgui_widgets.pdb
-  TARGET_PDB = libimgui_widgets.pdb
 
 
 # =============================================================================
@@ -303,14 +280,13 @@ build CMakeFiles/imgui_widgets.dir/extern/imgui/imgui_widgets.cpp.o: CXX_COMPILE
 #############################################
 # Link the static library libimgui_widgets.a
 
-build libimgui_widgets.a: CXX_STATIC_LIBRARY_LINKER__imgui_widgets_Release CMakeFiles/imgui_widgets.dir/extern/imgui/imgui_widgets.cpp.o
-  LANGUAGE_COMPILE_FLAGS = -std=c++20 -O3 -DNDEBUG
+build libimgui_widgets.a: CXX_STATIC_LIBRARY_LINKER__imgui_widgets_Debug CMakeFiles/imgui_widgets.dir/extern/imgui/imgui_widgets.cpp.o
+  LANGUAGE_COMPILE_FLAGS = -std=c++20 -g
   OBJECT_DIR = CMakeFiles/imgui_widgets.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = CMakeFiles/imgui_widgets.dir/imgui_widgets.pdb
   TARGET_FILE = libimgui_widgets.a
-  TARGET_PDB = libimgui_widgets.pdb
+  TARGET_PDB = imgui_widgets.a.dbg
 
 # =============================================================================
 # Object build statements for STATIC_LIBRARY target Themes
@@ -321,14 +297,12 @@ build libimgui_widgets.a: CXX_STATIC_LIBRARY_LINKER__imgui_widgets_Release CMake
 
 build cmake_object_order_depends_target_Themes: phony || cmake_object_order_depends_target_imgui cmake_object_order_depends_target_imgui_draw cmake_object_order_depends_target_imgui_tables cmake_object_order_depends_target_imgui_widgets
 
-build CMakeFiles/Themes.dir/src/Themes.cpp.o: CXX_COMPILER__Themes_Release /home/eric/Documents/Learning/Computer$ Science/OpenGL/FDVS_github/src/Themes.cpp || cmake_object_order_depends_target_Themes
+build CMakeFiles/Themes.dir/src/Themes.cpp.o: CXX_COMPILER__Themes_Debug /home/eric/Documents/Learning/CS/OpenGL/FDVS_github/src/Themes.cpp || cmake_object_order_depends_target_Themes
   DEP_FILE = CMakeFiles/Themes.dir/src/Themes.cpp.o.d
-  FLAGS = -std=c++20 -O3 -DNDEBUG
-  INCLUDES = -I"/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/extern/imgui"
+  FLAGS = -std=c++20 -g
+  INCLUDES = -I/home/eric/Documents/Learning/CS/OpenGL/FDVS_github/extern/imgui
   OBJECT_DIR = CMakeFiles/Themes.dir
   OBJECT_FILE_DIR = CMakeFiles/Themes.dir/src
-  TARGET_COMPILE_PDB = CMakeFiles/Themes.dir/Themes.pdb
-  TARGET_PDB = libThemes.pdb
 
 
 # =============================================================================
@@ -338,14 +312,13 @@ build CMakeFiles/Themes.dir/src/Themes.cpp.o: CXX_COMPILER__Themes_Release /home
 #############################################
 # Link the static library libThemes.a
 
-build libThemes.a: CXX_STATIC_LIBRARY_LINKER__Themes_Release CMakeFiles/Themes.dir/src/Themes.cpp.o || libimgui.a libimgui_draw.a libimgui_tables.a libimgui_widgets.a
-  LANGUAGE_COMPILE_FLAGS = -std=c++20 -O3 -DNDEBUG
+build libThemes.a: CXX_STATIC_LIBRARY_LINKER__Themes_Debug CMakeFiles/Themes.dir/src/Themes.cpp.o || libimgui.a libimgui_draw.a libimgui_tables.a libimgui_widgets.a
+  LANGUAGE_COMPILE_FLAGS = -std=c++20 -g
   OBJECT_DIR = CMakeFiles/Themes.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = CMakeFiles/Themes.dir/Themes.pdb
   TARGET_FILE = libThemes.a
-  TARGET_PDB = libThemes.pdb
+  TARGET_PDB = Themes.a.dbg
 
 # =============================================================================
 # Object build statements for STATIC_LIBRARY target ShaderHandler
@@ -356,13 +329,11 @@ build libThemes.a: CXX_STATIC_LIBRARY_LINKER__Themes_Release CMakeFiles/Themes.d
 
 build cmake_object_order_depends_target_ShaderHandler: phony || cmake_object_order_depends_target_glad
 
-build CMakeFiles/ShaderHandler.dir/src/ShaderHandler.cpp.o: CXX_COMPILER__ShaderHandler_Release /home/eric/Documents/Learning/Computer$ Science/OpenGL/FDVS_github/src/ShaderHandler.cpp || cmake_object_order_depends_target_ShaderHandler
+build CMakeFiles/ShaderHandler.dir/src/ShaderHandler.cpp.o: CXX_COMPILER__ShaderHandler_Debug /home/eric/Documents/Learning/CS/OpenGL/FDVS_github/src/ShaderHandler.cpp || cmake_object_order_depends_target_ShaderHandler
   DEP_FILE = CMakeFiles/ShaderHandler.dir/src/ShaderHandler.cpp.o.d
-  FLAGS = -std=c++20 -O3 -DNDEBUG
+  FLAGS = -std=c++20 -g
   OBJECT_DIR = CMakeFiles/ShaderHandler.dir
   OBJECT_FILE_DIR = CMakeFiles/ShaderHandler.dir/src
-  TARGET_COMPILE_PDB = CMakeFiles/ShaderHandler.dir/ShaderHandler.pdb
-  TARGET_PDB = libShaderHandler.pdb
 
 
 # =============================================================================
@@ -372,14 +343,13 @@ build CMakeFiles/ShaderHandler.dir/src/ShaderHandler.cpp.o: CXX_COMPILER__Shader
 #############################################
 # Link the static library libShaderHandler.a
 
-build libShaderHandler.a: CXX_STATIC_LIBRARY_LINKER__ShaderHandler_Release CMakeFiles/ShaderHandler.dir/src/ShaderHandler.cpp.o || libglad.a
-  LANGUAGE_COMPILE_FLAGS = -std=c++20 -O3 -DNDEBUG
+build libShaderHandler.a: CXX_STATIC_LIBRARY_LINKER__ShaderHandler_Debug CMakeFiles/ShaderHandler.dir/src/ShaderHandler.cpp.o || libglad.a
+  LANGUAGE_COMPILE_FLAGS = -std=c++20 -g
   OBJECT_DIR = CMakeFiles/ShaderHandler.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = CMakeFiles/ShaderHandler.dir/ShaderHandler.pdb
   TARGET_FILE = libShaderHandler.a
-  TARGET_PDB = libShaderHandler.pdb
+  TARGET_PDB = ShaderHandler.a.dbg
 
 # =============================================================================
 # Object build statements for STATIC_LIBRARY target Events
@@ -390,14 +360,12 @@ build libShaderHandler.a: CXX_STATIC_LIBRARY_LINKER__ShaderHandler_Release CMake
 
 build cmake_object_order_depends_target_Events: phony || cmake_object_order_depends_target_imgui_backend
 
-build CMakeFiles/Events.dir/src/Events.cpp.o: CXX_COMPILER__Events_Release /home/eric/Documents/Learning/Computer$ Science/OpenGL/FDVS_github/src/Events.cpp || cmake_object_order_depends_target_Events
+build CMakeFiles/Events.dir/src/Events.cpp.o: CXX_COMPILER__Events_Debug /home/eric/Documents/Learning/CS/OpenGL/FDVS_github/src/Events.cpp || cmake_object_order_depends_target_Events
   DEP_FILE = CMakeFiles/Events.dir/src/Events.cpp.o.d
-  FLAGS = -std=c++20 -O3 -DNDEBUG
-  INCLUDES = -I"/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/extern/imgui"
+  FLAGS = -std=c++20 -g
+  INCLUDES = -I/home/eric/Documents/Learning/CS/OpenGL/FDVS_github/extern/imgui
   OBJECT_DIR = CMakeFiles/Events.dir
   OBJECT_FILE_DIR = CMakeFiles/Events.dir/src
-  TARGET_COMPILE_PDB = CMakeFiles/Events.dir/Events.pdb
-  TARGET_PDB = libEvents.pdb
 
 
 # =============================================================================
@@ -407,14 +375,13 @@ build CMakeFiles/Events.dir/src/Events.cpp.o: CXX_COMPILER__Events_Release /home
 #############################################
 # Link the static library libEvents.a
 
-build libEvents.a: CXX_STATIC_LIBRARY_LINKER__Events_Release CMakeFiles/Events.dir/src/Events.cpp.o || libimgui_backend.a
-  LANGUAGE_COMPILE_FLAGS = -std=c++20 -O3 -DNDEBUG
+build libEvents.a: CXX_STATIC_LIBRARY_LINKER__Events_Debug CMakeFiles/Events.dir/src/Events.cpp.o || libimgui_backend.a
+  LANGUAGE_COMPILE_FLAGS = -std=c++20 -g
   OBJECT_DIR = CMakeFiles/Events.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = CMakeFiles/Events.dir/Events.pdb
   TARGET_FILE = libEvents.a
-  TARGET_PDB = libEvents.pdb
+  TARGET_PDB = Events.a.dbg
 
 # =============================================================================
 # Object build statements for STATIC_LIBRARY target MatrixHandler
@@ -425,14 +392,12 @@ build libEvents.a: CXX_STATIC_LIBRARY_LINKER__Events_Release CMakeFiles/Events.d
 
 build cmake_object_order_depends_target_MatrixHandler: phony || cmake_object_order_depends_target_Events cmake_object_order_depends_target_ShaderHandler cmake_object_order_depends_target_glad cmake_object_order_depends_target_imgui_backend
 
-build CMakeFiles/MatrixHandler.dir/src/MatrixHandler.cpp.o: CXX_COMPILER__MatrixHandler_Release /home/eric/Documents/Learning/Computer$ Science/OpenGL/FDVS_github/src/MatrixHandler.cpp || cmake_object_order_depends_target_MatrixHandler
+build CMakeFiles/MatrixHandler.dir/src/MatrixHandler.cpp.o: CXX_COMPILER__MatrixHandler_Debug /home/eric/Documents/Learning/CS/OpenGL/FDVS_github/src/MatrixHandler.cpp || cmake_object_order_depends_target_MatrixHandler
   DEP_FILE = CMakeFiles/MatrixHandler.dir/src/MatrixHandler.cpp.o.d
-  FLAGS = -std=c++20 -O3 -DNDEBUG
-  INCLUDES = -I"/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/extern/imgui"
+  FLAGS = -std=c++20 -g
+  INCLUDES = -I/home/eric/Documents/Learning/CS/OpenGL/FDVS_github/extern/imgui
   OBJECT_DIR = CMakeFiles/MatrixHandler.dir
   OBJECT_FILE_DIR = CMakeFiles/MatrixHandler.dir/src
-  TARGET_COMPILE_PDB = CMakeFiles/MatrixHandler.dir/MatrixHandler.pdb
-  TARGET_PDB = libMatrixHandler.pdb
 
 
 # =============================================================================
@@ -442,14 +407,13 @@ build CMakeFiles/MatrixHandler.dir/src/MatrixHandler.cpp.o: CXX_COMPILER__Matrix
 #############################################
 # Link the static library libMatrixHandler.a
 
-build libMatrixHandler.a: CXX_STATIC_LIBRARY_LINKER__MatrixHandler_Release CMakeFiles/MatrixHandler.dir/src/MatrixHandler.cpp.o || libEvents.a libShaderHandler.a libglad.a libimgui_backend.a
-  LANGUAGE_COMPILE_FLAGS = -std=c++20 -O3 -DNDEBUG
+build libMatrixHandler.a: CXX_STATIC_LIBRARY_LINKER__MatrixHandler_Debug CMakeFiles/MatrixHandler.dir/src/MatrixHandler.cpp.o || libEvents.a libShaderHandler.a libglad.a libimgui_backend.a
+  LANGUAGE_COMPILE_FLAGS = -std=c++20 -g
   OBJECT_DIR = CMakeFiles/MatrixHandler.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = CMakeFiles/MatrixHandler.dir/MatrixHandler.pdb
   TARGET_FILE = libMatrixHandler.a
-  TARGET_PDB = libMatrixHandler.pdb
+  TARGET_PDB = MatrixHandler.a.dbg
 
 # =============================================================================
 # Object build statements for STATIC_LIBRARY target Buffers
@@ -460,13 +424,11 @@ build libMatrixHandler.a: CXX_STATIC_LIBRARY_LINKER__MatrixHandler_Release CMake
 
 build cmake_object_order_depends_target_Buffers: phony || cmake_object_order_depends_target_Data cmake_object_order_depends_target_glad
 
-build CMakeFiles/Buffers.dir/src/Buffers.cpp.o: CXX_COMPILER__Buffers_Release /home/eric/Documents/Learning/Computer$ Science/OpenGL/FDVS_github/src/Buffers.cpp || cmake_object_order_depends_target_Buffers
+build CMakeFiles/Buffers.dir/src/Buffers.cpp.o: CXX_COMPILER__Buffers_Debug /home/eric/Documents/Learning/CS/OpenGL/FDVS_github/src/Buffers.cpp || cmake_object_order_depends_target_Buffers
   DEP_FILE = CMakeFiles/Buffers.dir/src/Buffers.cpp.o.d
-  FLAGS = -std=c++20 -O3 -DNDEBUG
+  FLAGS = -std=c++20 -g
   OBJECT_DIR = CMakeFiles/Buffers.dir
   OBJECT_FILE_DIR = CMakeFiles/Buffers.dir/src
-  TARGET_COMPILE_PDB = CMakeFiles/Buffers.dir/Buffers.pdb
-  TARGET_PDB = libBuffers.pdb
 
 
 # =============================================================================
@@ -476,14 +438,13 @@ build CMakeFiles/Buffers.dir/src/Buffers.cpp.o: CXX_COMPILER__Buffers_Release /h
 #############################################
 # Link the static library libBuffers.a
 
-build libBuffers.a: CXX_STATIC_LIBRARY_LINKER__Buffers_Release CMakeFiles/Buffers.dir/src/Buffers.cpp.o || libData.a libglad.a
-  LANGUAGE_COMPILE_FLAGS = -std=c++20 -O3 -DNDEBUG
+build libBuffers.a: CXX_STATIC_LIBRARY_LINKER__Buffers_Debug CMakeFiles/Buffers.dir/src/Buffers.cpp.o || libData.a libglad.a
+  LANGUAGE_COMPILE_FLAGS = -std=c++20 -g
   OBJECT_DIR = CMakeFiles/Buffers.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = CMakeFiles/Buffers.dir/Buffers.pdb
   TARGET_FILE = libBuffers.a
-  TARGET_PDB = libBuffers.pdb
+  TARGET_PDB = Buffers.a.dbg
 
 # =============================================================================
 # Object build statements for STATIC_LIBRARY target Data
@@ -494,14 +455,12 @@ build libBuffers.a: CXX_STATIC_LIBRARY_LINKER__Buffers_Release CMakeFiles/Buffer
 
 build cmake_object_order_depends_target_Data: phony || CMakeFiles/Data.dir
 
-build CMakeFiles/Data.dir/src/Data.cpp.o: CXX_COMPILER__Data_Release /home/eric/Documents/Learning/Computer$ Science/OpenGL/FDVS_github/src/Data.cpp || cmake_object_order_depends_target_Data
+build CMakeFiles/Data.dir/src/Data.cpp.o: CXX_COMPILER__Data_Debug /home/eric/Documents/Learning/CS/OpenGL/FDVS_github/src/Data.cpp || cmake_object_order_depends_target_Data
   DEFINES = -DBOOST_ALL_NO_LIB -DCGAL_USE_GMPXX=1
   DEP_FILE = CMakeFiles/Data.dir/src/Data.cpp.o.d
-  FLAGS = -std=c++20 -O3 -DNDEBUG -frounding-math
+  FLAGS = -std=c++20 -g -frounding-math
   OBJECT_DIR = CMakeFiles/Data.dir
   OBJECT_FILE_DIR = CMakeFiles/Data.dir/src
-  TARGET_COMPILE_PDB = CMakeFiles/Data.dir/Data.pdb
-  TARGET_PDB = libData.pdb
 
 
 # =============================================================================
@@ -511,14 +470,13 @@ build CMakeFiles/Data.dir/src/Data.cpp.o: CXX_COMPILER__Data_Release /home/eric/
 #############################################
 # Link the static library libData.a
 
-build libData.a: CXX_STATIC_LIBRARY_LINKER__Data_Release CMakeFiles/Data.dir/src/Data.cpp.o
-  LANGUAGE_COMPILE_FLAGS = -std=c++20 -O3 -DNDEBUG
+build libData.a: CXX_STATIC_LIBRARY_LINKER__Data_Debug CMakeFiles/Data.dir/src/Data.cpp.o
+  LANGUAGE_COMPILE_FLAGS = -std=c++20 -g
   OBJECT_DIR = CMakeFiles/Data.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = CMakeFiles/Data.dir/Data.pdb
   TARGET_FILE = libData.a
-  TARGET_PDB = libData.pdb
+  TARGET_PDB = Data.a.dbg
 
 # =============================================================================
 # Object build statements for STATIC_LIBRARY target Models
@@ -529,14 +487,12 @@ build libData.a: CXX_STATIC_LIBRARY_LINKER__Data_Release CMakeFiles/Data.dir/src
 
 build cmake_object_order_depends_target_Models: phony || CMakeFiles/Models.dir
 
-build CMakeFiles/Models.dir/src/Models.cpp.o: CXX_COMPILER__Models_Release /home/eric/Documents/Learning/Computer$ Science/OpenGL/FDVS_github/src/Models.cpp || cmake_object_order_depends_target_Models
+build CMakeFiles/Models.dir/src/Models.cpp.o: CXX_COMPILER__Models_Debug /home/eric/Documents/Learning/CS/OpenGL/FDVS_github/src/Models.cpp || cmake_object_order_depends_target_Models
   DEP_FILE = CMakeFiles/Models.dir/src/Models.cpp.o.d
-  FLAGS = -std=c++20 -O3 -DNDEBUG
-  INCLUDES = -I"/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/extern/nlohmann_json/include"
+  FLAGS = -std=c++20 -g
+  INCLUDES = -I/home/eric/Documents/Learning/CS/OpenGL/FDVS_github/extern/nlohmann_json/include
   OBJECT_DIR = CMakeFiles/Models.dir
   OBJECT_FILE_DIR = CMakeFiles/Models.dir/src
-  TARGET_COMPILE_PDB = CMakeFiles/Models.dir/Models.pdb
-  TARGET_PDB = libModels.pdb
 
 
 # =============================================================================
@@ -546,14 +502,13 @@ build CMakeFiles/Models.dir/src/Models.cpp.o: CXX_COMPILER__Models_Release /home
 #############################################
 # Link the static library libModels.a
 
-build libModels.a: CXX_STATIC_LIBRARY_LINKER__Models_Release CMakeFiles/Models.dir/src/Models.cpp.o
-  LANGUAGE_COMPILE_FLAGS = -std=c++20 -O3 -DNDEBUG
+build libModels.a: CXX_STATIC_LIBRARY_LINKER__Models_Debug CMakeFiles/Models.dir/src/Models.cpp.o
+  LANGUAGE_COMPILE_FLAGS = -std=c++20 -g
   OBJECT_DIR = CMakeFiles/Models.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = CMakeFiles/Models.dir/Models.pdb
   TARGET_FILE = libModels.a
-  TARGET_PDB = libModels.pdb
+  TARGET_PDB = Models.a.dbg
 
 # =============================================================================
 # Object build statements for STATIC_LIBRARY target Strategy
@@ -564,14 +519,12 @@ build libModels.a: CXX_STATIC_LIBRARY_LINKER__Models_Release CMakeFiles/Models.d
 
 build cmake_object_order_depends_target_Strategy: phony || CMakeFiles/Strategy.dir
 
-build CMakeFiles/Strategy.dir/src/Strategy.cpp.o: CXX_COMPILER__Strategy_Release /home/eric/Documents/Learning/Computer$ Science/OpenGL/FDVS_github/src/Strategy.cpp || cmake_object_order_depends_target_Strategy
+build CMakeFiles/Strategy.dir/src/Strategy.cpp.o: CXX_COMPILER__Strategy_Debug /home/eric/Documents/Learning/CS/OpenGL/FDVS_github/src/Strategy.cpp || cmake_object_order_depends_target_Strategy
   DEP_FILE = CMakeFiles/Strategy.dir/src/Strategy.cpp.o.d
-  FLAGS = -std=c++20 -O3 -DNDEBUG
-  INCLUDES = -I"/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/extern/nlohmann_json/include"
+  FLAGS = -std=c++20 -g
+  INCLUDES = -I/home/eric/Documents/Learning/CS/OpenGL/FDVS_github/extern/nlohmann_json/include
   OBJECT_DIR = CMakeFiles/Strategy.dir
   OBJECT_FILE_DIR = CMakeFiles/Strategy.dir/src
-  TARGET_COMPILE_PDB = CMakeFiles/Strategy.dir/Strategy.pdb
-  TARGET_PDB = libStrategy.pdb
 
 
 # =============================================================================
@@ -581,14 +534,13 @@ build CMakeFiles/Strategy.dir/src/Strategy.cpp.o: CXX_COMPILER__Strategy_Release
 #############################################
 # Link the static library libStrategy.a
 
-build libStrategy.a: CXX_STATIC_LIBRARY_LINKER__Strategy_Release CMakeFiles/Strategy.dir/src/Strategy.cpp.o
-  LANGUAGE_COMPILE_FLAGS = -std=c++20 -O3 -DNDEBUG
+build libStrategy.a: CXX_STATIC_LIBRARY_LINKER__Strategy_Debug CMakeFiles/Strategy.dir/src/Strategy.cpp.o
+  LANGUAGE_COMPILE_FLAGS = -std=c++20 -g
   OBJECT_DIR = CMakeFiles/Strategy.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = CMakeFiles/Strategy.dir/Strategy.pdb
   TARGET_FILE = libStrategy.a
-  TARGET_PDB = libStrategy.pdb
+  TARGET_PDB = Strategy.a.dbg
 
 # =============================================================================
 # Object build statements for STATIC_LIBRARY target Panel
@@ -599,15 +551,13 @@ build libStrategy.a: CXX_STATIC_LIBRARY_LINKER__Strategy_Release CMakeFiles/Stra
 
 build cmake_object_order_depends_target_Panel: phony || cmake_object_order_depends_target_Buffers cmake_object_order_depends_target_Data cmake_object_order_depends_target_Events cmake_object_order_depends_target_Graphics cmake_object_order_depends_target_MatrixHandler cmake_object_order_depends_target_Models cmake_object_order_depends_target_PricingPolicies cmake_object_order_depends_target_ShaderHandler cmake_object_order_depends_target_Strategy cmake_object_order_depends_target_Themes cmake_object_order_depends_target_glad cmake_object_order_depends_target_imgui cmake_object_order_depends_target_imgui_backend cmake_object_order_depends_target_imgui_demo cmake_object_order_depends_target_imgui_draw cmake_object_order_depends_target_imgui_renderer cmake_object_order_depends_target_imgui_tables cmake_object_order_depends_target_imgui_widgets
 
-build CMakeFiles/Panel.dir/src/Panel.cpp.o: CXX_COMPILER__Panel_Release /home/eric/Documents/Learning/Computer$ Science/OpenGL/FDVS_github/src/Panel.cpp || cmake_object_order_depends_target_Panel
-  DEFINES = -DCMAKE_CURRENT_SOURCE_DIR="/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github"
+build CMakeFiles/Panel.dir/src/Panel.cpp.o: CXX_COMPILER__Panel_Debug /home/eric/Documents/Learning/CS/OpenGL/FDVS_github/src/Panel.cpp || cmake_object_order_depends_target_Panel
+  DEFINES = -DCMAKE_CURRENT_SOURCE_DIR=/home/eric/Documents/Learning/CS/OpenGL/FDVS_github
   DEP_FILE = CMakeFiles/Panel.dir/src/Panel.cpp.o.d
-  FLAGS = -std=c++20 -O3 -DNDEBUG
-  INCLUDES = -I"/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/extern/imgui" -I"/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/extern/nlohmann_json/include"
+  FLAGS = -std=c++20 -g
+  INCLUDES = -I/home/eric/Documents/Learning/CS/OpenGL/FDVS_github/extern/imgui -I/home/eric/Documents/Learning/CS/OpenGL/FDVS_github/extern/nlohmann_json/include
   OBJECT_DIR = CMakeFiles/Panel.dir
   OBJECT_FILE_DIR = CMakeFiles/Panel.dir/src
-  TARGET_COMPILE_PDB = CMakeFiles/Panel.dir/Panel.pdb
-  TARGET_PDB = libPanel.pdb
 
 
 # =============================================================================
@@ -617,14 +567,13 @@ build CMakeFiles/Panel.dir/src/Panel.cpp.o: CXX_COMPILER__Panel_Release /home/er
 #############################################
 # Link the static library libPanel.a
 
-build libPanel.a: CXX_STATIC_LIBRARY_LINKER__Panel_Release CMakeFiles/Panel.dir/src/Panel.cpp.o || libBuffers.a libData.a libEvents.a libGraphics.a libMatrixHandler.a libModels.a libPricingPolicies.a libShaderHandler.a libStrategy.a libThemes.a libglad.a libimgui.a libimgui_backend.a libimgui_demo.a libimgui_draw.a libimgui_renderer.a libimgui_tables.a libimgui_widgets.a
-  LANGUAGE_COMPILE_FLAGS = -std=c++20 -O3 -DNDEBUG
+build libPanel.a: CXX_STATIC_LIBRARY_LINKER__Panel_Debug CMakeFiles/Panel.dir/src/Panel.cpp.o || libBuffers.a libData.a libEvents.a libGraphics.a libMatrixHandler.a libModels.a libPricingPolicies.a libShaderHandler.a libStrategy.a libThemes.a libglad.a libimgui.a libimgui_backend.a libimgui_demo.a libimgui_draw.a libimgui_renderer.a libimgui_tables.a libimgui_widgets.a
+  LANGUAGE_COMPILE_FLAGS = -std=c++20 -g
   OBJECT_DIR = CMakeFiles/Panel.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = CMakeFiles/Panel.dir/Panel.pdb
   TARGET_FILE = libPanel.a
-  TARGET_PDB = libPanel.pdb
+  TARGET_PDB = Panel.a.dbg
 
 # =============================================================================
 # Object build statements for STATIC_LIBRARY target Graphics
@@ -635,14 +584,12 @@ build libPanel.a: CXX_STATIC_LIBRARY_LINKER__Panel_Release CMakeFiles/Panel.dir/
 
 build cmake_object_order_depends_target_Graphics: phony || cmake_object_order_depends_target_Buffers cmake_object_order_depends_target_Data cmake_object_order_depends_target_Events cmake_object_order_depends_target_MatrixHandler cmake_object_order_depends_target_ShaderHandler cmake_object_order_depends_target_glad cmake_object_order_depends_target_imgui_backend
 
-build CMakeFiles/Graphics.dir/src/Graphics.cpp.o: CXX_COMPILER__Graphics_Release /home/eric/Documents/Learning/Computer$ Science/OpenGL/FDVS_github/src/Graphics.cpp || cmake_object_order_depends_target_Graphics
+build CMakeFiles/Graphics.dir/src/Graphics.cpp.o: CXX_COMPILER__Graphics_Debug /home/eric/Documents/Learning/CS/OpenGL/FDVS_github/src/Graphics.cpp || cmake_object_order_depends_target_Graphics
   DEP_FILE = CMakeFiles/Graphics.dir/src/Graphics.cpp.o.d
-  FLAGS = -std=c++20 -O3 -DNDEBUG
-  INCLUDES = -I"/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/extern/imgui"
+  FLAGS = -std=c++20 -g
+  INCLUDES = -I/home/eric/Documents/Learning/CS/OpenGL/FDVS_github/extern/imgui
   OBJECT_DIR = CMakeFiles/Graphics.dir
   OBJECT_FILE_DIR = CMakeFiles/Graphics.dir/src
-  TARGET_COMPILE_PDB = CMakeFiles/Graphics.dir/Graphics.pdb
-  TARGET_PDB = libGraphics.pdb
 
 
 # =============================================================================
@@ -652,14 +599,13 @@ build CMakeFiles/Graphics.dir/src/Graphics.cpp.o: CXX_COMPILER__Graphics_Release
 #############################################
 # Link the static library libGraphics.a
 
-build libGraphics.a: CXX_STATIC_LIBRARY_LINKER__Graphics_Release CMakeFiles/Graphics.dir/src/Graphics.cpp.o || libBuffers.a libData.a libEvents.a libMatrixHandler.a libShaderHandler.a libglad.a libimgui_backend.a
-  LANGUAGE_COMPILE_FLAGS = -std=c++20 -O3 -DNDEBUG
+build libGraphics.a: CXX_STATIC_LIBRARY_LINKER__Graphics_Debug CMakeFiles/Graphics.dir/src/Graphics.cpp.o || libBuffers.a libData.a libEvents.a libMatrixHandler.a libShaderHandler.a libglad.a libimgui_backend.a
+  LANGUAGE_COMPILE_FLAGS = -std=c++20 -g
   OBJECT_DIR = CMakeFiles/Graphics.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = CMakeFiles/Graphics.dir/Graphics.pdb
   TARGET_FILE = libGraphics.a
-  TARGET_PDB = libGraphics.pdb
+  TARGET_PDB = Graphics.a.dbg
 
 # =============================================================================
 # Object build statements for STATIC_LIBRARY target Application
@@ -670,25 +616,21 @@ build libGraphics.a: CXX_STATIC_LIBRARY_LINKER__Graphics_Release CMakeFiles/Grap
 
 build cmake_object_order_depends_target_Application: phony || cmake_object_order_depends_target_Buffers cmake_object_order_depends_target_Data cmake_object_order_depends_target_Events cmake_object_order_depends_target_Graphics cmake_object_order_depends_target_MatrixHandler cmake_object_order_depends_target_Models cmake_object_order_depends_target_Panel cmake_object_order_depends_target_PricingPolicies cmake_object_order_depends_target_ShaderHandler cmake_object_order_depends_target_Strategy cmake_object_order_depends_target_Themes cmake_object_order_depends_target_glad cmake_object_order_depends_target_imgui cmake_object_order_depends_target_imgui_backend cmake_object_order_depends_target_imgui_demo cmake_object_order_depends_target_imgui_draw cmake_object_order_depends_target_imgui_renderer cmake_object_order_depends_target_imgui_tables cmake_object_order_depends_target_imgui_widgets
 
-build CMakeFiles/Application.dir/src/Application.cpp.o: CXX_COMPILER__Application_Release /home/eric/Documents/Learning/Computer$ Science/OpenGL/FDVS_github/src/Application.cpp || cmake_object_order_depends_target_Application
-  DEFINES = -DCMAKE_CURRENT_SOURCE_DIR="/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github"
+build CMakeFiles/Application.dir/src/Application.cpp.o: CXX_COMPILER__Application_Debug /home/eric/Documents/Learning/CS/OpenGL/FDVS_github/src/Application.cpp || cmake_object_order_depends_target_Application
+  DEFINES = -DCMAKE_CURRENT_SOURCE_DIR=/home/eric/Documents/Learning/CS/OpenGL/FDVS_github
   DEP_FILE = CMakeFiles/Application.dir/src/Application.cpp.o.d
-  FLAGS = -std=c++20 -O3 -DNDEBUG
-  INCLUDES = -I"/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/extern/imgui" -I"/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/extern/nlohmann_json/include"
+  FLAGS = -std=c++20 -g
+  INCLUDES = -I/home/eric/Documents/Learning/CS/OpenGL/FDVS_github/extern/imgui -I/home/eric/Documents/Learning/CS/OpenGL/FDVS_github/extern/nlohmann_json/include
   OBJECT_DIR = CMakeFiles/Application.dir
   OBJECT_FILE_DIR = CMakeFiles/Application.dir/src
-  TARGET_COMPILE_PDB = CMakeFiles/Application.dir/Application.pdb
-  TARGET_PDB = libApplication.pdb
 
-build CMakeFiles/Application.dir/src/MatrixHandler.cpp.o: CXX_COMPILER__Application_Release /home/eric/Documents/Learning/Computer$ Science/OpenGL/FDVS_github/src/MatrixHandler.cpp || cmake_object_order_depends_target_Application
-  DEFINES = -DCMAKE_CURRENT_SOURCE_DIR="/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github"
+build CMakeFiles/Application.dir/src/MatrixHandler.cpp.o: CXX_COMPILER__Application_Debug /home/eric/Documents/Learning/CS/OpenGL/FDVS_github/src/MatrixHandler.cpp || cmake_object_order_depends_target_Application
+  DEFINES = -DCMAKE_CURRENT_SOURCE_DIR=/home/eric/Documents/Learning/CS/OpenGL/FDVS_github
   DEP_FILE = CMakeFiles/Application.dir/src/MatrixHandler.cpp.o.d
-  FLAGS = -std=c++20 -O3 -DNDEBUG
-  INCLUDES = -I"/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/extern/imgui" -I"/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/extern/nlohmann_json/include"
+  FLAGS = -std=c++20 -g
+  INCLUDES = -I/home/eric/Documents/Learning/CS/OpenGL/FDVS_github/extern/imgui -I/home/eric/Documents/Learning/CS/OpenGL/FDVS_github/extern/nlohmann_json/include
   OBJECT_DIR = CMakeFiles/Application.dir
   OBJECT_FILE_DIR = CMakeFiles/Application.dir/src
-  TARGET_COMPILE_PDB = CMakeFiles/Application.dir/Application.pdb
-  TARGET_PDB = libApplication.pdb
 
 
 # =============================================================================
@@ -698,14 +640,13 @@ build CMakeFiles/Application.dir/src/MatrixHandler.cpp.o: CXX_COMPILER__Applicat
 #############################################
 # Link the static library libApplication.a
 
-build libApplication.a: CXX_STATIC_LIBRARY_LINKER__Application_Release CMakeFiles/Application.dir/src/Application.cpp.o CMakeFiles/Application.dir/src/MatrixHandler.cpp.o || libBuffers.a libData.a libEvents.a libGraphics.a libMatrixHandler.a libModels.a libPanel.a libPricingPolicies.a libShaderHandler.a libStrategy.a libThemes.a libglad.a libimgui.a libimgui_backend.a libimgui_demo.a libimgui_draw.a libimgui_renderer.a libimgui_tables.a libimgui_widgets.a
-  LANGUAGE_COMPILE_FLAGS = -std=c++20 -O3 -DNDEBUG
+build libApplication.a: CXX_STATIC_LIBRARY_LINKER__Application_Debug CMakeFiles/Application.dir/src/Application.cpp.o CMakeFiles/Application.dir/src/MatrixHandler.cpp.o || libBuffers.a libData.a libEvents.a libGraphics.a libMatrixHandler.a libModels.a libPanel.a libPricingPolicies.a libShaderHandler.a libStrategy.a libThemes.a libglad.a libimgui.a libimgui_backend.a libimgui_demo.a libimgui_draw.a libimgui_renderer.a libimgui_tables.a libimgui_widgets.a
+  LANGUAGE_COMPILE_FLAGS = -std=c++20 -g
   OBJECT_DIR = CMakeFiles/Application.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = CMakeFiles/Application.dir/Application.pdb
   TARGET_FILE = libApplication.a
-  TARGET_PDB = libApplication.pdb
+  TARGET_PDB = Application.a.dbg
 
 # =============================================================================
 # Object build statements for STATIC_LIBRARY target PricingPolicies
@@ -716,14 +657,12 @@ build libApplication.a: CXX_STATIC_LIBRARY_LINKER__Application_Release CMakeFile
 
 build cmake_object_order_depends_target_PricingPolicies: phony || CMakeFiles/PricingPolicies.dir
 
-build CMakeFiles/PricingPolicies.dir/src/PricingPolicies.cpp.o: CXX_COMPILER__PricingPolicies_Release /home/eric/Documents/Learning/Computer$ Science/OpenGL/FDVS_github/src/PricingPolicies.cpp || cmake_object_order_depends_target_PricingPolicies
+build CMakeFiles/PricingPolicies.dir/src/PricingPolicies.cpp.o: CXX_COMPILER__PricingPolicies_Debug /home/eric/Documents/Learning/CS/OpenGL/FDVS_github/src/PricingPolicies.cpp || cmake_object_order_depends_target_PricingPolicies
   DEP_FILE = CMakeFiles/PricingPolicies.dir/src/PricingPolicies.cpp.o.d
-  FLAGS = -std=c++20 -O3 -DNDEBUG
-  INCLUDES = -I"/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/extern/nlohmann_json/include"
+  FLAGS = -std=c++20 -g
+  INCLUDES = -I/home/eric/Documents/Learning/CS/OpenGL/FDVS_github/extern/nlohmann_json/include
   OBJECT_DIR = CMakeFiles/PricingPolicies.dir
   OBJECT_FILE_DIR = CMakeFiles/PricingPolicies.dir/src
-  TARGET_COMPILE_PDB = CMakeFiles/PricingPolicies.dir/PricingPolicies.pdb
-  TARGET_PDB = libPricingPolicies.pdb
 
 
 # =============================================================================
@@ -733,14 +672,13 @@ build CMakeFiles/PricingPolicies.dir/src/PricingPolicies.cpp.o: CXX_COMPILER__Pr
 #############################################
 # Link the static library libPricingPolicies.a
 
-build libPricingPolicies.a: CXX_STATIC_LIBRARY_LINKER__PricingPolicies_Release CMakeFiles/PricingPolicies.dir/src/PricingPolicies.cpp.o
-  LANGUAGE_COMPILE_FLAGS = -std=c++20 -O3 -DNDEBUG
+build libPricingPolicies.a: CXX_STATIC_LIBRARY_LINKER__PricingPolicies_Debug CMakeFiles/PricingPolicies.dir/src/PricingPolicies.cpp.o
+  LANGUAGE_COMPILE_FLAGS = -std=c++20 -g
   OBJECT_DIR = CMakeFiles/PricingPolicies.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = CMakeFiles/PricingPolicies.dir/PricingPolicies.pdb
   TARGET_FILE = libPricingPolicies.a
-  TARGET_PDB = libPricingPolicies.pdb
+  TARGET_PDB = PricingPolicies.a.dbg
 
 # =============================================================================
 # Object build statements for EXECUTABLE target program.out
@@ -751,14 +689,12 @@ build libPricingPolicies.a: CXX_STATIC_LIBRARY_LINKER__PricingPolicies_Release C
 
 build cmake_object_order_depends_target_program.out: phony || cmake_object_order_depends_target_Application cmake_object_order_depends_target_Buffers cmake_object_order_depends_target_Data cmake_object_order_depends_target_Events cmake_object_order_depends_target_Graphics cmake_object_order_depends_target_MatrixHandler cmake_object_order_depends_target_Models cmake_object_order_depends_target_Panel cmake_object_order_depends_target_PricingPolicies cmake_object_order_depends_target_ShaderHandler cmake_object_order_depends_target_Strategy cmake_object_order_depends_target_Themes cmake_object_order_depends_target_glad cmake_object_order_depends_target_imgui cmake_object_order_depends_target_imgui_backend cmake_object_order_depends_target_imgui_demo cmake_object_order_depends_target_imgui_draw cmake_object_order_depends_target_imgui_renderer cmake_object_order_depends_target_imgui_tables cmake_object_order_depends_target_imgui_widgets
 
-build CMakeFiles/program.out.dir/src/main.cpp.o: CXX_COMPILER__program.2eout_Release /home/eric/Documents/Learning/Computer$ Science/OpenGL/FDVS_github/src/main.cpp || cmake_object_order_depends_target_program.out
+build CMakeFiles/program.out.dir/src/main.cpp.o: CXX_COMPILER__program.2eout_Debug /home/eric/Documents/Learning/CS/OpenGL/FDVS_github/src/main.cpp || cmake_object_order_depends_target_program.out
   DEP_FILE = CMakeFiles/program.out.dir/src/main.cpp.o.d
-  FLAGS = -std=c++20 -O3 -DNDEBUG
-  INCLUDES = -I"/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/extern/imgui" -I"/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/extern/nlohmann_json/include"
+  FLAGS = -std=c++20 -g
+  INCLUDES = -I/home/eric/Documents/Learning/CS/OpenGL/FDVS_github/extern/imgui -I/home/eric/Documents/Learning/CS/OpenGL/FDVS_github/extern/nlohmann_json/include
   OBJECT_DIR = CMakeFiles/program.out.dir
   OBJECT_FILE_DIR = CMakeFiles/program.out.dir/src
-  TARGET_COMPILE_PDB = CMakeFiles/program.out.dir/
-  TARGET_PDB = program.out.pdb
 
 
 # =============================================================================
@@ -768,22 +704,21 @@ build CMakeFiles/program.out.dir/src/main.cpp.o: CXX_COMPILER__program.2eout_Rel
 #############################################
 # Link the executable program.out
 
-build program.out: CXX_EXECUTABLE_LINKER__program.2eout_Release CMakeFiles/program.out.dir/src/main.cpp.o | libApplication.a libPanel.a libimgui_renderer.a libimgui_demo.a libThemes.a libimgui.a libimgui_draw.a libimgui_tables.a libimgui_widgets.a libGraphics.a libBuffers.a libData.a /usr/lib/x86_64-linux-gnu/libgmpxx.so /usr/lib/x86_64-linux-gnu/libmpfr.so /usr/lib/x86_64-linux-gnu/libgmp.so libMatrixHandler.a libEvents.a libimgui_backend.a libShaderHandler.a libglad.a libModels.a libStrategy.a libPricingPolicies.a || libApplication.a libBuffers.a libData.a libEvents.a libGraphics.a libMatrixHandler.a libModels.a libPanel.a libPricingPolicies.a libShaderHandler.a libStrategy.a libThemes.a libglad.a libimgui.a libimgui_backend.a libimgui_demo.a libimgui_draw.a libimgui_renderer.a libimgui_tables.a libimgui_widgets.a
-  FLAGS = -std=c++20 -O3 -DNDEBUG
-  LINK_LIBRARIES = libApplication.a  libPanel.a  libimgui_renderer.a  libimgui_demo.a  libThemes.a  libimgui.a  libimgui_draw.a  libimgui_tables.a  libimgui_widgets.a  libGraphics.a  libBuffers.a  libData.a  /usr/lib/x86_64-linux-gnu/libgmpxx.so  /usr/lib/x86_64-linux-gnu/libmpfr.so  /usr/lib/x86_64-linux-gnu/libgmp.so  libMatrixHandler.a  libEvents.a  -lglfw3  libimgui_backend.a  libShaderHandler.a  libglad.a  libModels.a  libStrategy.a  libPricingPolicies.a
+build program.out: CXX_EXECUTABLE_LINKER__program.2eout_Debug CMakeFiles/program.out.dir/src/main.cpp.o | libApplication.a libPanel.a libimgui_renderer.a libimgui_demo.a libThemes.a libimgui.a libimgui_draw.a libimgui_tables.a libimgui_widgets.a libGraphics.a libBuffers.a libData.a /usr/lib/x86_64-linux-gnu/libgmpxx.so /usr/lib/x86_64-linux-gnu/libmpfr.so /usr/lib/x86_64-linux-gnu/libgmp.so libMatrixHandler.a libEvents.a libimgui_backend.a libShaderHandler.a libglad.a libModels.a libStrategy.a libPricingPolicies.a || libApplication.a libBuffers.a libData.a libEvents.a libGraphics.a libMatrixHandler.a libModels.a libPanel.a libPricingPolicies.a libShaderHandler.a libStrategy.a libThemes.a libglad.a libimgui.a libimgui_backend.a libimgui_demo.a libimgui_draw.a libimgui_renderer.a libimgui_tables.a libimgui_widgets.a
+  FLAGS = -std=c++20 -g
+  LINK_LIBRARIES = libApplication.a  libPanel.a  libimgui_renderer.a  libimgui_demo.a  libThemes.a  libimgui.a  libimgui_draw.a  libimgui_tables.a  libimgui_widgets.a  libGraphics.a  libBuffers.a  libData.a  /usr/lib/x86_64-linux-gnu/libgmpxx.so  /usr/lib/x86_64-linux-gnu/libmpfr.so  /usr/lib/x86_64-linux-gnu/libgmp.so  libMatrixHandler.a  libEvents.a  -lglfw3  libimgui_backend.a  libShaderHandler.a  libglad.a  libModels.a  libStrategy.a  libPricingPolicies.a  -ldl
   OBJECT_DIR = CMakeFiles/program.out.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = CMakeFiles/program.out.dir/
   TARGET_FILE = program.out
-  TARGET_PDB = program.out.pdb
+  TARGET_PDB = program.out.dbg
 
 
 #############################################
 # Utility command for edit_cache
 
 build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
-  COMMAND = cd "/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/build" && /usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+  COMMAND = cd /home/eric/Documents/Learning/CS/OpenGL/FDVS_github/build && /usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
   DESC = No interactive CMake dialog available...
   restat = 1
 
@@ -794,7 +729,7 @@ build edit_cache: phony CMakeFiles/edit_cache.util
 # Utility command for rebuild_cache
 
 build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = cd "/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/build" && /usr/bin/cmake --regenerate-during-build -S"/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github" -B"/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/build"
+  COMMAND = cd /home/eric/Documents/Learning/CS/OpenGL/FDVS_github/build && /usr/bin/cmake --regenerate-during-build -S/home/eric/Documents/Learning/CS/OpenGL/FDVS_github -B/home/eric/Documents/Learning/CS/OpenGL/FDVS_github/build
   DESC = Running CMake to regenerate build system...
   pool = console
   restat = 1
@@ -803,7 +738,7 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 
 # =============================================================================
 # Write statements declared in CMakeLists.txt:
-# /home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/CMakeLists.txt
+# /home/eric/Documents/Learning/CS/OpenGL/FDVS_github/CMakeLists.txt
 # =============================================================================
 
 
@@ -811,7 +746,7 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 # Utility command for edit_cache
 
 build extern/nlohmann_json/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
-  COMMAND = cd "/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/build/extern/nlohmann_json" && /usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+  COMMAND = cd /home/eric/Documents/Learning/CS/OpenGL/FDVS_github/build/extern/nlohmann_json && /usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
   DESC = No interactive CMake dialog available...
   restat = 1
 
@@ -822,7 +757,7 @@ build extern/nlohmann_json/edit_cache: phony extern/nlohmann_json/CMakeFiles/edi
 # Utility command for rebuild_cache
 
 build extern/nlohmann_json/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = cd "/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/build/extern/nlohmann_json" && /usr/bin/cmake --regenerate-during-build -S"/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github" -B"/home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/build"
+  COMMAND = cd /home/eric/Documents/Learning/CS/OpenGL/FDVS_github/build/extern/nlohmann_json && /usr/bin/cmake --regenerate-during-build -S/home/eric/Documents/Learning/CS/OpenGL/FDVS_github -B/home/eric/Documents/Learning/CS/OpenGL/FDVS_github/build
   DESC = Running CMake to regenerate build system...
   pool = console
   restat = 1
@@ -878,14 +813,14 @@ build imgui_widgets: phony libimgui_widgets.a
 # =============================================================================
 
 #############################################
-# Folder: /home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/build
+# Folder: /home/eric/Documents/Learning/CS/OpenGL/FDVS_github/build
 
 build all: phony libglad.a libimgui.a libimgui_backend.a libimgui_renderer.a libimgui_demo.a libimgui_draw.a libimgui_tables.a libimgui_widgets.a libThemes.a libShaderHandler.a libEvents.a libMatrixHandler.a libBuffers.a libData.a libModels.a libStrategy.a libPanel.a libGraphics.a libApplication.a libPricingPolicies.a program.out extern/nlohmann_json/all
 
 # =============================================================================
 
 #############################################
-# Folder: /home/eric/Documents/Learning/Computer Science/OpenGL/FDVS_github/build/extern/nlohmann_json
+# Folder: /home/eric/Documents/Learning/CS/OpenGL/FDVS_github/build/extern/nlohmann_json
 
 build extern/nlohmann_json/all: phony
 
@@ -896,14 +831,14 @@ build extern/nlohmann_json/all: phony
 #############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja: RERUN_CMAKE | ../CMakeLists.txt ../extern/nlohmann_json/CMakeLists.txt ../extern/nlohmann_json/cmake/config.cmake.in ../extern/nlohmann_json/cmake/nlohmann_jsonConfigVersion.cmake.in ../extern/nlohmann_json/cmake/pkg-config.pc.in /usr/lib/x86_64-linux-gnu/cmake/Boost-1.74.0/BoostConfig.cmake /usr/lib/x86_64-linux-gnu/cmake/Boost-1.74.0/BoostConfigVersion.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/CGALConfig.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/CGALConfigBuildVersion.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/CGALConfigVersion.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/CGAL_Common.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/CGAL_CreateSingleSourceCGALProgram.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/CGAL_GeneratorSpecificSettings.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/CGAL_Macros.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/CGAL_SCM.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/CGAL_SetupBoost.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/CGAL_SetupCGALDependencies.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/CGAL_SetupGMP.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/CGAL_TweakFindBoost.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/CGAL_VersionUtils.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/CGAL_add_test.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/CGAL_enable_end_of_configuration_hook.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/CGAL_setup_target_dependencies.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/CGAL_target_use_TBB.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/FindGMP.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/FindGMPXX.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/FindMPFR.cmake /usr/lib/x86_64-linux-gnu/cmake/boost_headers-1.74.0/boost_headers-config-version.cmake /usr/lib/x86_64-linux-gnu/cmake/boost_headers-1.74.0/boost_headers-config.cmake /usr/local/lib/cmake/glfw3/glfw3Config.cmake /usr/local/lib/cmake/glfw3/glfw3ConfigVersion.cmake /usr/local/lib/cmake/glfw3/glfw3Targets-noconfig.cmake /usr/local/lib/cmake/glfw3/glfw3Targets.cmake /usr/share/cmake-3.22/Modules/CMakeCCompiler.cmake.in /usr/share/cmake-3.22/Modules/CMakeCCompilerABI.c /usr/share/cmake-3.22/Modules/CMakeCInformation.cmake /usr/share/cmake-3.22/Modules/CMakeCXXCompiler.cmake.in /usr/share/cmake-3.22/Modules/CMakeCXXCompilerABI.cpp /usr/share/cmake-3.22/Modules/CMakeCXXInformation.cmake /usr/share/cmake-3.22/Modules/CMakeCommonLanguageInclude.cmake /usr/share/cmake-3.22/Modules/CMakeCompilerIdDetection.cmake /usr/share/cmake-3.22/Modules/CMakeDetermineCCompiler.cmake /usr/share/cmake-3.22/Modules/CMakeDetermineCXXCompiler.cmake /usr/share/cmake-3.22/Modules/CMakeDetermineCompileFeatures.cmake /usr/share/cmake-3.22/Modules/CMakeDetermineCompiler.cmake /usr/share/cmake-3.22/Modules/CMakeDetermineCompilerABI.cmake /usr/share/cmake-3.22/Modules/CMakeDetermineCompilerId.cmake /usr/share/cmake-3.22/Modules/CMakeDetermineSystem.cmake /usr/share/cmake-3.22/Modules/CMakeFindBinUtils.cmake /usr/share/cmake-3.22/Modules/CMakeFindDependencyMacro.cmake /usr/share/cmake-3.22/Modules/CMakeGenericSystem.cmake /usr/share/cmake-3.22/Modules/CMakeInitializeConfigs.cmake /usr/share/cmake-3.22/Modules/CMakeLanguageInformation.cmake /usr/share/cmake-3.22/Modules/CMakeNinjaFindMake.cmake /usr/share/cmake-3.22/Modules/CMakePackageConfigHelpers.cmake /usr/share/cmake-3.22/Modules/CMakeParseArguments.cmake /usr/share/cmake-3.22/Modules/CMakeParseImplicitIncludeInfo.cmake /usr/share/cmake-3.22/Modules/CMakeParseImplicitLinkInfo.cmake /usr/share/cmake-3.22/Modules/CMakeParseLibraryArchitecture.cmake /usr/share/cmake-3.22/Modules/CMakeSystem.cmake.in /usr/share/cmake-3.22/Modules/CMakeSystemSpecificInformation.cmake /usr/share/cmake-3.22/Modules/CMakeSystemSpecificInitialize.cmake /usr/share/cmake-3.22/Modules/CMakeTestCCompiler.cmake /usr/share/cmake-3.22/Modules/CMakeTestCXXCompiler.cmake /usr/share/cmake-3.22/Modules/CMakeTestCompilerCommon.cmake /usr/share/cmake-3.22/Modules/CheckCSourceCompiles.cmake /usr/share/cmake-3.22/Modules/CheckIncludeFile.c.in /usr/share/cmake-3.22/Modules/CheckIncludeFile.cmake /usr/share/cmake-3.22/Modules/CheckLibraryExists.cmake /usr/share/cmake-3.22/Modules/Compiler/ADSP-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/ARMCC-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/ARMClang-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/AppleClang-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/Borland-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/Bruce-C-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/CMakeCommonCompilerMacros.cmake /usr/share/cmake-3.22/Modules/Compiler/Clang-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/Clang-DetermineCompilerInternal.cmake /usr/share/cmake-3.22/Modules/Compiler/Comeau-CXX-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/Compaq-C-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/Compaq-CXX-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/Cray-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/Embarcadero-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/Fujitsu-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/FujitsuClang-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/GHS-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/GNU-C-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/GNU-C.cmake /usr/share/cmake-3.22/Modules/Compiler/GNU-CXX-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/GNU-CXX.cmake /usr/share/cmake-3.22/Modules/Compiler/GNU-FindBinUtils.cmake /usr/share/cmake-3.22/Modules/Compiler/GNU.cmake /usr/share/cmake-3.22/Modules/Compiler/HP-C-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/HP-CXX-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/IAR-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/IBMCPP-C-DetermineVersionInternal.cmake /usr/share/cmake-3.22/Modules/Compiler/IBMCPP-CXX-DetermineVersionInternal.cmake /usr/share/cmake-3.22/Modules/Compiler/Intel-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/IntelLLVM-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/MSVC-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/NVHPC-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/NVIDIA-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/OpenWatcom-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/PGI-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/PathScale-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/SCO-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/SDCC-C-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/SunPro-C-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/SunPro-CXX-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/TI-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/TinyCC-C-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/VisualAge-C-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/VisualAge-CXX-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/Watcom-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/XL-C-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/XL-CXX-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/XLClang-C-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/XLClang-CXX-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/zOS-C-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/zOS-CXX-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/ExternalProject.cmake /usr/share/cmake-3.22/Modules/FindBoost.cmake /usr/share/cmake-3.22/Modules/FindPackageHandleStandardArgs.cmake /usr/share/cmake-3.22/Modules/FindPackageMessage.cmake /usr/share/cmake-3.22/Modules/FindThreads.cmake /usr/share/cmake-3.22/Modules/GNUInstallDirs.cmake /usr/share/cmake-3.22/Modules/Internal/CheckSourceCompiles.cmake /usr/share/cmake-3.22/Modules/Internal/FeatureTesting.cmake /usr/share/cmake-3.22/Modules/Platform/Linux-Determine-CXX.cmake /usr/share/cmake-3.22/Modules/Platform/Linux-GNU-C.cmake /usr/share/cmake-3.22/Modules/Platform/Linux-GNU-CXX.cmake /usr/share/cmake-3.22/Modules/Platform/Linux-GNU.cmake /usr/share/cmake-3.22/Modules/Platform/Linux.cmake /usr/share/cmake-3.22/Modules/Platform/UnixPaths.cmake /usr/share/cmake-3.22/Modules/WriteBasicConfigVersionFile.cmake CMakeCache.txt CMakeFiles/3.22.1/CMakeCCompiler.cmake CMakeFiles/3.22.1/CMakeCXXCompiler.cmake CMakeFiles/3.22.1/CMakeSystem.cmake
+build build.ninja: RERUN_CMAKE | ../CMakeLists.txt ../extern/nlohmann_json/CMakeLists.txt ../extern/nlohmann_json/cmake/config.cmake.in ../extern/nlohmann_json/cmake/nlohmann_jsonConfigVersion.cmake.in ../extern/nlohmann_json/cmake/pkg-config.pc.in /usr/lib/x86_64-linux-gnu/cmake/Boost-1.74.0/BoostConfig.cmake /usr/lib/x86_64-linux-gnu/cmake/Boost-1.74.0/BoostConfigVersion.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/CGALConfig.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/CGALConfigBuildVersion.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/CGALConfigVersion.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/CGAL_Common.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/CGAL_CreateSingleSourceCGALProgram.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/CGAL_GeneratorSpecificSettings.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/CGAL_Macros.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/CGAL_SCM.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/CGAL_SetupBoost.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/CGAL_SetupCGALDependencies.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/CGAL_SetupGMP.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/CGAL_TweakFindBoost.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/CGAL_VersionUtils.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/CGAL_add_test.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/CGAL_enable_end_of_configuration_hook.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/CGAL_setup_target_dependencies.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/CGAL_target_use_TBB.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/FindGMP.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/FindGMPXX.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/FindMPFR.cmake /usr/lib/x86_64-linux-gnu/cmake/boost_headers-1.74.0/boost_headers-config-version.cmake /usr/lib/x86_64-linux-gnu/cmake/boost_headers-1.74.0/boost_headers-config.cmake /usr/local/lib/cmake/glfw3/glfw3Config.cmake /usr/local/lib/cmake/glfw3/glfw3ConfigVersion.cmake /usr/local/lib/cmake/glfw3/glfw3Targets-noconfig.cmake /usr/local/lib/cmake/glfw3/glfw3Targets.cmake /usr/share/cmake-3.22/Modules/CMakeCInformation.cmake /usr/share/cmake-3.22/Modules/CMakeCXXInformation.cmake /usr/share/cmake-3.22/Modules/CMakeCommonLanguageInclude.cmake /usr/share/cmake-3.22/Modules/CMakeFindDependencyMacro.cmake /usr/share/cmake-3.22/Modules/CMakeGenericSystem.cmake /usr/share/cmake-3.22/Modules/CMakeInitializeConfigs.cmake /usr/share/cmake-3.22/Modules/CMakeLanguageInformation.cmake /usr/share/cmake-3.22/Modules/CMakePackageConfigHelpers.cmake /usr/share/cmake-3.22/Modules/CMakeParseArguments.cmake /usr/share/cmake-3.22/Modules/CMakeSystemSpecificInformation.cmake /usr/share/cmake-3.22/Modules/CMakeSystemSpecificInitialize.cmake /usr/share/cmake-3.22/Modules/CheckCSourceCompiles.cmake /usr/share/cmake-3.22/Modules/CheckIncludeFile.cmake /usr/share/cmake-3.22/Modules/CheckLibraryExists.cmake /usr/share/cmake-3.22/Modules/Compiler/CMakeCommonCompilerMacros.cmake /usr/share/cmake-3.22/Modules/Compiler/GNU-C.cmake /usr/share/cmake-3.22/Modules/Compiler/GNU-CXX.cmake /usr/share/cmake-3.22/Modules/Compiler/GNU.cmake /usr/share/cmake-3.22/Modules/ExternalProject.cmake /usr/share/cmake-3.22/Modules/FindBoost.cmake /usr/share/cmake-3.22/Modules/FindPackageHandleStandardArgs.cmake /usr/share/cmake-3.22/Modules/FindPackageMessage.cmake /usr/share/cmake-3.22/Modules/FindThreads.cmake /usr/share/cmake-3.22/Modules/GNUInstallDirs.cmake /usr/share/cmake-3.22/Modules/Internal/CheckSourceCompiles.cmake /usr/share/cmake-3.22/Modules/Platform/Linux-GNU-C.cmake /usr/share/cmake-3.22/Modules/Platform/Linux-GNU-CXX.cmake /usr/share/cmake-3.22/Modules/Platform/Linux-GNU.cmake /usr/share/cmake-3.22/Modules/Platform/Linux.cmake /usr/share/cmake-3.22/Modules/Platform/UnixPaths.cmake /usr/share/cmake-3.22/Modules/WriteBasicConfigVersionFile.cmake CMakeCache.txt CMakeFiles/3.22.1/CMakeCCompiler.cmake CMakeFiles/3.22.1/CMakeCXXCompiler.cmake CMakeFiles/3.22.1/CMakeSystem.cmake
   pool = console
 
 
 #############################################
 # A missing CMake input file is not an error.
 
-build ../CMakeLists.txt ../extern/nlohmann_json/CMakeLists.txt ../extern/nlohmann_json/cmake/config.cmake.in ../extern/nlohmann_json/cmake/nlohmann_jsonConfigVersion.cmake.in ../extern/nlohmann_json/cmake/pkg-config.pc.in /usr/lib/x86_64-linux-gnu/cmake/Boost-1.74.0/BoostConfig.cmake /usr/lib/x86_64-linux-gnu/cmake/Boost-1.74.0/BoostConfigVersion.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/CGALConfig.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/CGALConfigBuildVersion.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/CGALConfigVersion.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/CGAL_Common.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/CGAL_CreateSingleSourceCGALProgram.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/CGAL_GeneratorSpecificSettings.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/CGAL_Macros.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/CGAL_SCM.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/CGAL_SetupBoost.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/CGAL_SetupCGALDependencies.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/CGAL_SetupGMP.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/CGAL_TweakFindBoost.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/CGAL_VersionUtils.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/CGAL_add_test.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/CGAL_enable_end_of_configuration_hook.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/CGAL_setup_target_dependencies.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/CGAL_target_use_TBB.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/FindGMP.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/FindGMPXX.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/FindMPFR.cmake /usr/lib/x86_64-linux-gnu/cmake/boost_headers-1.74.0/boost_headers-config-version.cmake /usr/lib/x86_64-linux-gnu/cmake/boost_headers-1.74.0/boost_headers-config.cmake /usr/local/lib/cmake/glfw3/glfw3Config.cmake /usr/local/lib/cmake/glfw3/glfw3ConfigVersion.cmake /usr/local/lib/cmake/glfw3/glfw3Targets-noconfig.cmake /usr/local/lib/cmake/glfw3/glfw3Targets.cmake /usr/share/cmake-3.22/Modules/CMakeCCompiler.cmake.in /usr/share/cmake-3.22/Modules/CMakeCCompilerABI.c /usr/share/cmake-3.22/Modules/CMakeCInformation.cmake /usr/share/cmake-3.22/Modules/CMakeCXXCompiler.cmake.in /usr/share/cmake-3.22/Modules/CMakeCXXCompilerABI.cpp /usr/share/cmake-3.22/Modules/CMakeCXXInformation.cmake /usr/share/cmake-3.22/Modules/CMakeCommonLanguageInclude.cmake /usr/share/cmake-3.22/Modules/CMakeCompilerIdDetection.cmake /usr/share/cmake-3.22/Modules/CMakeDetermineCCompiler.cmake /usr/share/cmake-3.22/Modules/CMakeDetermineCXXCompiler.cmake /usr/share/cmake-3.22/Modules/CMakeDetermineCompileFeatures.cmake /usr/share/cmake-3.22/Modules/CMakeDetermineCompiler.cmake /usr/share/cmake-3.22/Modules/CMakeDetermineCompilerABI.cmake /usr/share/cmake-3.22/Modules/CMakeDetermineCompilerId.cmake /usr/share/cmake-3.22/Modules/CMakeDetermineSystem.cmake /usr/share/cmake-3.22/Modules/CMakeFindBinUtils.cmake /usr/share/cmake-3.22/Modules/CMakeFindDependencyMacro.cmake /usr/share/cmake-3.22/Modules/CMakeGenericSystem.cmake /usr/share/cmake-3.22/Modules/CMakeInitializeConfigs.cmake /usr/share/cmake-3.22/Modules/CMakeLanguageInformation.cmake /usr/share/cmake-3.22/Modules/CMakeNinjaFindMake.cmake /usr/share/cmake-3.22/Modules/CMakePackageConfigHelpers.cmake /usr/share/cmake-3.22/Modules/CMakeParseArguments.cmake /usr/share/cmake-3.22/Modules/CMakeParseImplicitIncludeInfo.cmake /usr/share/cmake-3.22/Modules/CMakeParseImplicitLinkInfo.cmake /usr/share/cmake-3.22/Modules/CMakeParseLibraryArchitecture.cmake /usr/share/cmake-3.22/Modules/CMakeSystem.cmake.in /usr/share/cmake-3.22/Modules/CMakeSystemSpecificInformation.cmake /usr/share/cmake-3.22/Modules/CMakeSystemSpecificInitialize.cmake /usr/share/cmake-3.22/Modules/CMakeTestCCompiler.cmake /usr/share/cmake-3.22/Modules/CMakeTestCXXCompiler.cmake /usr/share/cmake-3.22/Modules/CMakeTestCompilerCommon.cmake /usr/share/cmake-3.22/Modules/CheckCSourceCompiles.cmake /usr/share/cmake-3.22/Modules/CheckIncludeFile.c.in /usr/share/cmake-3.22/Modules/CheckIncludeFile.cmake /usr/share/cmake-3.22/Modules/CheckLibraryExists.cmake /usr/share/cmake-3.22/Modules/Compiler/ADSP-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/ARMCC-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/ARMClang-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/AppleClang-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/Borland-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/Bruce-C-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/CMakeCommonCompilerMacros.cmake /usr/share/cmake-3.22/Modules/Compiler/Clang-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/Clang-DetermineCompilerInternal.cmake /usr/share/cmake-3.22/Modules/Compiler/Comeau-CXX-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/Compaq-C-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/Compaq-CXX-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/Cray-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/Embarcadero-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/Fujitsu-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/FujitsuClang-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/GHS-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/GNU-C-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/GNU-C.cmake /usr/share/cmake-3.22/Modules/Compiler/GNU-CXX-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/GNU-CXX.cmake /usr/share/cmake-3.22/Modules/Compiler/GNU-FindBinUtils.cmake /usr/share/cmake-3.22/Modules/Compiler/GNU.cmake /usr/share/cmake-3.22/Modules/Compiler/HP-C-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/HP-CXX-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/IAR-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/IBMCPP-C-DetermineVersionInternal.cmake /usr/share/cmake-3.22/Modules/Compiler/IBMCPP-CXX-DetermineVersionInternal.cmake /usr/share/cmake-3.22/Modules/Compiler/Intel-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/IntelLLVM-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/MSVC-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/NVHPC-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/NVIDIA-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/OpenWatcom-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/PGI-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/PathScale-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/SCO-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/SDCC-C-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/SunPro-C-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/SunPro-CXX-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/TI-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/TinyCC-C-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/VisualAge-C-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/VisualAge-CXX-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/Watcom-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/XL-C-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/XL-CXX-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/XLClang-C-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/XLClang-CXX-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/zOS-C-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/Compiler/zOS-CXX-DetermineCompiler.cmake /usr/share/cmake-3.22/Modules/ExternalProject.cmake /usr/share/cmake-3.22/Modules/FindBoost.cmake /usr/share/cmake-3.22/Modules/FindPackageHandleStandardArgs.cmake /usr/share/cmake-3.22/Modules/FindPackageMessage.cmake /usr/share/cmake-3.22/Modules/FindThreads.cmake /usr/share/cmake-3.22/Modules/GNUInstallDirs.cmake /usr/share/cmake-3.22/Modules/Internal/CheckSourceCompiles.cmake /usr/share/cmake-3.22/Modules/Internal/FeatureTesting.cmake /usr/share/cmake-3.22/Modules/Platform/Linux-Determine-CXX.cmake /usr/share/cmake-3.22/Modules/Platform/Linux-GNU-C.cmake /usr/share/cmake-3.22/Modules/Platform/Linux-GNU-CXX.cmake /usr/share/cmake-3.22/Modules/Platform/Linux-GNU.cmake /usr/share/cmake-3.22/Modules/Platform/Linux.cmake /usr/share/cmake-3.22/Modules/Platform/UnixPaths.cmake /usr/share/cmake-3.22/Modules/WriteBasicConfigVersionFile.cmake CMakeCache.txt CMakeFiles/3.22.1/CMakeCCompiler.cmake CMakeFiles/3.22.1/CMakeCXXCompiler.cmake CMakeFiles/3.22.1/CMakeSystem.cmake: phony
+build ../CMakeLists.txt ../extern/nlohmann_json/CMakeLists.txt ../extern/nlohmann_json/cmake/config.cmake.in ../extern/nlohmann_json/cmake/nlohmann_jsonConfigVersion.cmake.in ../extern/nlohmann_json/cmake/pkg-config.pc.in /usr/lib/x86_64-linux-gnu/cmake/Boost-1.74.0/BoostConfig.cmake /usr/lib/x86_64-linux-gnu/cmake/Boost-1.74.0/BoostConfigVersion.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/CGALConfig.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/CGALConfigBuildVersion.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/CGALConfigVersion.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/CGAL_Common.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/CGAL_CreateSingleSourceCGALProgram.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/CGAL_GeneratorSpecificSettings.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/CGAL_Macros.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/CGAL_SCM.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/CGAL_SetupBoost.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/CGAL_SetupCGALDependencies.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/CGAL_SetupGMP.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/CGAL_TweakFindBoost.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/CGAL_VersionUtils.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/CGAL_add_test.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/CGAL_enable_end_of_configuration_hook.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/CGAL_setup_target_dependencies.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/CGAL_target_use_TBB.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/FindGMP.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/FindGMPXX.cmake /usr/lib/x86_64-linux-gnu/cmake/CGAL/FindMPFR.cmake /usr/lib/x86_64-linux-gnu/cmake/boost_headers-1.74.0/boost_headers-config-version.cmake /usr/lib/x86_64-linux-gnu/cmake/boost_headers-1.74.0/boost_headers-config.cmake /usr/local/lib/cmake/glfw3/glfw3Config.cmake /usr/local/lib/cmake/glfw3/glfw3ConfigVersion.cmake /usr/local/lib/cmake/glfw3/glfw3Targets-noconfig.cmake /usr/local/lib/cmake/glfw3/glfw3Targets.cmake /usr/share/cmake-3.22/Modules/CMakeCInformation.cmake /usr/share/cmake-3.22/Modules/CMakeCXXInformation.cmake /usr/share/cmake-3.22/Modules/CMakeCommonLanguageInclude.cmake /usr/share/cmake-3.22/Modules/CMakeFindDependencyMacro.cmake /usr/share/cmake-3.22/Modules/CMakeGenericSystem.cmake /usr/share/cmake-3.22/Modules/CMakeInitializeConfigs.cmake /usr/share/cmake-3.22/Modules/CMakeLanguageInformation.cmake /usr/share/cmake-3.22/Modules/CMakePackageConfigHelpers.cmake /usr/share/cmake-3.22/Modules/CMakeParseArguments.cmake /usr/share/cmake-3.22/Modules/CMakeSystemSpecificInformation.cmake /usr/share/cmake-3.22/Modules/CMakeSystemSpecificInitialize.cmake /usr/share/cmake-3.22/Modules/CheckCSourceCompiles.cmake /usr/share/cmake-3.22/Modules/CheckIncludeFile.cmake /usr/share/cmake-3.22/Modules/CheckLibraryExists.cmake /usr/share/cmake-3.22/Modules/Compiler/CMakeCommonCompilerMacros.cmake /usr/share/cmake-3.22/Modules/Compiler/GNU-C.cmake /usr/share/cmake-3.22/Modules/Compiler/GNU-CXX.cmake /usr/share/cmake-3.22/Modules/Compiler/GNU.cmake /usr/share/cmake-3.22/Modules/ExternalProject.cmake /usr/share/cmake-3.22/Modules/FindBoost.cmake /usr/share/cmake-3.22/Modules/FindPackageHandleStandardArgs.cmake /usr/share/cmake-3.22/Modules/FindPackageMessage.cmake /usr/share/cmake-3.22/Modules/FindThreads.cmake /usr/share/cmake-3.22/Modules/GNUInstallDirs.cmake /usr/share/cmake-3.22/Modules/Internal/CheckSourceCompiles.cmake /usr/share/cmake-3.22/Modules/Platform/Linux-GNU-C.cmake /usr/share/cmake-3.22/Modules/Platform/Linux-GNU-CXX.cmake /usr/share/cmake-3.22/Modules/Platform/Linux-GNU.cmake /usr/share/cmake-3.22/Modules/Platform/Linux.cmake /usr/share/cmake-3.22/Modules/Platform/UnixPaths.cmake /usr/share/cmake-3.22/Modules/WriteBasicConfigVersionFile.cmake CMakeCache.txt CMakeFiles/3.22.1/CMakeCCompiler.cmake CMakeFiles/3.22.1/CMakeCXXCompiler.cmake CMakeFiles/3.22.1/CMakeSystem.cmake: phony
 
 
 #############################################

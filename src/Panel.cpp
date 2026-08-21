@@ -23,13 +23,58 @@ Windowing::GraphPanel::GraphPanel(GLFWwindow *window,
   // Construct from a file
   // data_ = std::make_shared<Data::OffMeshData>("output.off");
   Data::Grid input_grid{};
-  auto f = [](double x, double y) {
-      double dx = x - 50.0;
-      double dy = y - 50.0;
-      double r = std::sqrt(dx*dx + dy*dy);
-  
-      return static_cast<float>(100.0 * std::sin(r / 5.0) * std::exp(-r / 45.0));
-  };
+  // auto f = [](double x, double y) {
+  //     double dx = x - 50.0;
+  //     double dy = y - 50.0;
+  //     double r = std::sqrt(dx*dx + dy*dy);
+  // 
+  //     return static_cast<float>(100.0 * std::sin(r / 5.0) * std::exp(-r / 45.0));
+  // };
+  //
+
+  // 3. Mexican-hat / Ricker-wavelet surface
+  // auto f = [](double x, double y) {
+  //     double dx = x - 50.0;
+  //     double dy = y - 50.0;
+  //     double r2 = dx*dx + dy*dy;
+  // 
+  //     double s2 = 225.0; // sigma = 15
+  //     return static_cast<float>(100.0 * (1.0 - r2 / s2)
+  //                  * std::exp(-r2 / (2.0 * s2)));
+  // 4. Interference pattern
+  // auto f = [](double x, double y) {
+  //     return static_cast<float>(50.0 * (
+  //         std::sin(x / 7.0) * std::cos(y / 9.0)
+  //       + std::sin((x + y) / 12.0)
+  //     ));
+  // };
+  //
+  // auto f = [](double x, double y) {
+  //   double dx = x - 50.0;
+  //   double dy = y - 50.0;
+  //   double r = std::sqrt(dx*dx + dy*dy);
+
+  //   return static_cast<float>(100.0
+  //        * std::cos(r / 4.0)
+  //        * std::exp(-r*r / 1800.0));
+  // }; 
+
+
+  float (*f)(double, double);
+  char* error;
+  so_handle = dlopen(SO_PATH, RTLD_LAZY);
+  if (!so_handle) {
+    fprintf(stderr, "%s\n", dlerror());
+  }
+
+  dlerror();
+  *(void **) (&f) = dlsym(so_handle, "f");
+
+  error = dlerror();
+  if(error != NULL){
+    fprintf(stderr, "%s\n", dlerror());
+  }
+
   data_ = std::make_shared<Data::OffMeshData>(input_grid, f);
 
   std::array<float, 3> max({data_->max[0], data_->max[1], data_->max[2]});
@@ -38,6 +83,9 @@ Windowing::GraphPanel::GraphPanel(GLFWwindow *window,
   // Configure MatrixStack
   mv_stack_ = std::make_unique<Matrices::MatrixStack>("modelview", shader);
   proj_stack_ = std::make_unique<Matrices::MatrixStack>("projection", shader);
+  // Todo: create actor for the model here
+  // Location is the centre, and up, lateral, and forward are the
+  // natural parallel vectors to the axes
   camera_ = std::make_unique<Matrices::CameraFrame>(context);
 
   io_ctr_->contexts.push_back(context);
@@ -45,8 +93,11 @@ Windowing::GraphPanel::GraphPanel(GLFWwindow *window,
   io_ctr_->k_publisher_->addSubscriber(
       std::dynamic_pointer_cast<Events::KeyboardSubscriber>(
           camera_->k_subscription_));
+  // Todo: Have the actor receive Ctrl + Mouse Movement
+  // Install the requisite callbacks
   io_ctr_->m_publisher_->addSubscriber(camera_->m_subscription_);
   io_ctr_->s_publisher_->addSubscriber(camera_->s_subscription_);
+  
 
   // Create Graph Window FBO Target
   graph_fbo_ = std::make_shared<Buffers::FBO>(800, 600);
@@ -62,6 +113,7 @@ Windowing::GraphPanel::GraphPanel(GLFWwindow *window,
   z_axis_ = std::make_unique<Graphics::Line>(
       glm::vec3(0.0f, 0.0f, 0.0f),
       glm::vec3(0.0f, 0.0f, -1.1 * depth * z_scaling_), shader, graph_fbo_);
+  // Todo: Add some grids so that we can see what is going on
 }
 
 void Windowing::GraphPanel::Render() {
@@ -117,15 +169,17 @@ void Windowing::GraphPanel::Render() {
 
   // Antialiasing
   // glEnable(GL_BLEND);
-  glEnable(GL_MULTISAMPLE);
+  // glEnable(GL_MULTISAMPLE);
   // glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
   // glEnable(GL_LINE_SMOOTH);
   // glEnable(GL_POLYGON_SMOOTH);
+  glDisable(GL_SCISSOR_TEST);
 
   int success = 0;
   glGetProgramiv(shader->ID, GL_LINK_STATUS, &success);
   shader->use();
   glGetProgramiv(shader->ID, GL_LINK_STATUS, &success);
+  // Todo: the arbitrary min and max heights 
   shader->setFloat("minHeight", -100.0f);
   shader->setFloat("maxHeight", 100.0f);
 
@@ -134,6 +188,7 @@ void Windowing::GraphPanel::Render() {
   camera_->m_subscription_->UpdateWindowCentre(pos.x + size_avail.x / 2,
                                                pos.y + size_avail.y / 2);
   mv_stack_->pushMatrix(camera_->GetTransformMatrix());
+  // Todo: push the actor transformation onto the stack, so that it is done first
 
   // Draw Graph
   // Reminder: Call shader->use() everytime you pop a matrix
@@ -147,10 +202,10 @@ void Windowing::GraphPanel::Render() {
                        5 * depth * static_cast<float>(z_scaling_)));
   mv_stack_->popMatrix();
   proj_stack_->popMatrix();
-  graph->drawToBuffer(size_avail.x, size_avail.y);
   x_axis_->drawToBuffer(size_avail.x, size_avail.y);
   y_axis_->drawToBuffer(size_avail.x, size_avail.y);
   z_axis_->drawToBuffer(size_avail.x, size_avail.y);
+  graph->drawToBuffer(size_avail.x, size_avail.y);
 
   glUseProgram(0);
   ImGui::Render();

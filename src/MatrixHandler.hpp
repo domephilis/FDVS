@@ -5,9 +5,7 @@
 #include <memory>
 #include <stack>
 #include <string>
-
-// GLM
-#include <glm/glm.hpp>
+// GLM #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtx/rotate_vector.hpp>
@@ -51,6 +49,9 @@ public:
   glm::vec3 lateral_;
 };
 
+// Todo: Create a ModelFrame class here
+
+// We specialize here because the subscriber behavior is different
 class CameraFrame : public RefFrame {
 public:
   CameraFrame(ImGuiContext *context);
@@ -60,21 +61,84 @@ public:
   class CFrameMSubscriber : public Events::MouseSubscriber {
   public:
     CFrameMSubscriber(Matrices::CameraFrame *camera) { camera_ = camera; }
+    void UpdateMouseButtonState(bool click_state) override
+    { 
+      // std::cerr << "old: " << click_state_ << '\n'
+      //   << "new: " << click_state << std::endl;
+      if(click_state_ == false && click_state == true)
+      {
+        first_mouse_ = true;
+        std::cerr << first_mouse_ << std::endl;
+      }
+
+      click_state_ = click_state;
+    }
+
+    glm::vec3 ArcballPoint(double x, double y)
+    {
+      GLint viewport[4];
+      glGetIntegerv(GL_VIEWPORT, viewport);
+      auto width = viewport[2];
+      auto height = viewport[3];
+
+      // viewport coordinates -> [-1, 1]
+      double nx = (2.0 * x - width) / width;
+      double ny = (height - 2.0 * y) / height;
+
+      double r2 = nx * nx + ny * ny;
+
+      if (r2 <= 1.0) {
+          return glm::normalize(glm::vec3(
+              nx,
+              ny,
+              std::sqrt(1.0 - r2)
+          ));
+      }
+
+      // Outside sphere: project onto rim
+      return glm::normalize(glm::vec3(nx, ny, 0.0));
+    }
+
     void Update(double x_pos, double y_pos) override {
 
-      // std::cerr << "Mouse Callback Invoked" << std::endl;
+      // // std::cerr << "Mouse Callback Invoked" << std::endl;
+      if(first_mouse_)
+      {
+        last_x_ = x_pos;
+        last_y_ = y_pos;
+        first_mouse_ = false;
+      }
 
-      double mouse_speed_ = 0.008f;
-      double delta_displacement_x = (x_pos - centre_x) - last_displacement_x;
-      double delta_displacement_y = (y_pos - centre_y) - last_displacement_y;
-      last_displacement_x = x_pos - centre_x;
-      last_displacement_y = y_pos - centre_y;
-      // last_time_ = glfwGetTime();
+      // double mouse_speed_ = 0.008f;
+      // double delta_displacement_x = (x_pos - centre_x) - last_displacement_x;
+      // double delta_displacement_y = (y_pos - centre_y) - last_displacement_y;
+      // last_displacement_x = x_pos - centre_x;
+      // last_displacement_y = y_pos - centre_y;
+      // // last_time_ = glfwGetTime();
 
-      camera_->RotateAxis(mouse_speed_ * delta_displacement_x,
-                          glm::vec3(0.0f, 1.0f, 0.0f));
-      camera_->RotateAxis(mouse_speed_ * delta_displacement_y,
-                          glm::vec3(-1.0f, 0.0f, 0.0f));
+      // camera_->RotateAxis(mouse_speed_ * delta_displacement_x,
+      //                     glm::vec3(0.0f, -1.0f, 0.0f));
+      // camera_->RotateAxis(mouse_speed_ * delta_displacement_y,
+      //                     glm::vec3(1.0f, 0.0f, 0.0f));
+     
+      glm::vec3 old_p = ArcballPoint(last_x_, last_y_);
+      glm::vec3 new_p = ArcballPoint(x_pos, y_pos);
+
+      glm::vec3 axis = glm::cross(old_p, new_p);
+
+      double d = glm::clamp(
+          static_cast<double>(glm::dot(old_p, new_p)),
+          -1.0,
+          1.0
+      );
+
+      double angle = std::acos(d);
+
+      if (glm::length(axis) > 1e-6f)
+          camera_->RotateAxis(angle, glm::normalize(axis));
+
+      last_x_ = x_pos;
+      last_y_ = y_pos;
     }
 
     void UpdateWindowCentre(float x, float y) {
@@ -94,11 +158,14 @@ public:
 
     ~CFrameMSubscriber() {}
 
+    bool first_mouse_ = true;
   private:
     CameraFrame *camera_;
     bool user_flag_ = true;
     double last_displacement_x = 0;
     double last_displacement_y = 0;
+    double last_x_ = 0;
+    double last_y_ = 0;
     float centre_x;
     float centre_y;
   };

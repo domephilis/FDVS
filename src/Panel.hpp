@@ -13,6 +13,7 @@
 #include <functional>
 #include <memory>
 #include <cmath>
+#include <dlfcn.h>
 
 #include "Buffers.hpp"
 #include "Data.hpp"
@@ -29,6 +30,8 @@
 #include "imgui_internal.h"
 
 #include "Themes.hpp"
+
+#define SO_PATH "./libfunc.so"
 
 typedef std::array<double, 2> Point2D;
 
@@ -66,13 +69,17 @@ public:
       throw Data::INVALID_BOUNDS_EXCEPTION{};
     }
   }
-  ~GraphPanel() {}
+  ~GraphPanel() {
+    if(so_handle != nullptr)
+      dlclose(so_handle);
+  }
 
   std::shared_ptr<Data::OffMeshData> data_;
 
 private:
   float depth;
   double z_scaling_;
+  void *so_handle = nullptr;
 
   std::shared_ptr<Shader> shader;
   std::shared_ptr<Events::Controller> io_ctr_;
