@@ -1,65 +1,20 @@
 #include "Panel.hpp"
 
-Windowing::GraphPanel::GraphPanel(GLFWwindow *window,
-                                  std::shared_ptr<Shader> in_shader,
+Windowing::GraphPanel::GraphPanel(std::shared_ptr<Shader> in_shader,
                                   std::shared_ptr<Events::Controller> io_ctr) {
   shader = in_shader;
   io_ctr_ = io_ctr;
 
   z_scaling_ = 1.0f;
 
-  // Create ImGui Context
-  context = ImGui::CreateContext();
-  {
-    ImGuiContext *g = ImGui::GetCurrentContext();
-    ImGui::SetCurrentContext(context);
-    this->window = window;
-    ImGui_ImplGlfw_InitForOpenGL(this->window, false);
-    ImGui_ImplOpenGL3_Init("#version 330 core");
-    Themes::SetMoonlightStyle();
-    ImGui::SetCurrentContext(g);
-  }
+  // Get ImGui Context
+  ImGuiContext *g = ImGui::GetCurrentContext();
 
   // Construct from a file
   // data_ = std::make_shared<Data::OffMeshData>("output.off");
   Data::Grid input_grid{};
-  // auto f = [](double x, double y) {
-  //     double dx = x - 50.0;
-  //     double dy = y - 50.0;
-  //     double r = std::sqrt(dx*dx + dy*dy);
-  // 
-  //     return static_cast<float>(100.0 * std::sin(r / 5.0) * std::exp(-r / 45.0));
-  // };
-  //
-
-  // 3. Mexican-hat / Ricker-wavelet surface
-  // auto f = [](double x, double y) {
-  //     double dx = x - 50.0;
-  //     double dy = y - 50.0;
-  //     double r2 = dx*dx + dy*dy;
-  // 
-  //     double s2 = 225.0; // sigma = 15
-  //     return static_cast<float>(100.0 * (1.0 - r2 / s2)
-  //                  * std::exp(-r2 / (2.0 * s2)));
-  // 4. Interference pattern
-  // auto f = [](double x, double y) {
-  //     return static_cast<float>(50.0 * (
-  //         std::sin(x / 7.0) * std::cos(y / 9.0)
-  //       + std::sin((x + y) / 12.0)
-  //     ));
-  // };
-  //
-  // auto f = [](double x, double y) {
-  //   double dx = x - 50.0;
-  //   double dy = y - 50.0;
-  //   double r = std::sqrt(dx*dx + dy*dy);
-
-  //   return static_cast<float>(100.0
-  //        * std::cos(r / 4.0)
-  //        * std::exp(-r*r / 1800.0));
-  // }; 
-
-
+  
+  // Load Function to Graph from Shared Object
   float (*f)(double, double);
   char* error;
   so_handle = dlopen(SO_PATH, RTLD_LAZY);
@@ -86,10 +41,8 @@ Windowing::GraphPanel::GraphPanel(GLFWwindow *window,
   // Todo: create actor for the model here
   // Location is the centre, and up, lateral, and forward are the
   // natural parallel vectors to the axes
-  camera_ = std::make_unique<Matrices::CameraFrame>(context);
 
-  io_ctr_->contexts.push_back(context);
-
+  camera_ = std::make_unique<Matrices::CameraFrame>();
   io_ctr_->k_publisher_->addSubscriber(
       std::dynamic_pointer_cast<Events::KeyboardSubscriber>(
           camera_->k_subscription_));
@@ -118,13 +71,6 @@ Windowing::GraphPanel::GraphPanel(GLFWwindow *window,
 
 void Windowing::GraphPanel::Render() {
 
-  ImGuiContext *g = ImGui::GetCurrentContext();
-  ImGui::SetCurrentContext(context);
-
-  ImGui_ImplOpenGL3_NewFrame();
-  ImGui_ImplGlfw_NewFrame();
-  ImGui::NewFrame();
-
   ImGui::Begin("Graph");
 
   const ImVec2 size_avail = ImGui::GetContentRegionAvail();
@@ -132,6 +78,7 @@ void Windowing::GraphPanel::Render() {
 
   // First get the current window reference
   ImGuiWindow *Window = ImGui::GetCurrentWindow();
+  camera_->SetWindow(Window);
 
   ImRect rect(pos.x + 5, pos.y + 5, pos.x + size_avail.x - 10,
               pos.y + size_avail.y - 10);
@@ -208,33 +155,22 @@ void Windowing::GraphPanel::Render() {
   graph->drawToBuffer(size_avail.x, size_avail.y);
 
   glUseProgram(0);
-  ImGui::Render();
-  ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-  ImGui::SetCurrentContext(g);
 }
 
-Windowing::ConfigPanel::ConfigPanel(GLFWwindow *window,
-                                    std::shared_ptr<Events::Controller> io_ctr,
+Windowing::ConfigPanel::ConfigPanel(std::shared_ptr<Events::Controller> io_ctr,
                                     std::shared_ptr<GraphPanel> graph_panel)
-    : window_(window), io_ctr_(io_ctr), graph_panel_(graph_panel) {
+    : io_ctr_(io_ctr), graph_panel_(graph_panel) {
 
   // Context Creation
-  prev_context_ = ImGui::GetCurrentContext();
-  context_ = ImGui::CreateContext();
-  ImGui::SetCurrentContext(context_);
-  ImGui_ImplGlfw_InitForOpenGL(window_, false);
-  ImGui_ImplOpenGL3_Init("#version 330 core");
+  context_ = ImGui::GetCurrentContext();
   io = ImGui::GetIO();
-  Themes::SetMoonlightStyle();
-  ImGui::SetCurrentContext(prev_context_);
 
   // Events Subscriptions
-  k_subscription_ = std::make_shared<KSubscription>(context_);
-  m_subscription_ = std::make_shared<MSubscription>(context_);
-  s_subscription_ = std::make_shared<SSubscription>(context_);
+  k_subscription_ = std::make_shared<KSubscription>();
+  m_subscription_ = std::make_shared<MSubscription>();
+  s_subscription_ = std::make_shared<SSubscription>();
 
   // Link to Controller
-  io_ctr_->contexts.push_back(context_);
   io_ctr_->k_publisher_->addSubscriber(
       std::dynamic_pointer_cast<Events::KeyboardSubscriber>(
           this->k_subscription_));
@@ -248,11 +184,6 @@ Windowing::ConfigPanel::ConfigPanel(GLFWwindow *window,
 
 void Windowing::ConfigPanel::Render() {
 
-  ImGui::SetCurrentContext(context_);
-
-  ImGui_ImplOpenGL3_NewFrame();
-  ImGui_ImplGlfw_NewFrame();
-  ImGui::NewFrame();
   static ImGuiTabBarFlags tab_bar_flags = ImGuiTabBarFlags_TabListPopupButton;
   static std::vector<int> active_tabs;
   static int next_tab_id = 0;
@@ -420,7 +351,4 @@ void Windowing::ConfigPanel::Render() {
 
     ImGui::End();
   }
-  ImGui::Render();
-  ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-  ImGui::SetCurrentContext(prev_context_);
 }

@@ -16,6 +16,7 @@
 
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
+#include "imgui_internal.h"
 
 #include <algorithm>
 #include <iostream>
@@ -29,7 +30,7 @@ ImGuiKey GLFWKeyToImGuiKey(int key);
 class KeyboardSubscriber {
 public:
   virtual void Update(int key, int action) = 0;
-  virtual ImGuiContext *GetContext() { return nullptr; }
+  virtual ImGuiWindow *GetWindow() { return nullptr; }
   virtual bool WantCaptureKeyboard() { return true; }
   virtual ~KeyboardSubscriber() {}
 };
@@ -37,7 +38,7 @@ public:
 class ScrollwheelSubscriber {
 public:
   virtual void Update(double yoffset) = 0;
-  virtual ImGuiContext *GetContext() { return nullptr; }
+  virtual ImGuiWindow *GetWindow() { return nullptr; }
   virtual bool WantCaptureScroll() { return true; }
   virtual ~ScrollwheelSubscriber() {}
 };
@@ -48,7 +49,7 @@ public:
   virtual bool WantCaptureMouse() { return true; }
   bool IsLeftMouseButtonPressed() { return click_state_; }
   virtual void UpdateMouseButtonState(bool click_state) { click_state_ = click_state; }
-  virtual ImGuiContext *GetContext() { return nullptr; }
+  virtual ImGuiWindow *GetWindow() { return nullptr; }
   virtual void ResetCentre() {}
   virtual ~MouseSubscriber() {}
 

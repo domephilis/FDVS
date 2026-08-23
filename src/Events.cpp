@@ -12,27 +12,13 @@ Events::Controller::Controller(GLFWwindow *window) {
 
 void Events::Controller::CharCallback(GLFWwindow *window,
                                       unsigned int codepoint) {
-  Events::Controller *ctr =
-      static_cast<Events::Controller *>(glfwGetWindowUserPointer(window));
-  ImGuiContext *g = ImGui::GetCurrentContext();
-  for (auto context : ctr->contexts) {
-    ImGui::SetCurrentContext(context);
-    ImGui_ImplGlfw_CharCallback(window, codepoint);
-  }
-  ImGui::SetCurrentContext(g);
+  ImGui_ImplGlfw_CharCallback(window, codepoint);
 }
 
 void Events::Controller::MouseButtonCallback(GLFWwindow *window, int button,
                                              int action, int mods) {
-  Events::Controller *ctr =
-      static_cast<Events::Controller *>(glfwGetWindowUserPointer(window));
-  ImGuiContext *g = ImGui::GetCurrentContext();
-  for (auto context : ctr->contexts) {
-    ImGui::SetCurrentContext(context);
-    ImGuiIO io = ImGui::GetIO();
-    io.AddMouseButtonEvent(button, action == GLFW_PRESS);
-  }
-  ImGui::SetCurrentContext(g);
+  ImGuiIO io = ImGui::GetIO();
+  io.AddMouseButtonEvent(button, action == GLFW_PRESS);
 }
 
 void Events::KeyboardPublisher::KeyCallback(GLFWwindow *window, int key,
@@ -49,17 +35,11 @@ void Events::KeyboardPublisher::KeyCallback(GLFWwindow *window, int key,
     down = false;
   ImGuiIO io;
 
+  ImGui_ImplGlfw_KeyCallback(window, key, scancode, action, mods);
   for (std::shared_ptr<KeyboardSubscriber> s :
        ctr->k_publisher_->subscribers_) {
-    ImGuiContext *g = ImGui::GetCurrentContext();
-    ImGui::SetCurrentContext(s->GetContext());
-    // io = ImGui::GetIO();
-    //  io.AddKeyEvent(Events::GLFWKeyToImGuiKey(key), down);
-    ImGui_ImplGlfw_KeyCallback(window, key, scancode, action, mods);
-
     if (s->WantCaptureKeyboard())
       s->Update(key, action);
-    ImGui::SetCurrentContext(g);
   }
 }
 
@@ -69,12 +49,10 @@ void Events::MousePublisher::CursorPositionCallback(GLFWwindow *window,
       static_cast<Events::Controller *>(glfwGetWindowUserPointer(window));
 
   // ctr->imgui_io_->AddMousePosEvent(xpos, ypos);
+  ImGui_ImplGlfw_CursorPosCallback(window, xpos, ypos);
   for (std::shared_ptr<MouseSubscriber> s : ctr->m_publisher_->subscribers_) {
     s->UpdateMouseButtonState(
         glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS);
-    ImGuiContext *g = ImGui::GetCurrentContext();
-    ImGui::SetCurrentContext(s->GetContext());
-    ImGui_ImplGlfw_CursorPosCallback(window, xpos, ypos);
     if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_RELEASE) {
       // This function may or may not do anything depending on the configuration
       // of each subscriber
@@ -83,7 +61,6 @@ void Events::MousePublisher::CursorPositionCallback(GLFWwindow *window,
     if (s->WantCaptureMouse()) {
       s->Update(xpos, ypos);
     }
-    ImGui::SetCurrentContext(g);
   }
 }
 
@@ -93,14 +70,11 @@ void Events::ScrollwheelPublisher::ScrollCallback(GLFWwindow *window,
   Events::Controller *ctr =
       static_cast<Events::Controller *>(glfwGetWindowUserPointer(window));
   ctr->imgui_io_->AddMouseWheelEvent(xoffset, yoffset);
+  ImGui_ImplGlfw_ScrollCallback(window, xoffset, yoffset);
   for (std::shared_ptr<ScrollwheelSubscriber> s :
        ctr->s_publisher_->subscribers_) {
-    ImGuiContext *g = ImGui::GetCurrentContext();
-    ImGui::SetCurrentContext(s->GetContext());
-    ImGui_ImplGlfw_ScrollCallback(window, xoffset, yoffset);
     if (s->WantCaptureScroll())
       s->Update(yoffset);
-    ImGui::SetCurrentContext(g);
   }
 }
 

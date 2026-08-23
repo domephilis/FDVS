@@ -23,6 +23,7 @@
 #endif // !GLAD_H_
 
 #include "imgui.h"
+#include "imgui_internal.h"
 
 namespace Matrices {
 
@@ -54,9 +55,9 @@ public:
 // We specialize here because the subscriber behavior is different
 class CameraFrame : public RefFrame {
 public:
-  CameraFrame(ImGuiContext *context);
-  CameraFrame(ImGuiContext *context, glm::vec3 loc, glm::vec3 up,
-              glm::vec3 forward);
+  CameraFrame();
+  CameraFrame(glm::vec3 loc, glm::vec3 up, glm::vec3 forward);
+  void SetWindow(ImGuiWindow* window) {window_ = window;}
 
   class CFrameMSubscriber : public Events::MouseSubscriber {
   public:
@@ -149,9 +150,9 @@ public:
       last_displacement_x = 0;
       last_displacement_y = 0;
     }
-    ImGuiContext *GetContext() override { return camera_->context_; }
+    ImGuiWindow *GetWindow() override { return camera_->window_; }
     bool WantCaptureMouse() override {
-      return (IsLeftMouseButtonPressed() && user_flag_ &&
+      return (IsLeftMouseButtonPressed() && (camera_->context_->NavWindow == camera_->window_) && user_flag_ &&
               camera_->io->WantCaptureMouse);
     }
     void SetUserFlag(bool val) { user_flag_ = val; }
@@ -177,8 +178,8 @@ public:
       camera_->TranslateLoc(yoffset * 20.0f, glm::vec3(0.0f, 0.0f, 1.0f));
     }
     void SetUserFlag(bool val) { user_flag_ = val; }
-    bool WantCaptureScroll() override { return user_flag_; }
-    ImGuiContext *GetContext() override { return camera_->context_; }
+    bool WantCaptureScroll() override { return user_flag_ && (camera_->context_->NavWindow == camera_->window_); }
+    ImGuiWindow *GetWindow() override { return camera_->window_; }
 
   private:
     bool user_flag_ = true;
@@ -189,7 +190,7 @@ public:
   public:
     CFrameKSubscriber(Matrices::CameraFrame *camera) { camera_ = camera; }
     bool WantCaptureKeyboard() override {
-      return (user_flag_ && !camera_->io->WantCaptureKeyboard);
+      return (camera_->context_->NavWindow == camera_->window_);
     }
     void Update(int key, int action) override {
       if (action == GLFW_PRESS) {
@@ -235,7 +236,7 @@ public:
       std::cerr << camera_->loc_[0] << " " << camera_->loc_[1] << " "
                 << camera_->loc_[2] << std::endl;
     }
-    ImGuiContext *GetContext() override { return camera_->context_; }
+    ImGuiWindow *GetWindow() override { return nullptr; }
     void SetUserFlag(bool val) { user_flag_ = val; }
     ~CFrameKSubscriber() {}
 
@@ -248,6 +249,7 @@ public:
   std::shared_ptr<CFrameSSubscriber> s_subscription_;
   std::shared_ptr<CFrameMSubscriber> m_subscription_;
   ImGuiContext *context_;
+  ImGuiWindow *window_;
   ImGuiIO *io;
 };
 

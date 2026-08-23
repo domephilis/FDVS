@@ -43,13 +43,12 @@ public:
   virtual ~Panel() {}
 
 protected:
-  GLFWwindow *window;
   ImGuiContext *context;
 };
 
 class GraphPanel : public Panel {
 public:
-  GraphPanel(GLFWwindow *window, std::shared_ptr<Shader> in_shader,
+  GraphPanel(std::shared_ptr<Shader> in_shader,
              std::shared_ptr<Events::Controller> io_ctr);
   void Render();
   void SetModel(std::shared_ptr<Data::Bounds2D> b,
@@ -100,16 +99,16 @@ private:
 
 class ConfigPanel : public Panel {
 public:
-  ConfigPanel(GLFWwindow *window, std::shared_ptr<Events::Controller> io_ctr,
+  ConfigPanel(std::shared_ptr<Events::Controller> io_ctr,
               std::shared_ptr<GraphPanel> graph_panel);
   void Render();
   ~ConfigPanel() {}
 
   class KSubscription : public Events::KeyboardSubscriber {
   public:
-    KSubscription(ImGuiContext *context) { context_ = context; }
+    KSubscription() = default; 
     void Update(int key, int action) {}
-    ImGuiContext *GetContext() { return context_; }
+    ImGuiWindow *GetWindow() {return nullptr;}
     bool WantCaptureKeyboard() { return true; }
     ~KSubscription() {}
 
@@ -119,9 +118,9 @@ public:
 
   class SSubscription : public Events::ScrollwheelSubscriber {
   public:
-    SSubscription(ImGuiContext *context) { context_ = context; }
+    SSubscription() = default; 
     void Update(double yoffset) {};
-    ImGuiContext *GetContext() { return context_; }
+    ImGuiWindow *GetWindow() {return nullptr;}
     bool WantCaptureScroll() { return true; }
     ~SSubscription() {}
 
@@ -131,10 +130,10 @@ public:
 
   class MSubscription : public Events::MouseSubscriber {
   public:
-    MSubscription(ImGuiContext *context) { context_ = context; }
+    MSubscription() = default; 
     void Update(double xpos, double ypos) {};
     bool WantCaptureMouse() { return true; }
-    ImGuiContext *GetContext() { return context_; }
+    ImGuiWindow *GetWindow() {return nullptr;}
     void ResetCentre() {}
     ~MSubscription() {}
 

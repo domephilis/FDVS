@@ -25,11 +25,11 @@ Application::Application() {
   panels.emplace(std::make_pair(
       "Graph",
       std::dynamic_pointer_cast<Windowing::Panel>(
-          std::make_shared<Windowing::GraphPanel>(window, shader, io_ctr_))));
+          std::make_shared<Windowing::GraphPanel>(shader, io_ctr_))));
   panels.emplace(std::make_pair(
       "Config", std::dynamic_pointer_cast<Windowing::Panel>(
                     std::make_shared<Windowing::ConfigPanel>(
-                        window, io_ctr_,
+                        io_ctr_,
                         std::dynamic_pointer_cast<Windowing::GraphPanel>(
                             panels["Graph"])))));
 }
@@ -50,10 +50,16 @@ void Application::Refresh() {
     panel->Render();
 
   // Swap Buffer
-  glfwSwapBuffers(window);
-  glfwPollEvents();
+  // glfwPollEvents();
 
-  glFlush();
+  ImGui::Render();
+  int display_w, display_h;
+  glfwGetFramebufferSize(window, &display_w, &display_h);
+  glViewport(0, 0, display_w, display_h);
+  glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+  glClear(GL_COLOR_BUFFER_BIT);
+  ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+  glfwSwapBuffers(window);
 }
 
 void Application::Close() {
@@ -80,6 +86,8 @@ void Application::InitializeNewFrame() {
   ImGui_ImplOpenGL3_NewFrame();
   ImGui_ImplGlfw_NewFrame();
   ImGui::NewFrame();
+
+  ImGui::DockSpaceOverViewport();
 }
 
 void Application::CreateWindow() {
@@ -150,6 +158,4 @@ void Application::RenderMain() {
   glClearColor(clear_color.x * clear_color.w, clear_color.y * clear_color.w,
                clear_color.z * clear_color.w, clear_color.w);
   glClear(GL_COLOR_BUFFER_BIT);
-  ImGui::Render();
-  ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
