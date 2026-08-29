@@ -1,2 +1,0 @@
-/usr/bin/ar qc libimgui_draw.a CMakeFiles/imgui_draw.dir/extern/imgui/imgui_draw.cpp.o
-/usr/bin/ranlib libimgui_draw.a

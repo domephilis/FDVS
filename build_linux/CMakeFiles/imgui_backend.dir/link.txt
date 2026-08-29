@@ -1,2 +1,0 @@
-/usr/bin/ar qc libimgui_backend.a CMakeFiles/imgui_backend.dir/extern/imgui/imgui_impl_glfw.cpp.o
-/usr/bin/ranlib libimgui_backend.a

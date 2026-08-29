@@ -1,7 +1,0 @@
-[ 20%] Built target glad
-[ 40%] Built target imgui
-[ 60%] Built target imgui_backend
-[ 80%] Built target imgui_renderer
-Consolidate compiler generated dependencies of target program.out
-[ 90%] Building CXX object CMakeFiles/program.out.dir/src/main.cpp.o
-[100%] Linking CXX executable program.out

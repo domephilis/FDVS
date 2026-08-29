@@ -1,2 +1,0 @@
-/usr/bin/ar qc libbuffer_handler.a CMakeFiles/buffer_handler.dir/src/buffer_handler.cpp.o
-/usr/bin/ranlib libbuffer_handler.a

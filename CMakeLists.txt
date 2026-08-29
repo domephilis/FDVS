@@ -1,13 +1,20 @@
-cmake_minimum_required(VERSION 3.15...3.22)
+cmake_minimum_required(VERSION 3.24.4...4.4)
+include(FetchContent)
 
 project(
   FDVS
   VERSION 1.0
 )
 
+FetchContent_Declare(
+  glfw3
+  GIT_REPOSITORY  https://github.com/glfw/glfw
+  GIT_TAG         92dcf4ce74f2e2554a98fea09be7c705c17daa5a
+  )
+FetchContent_MakeAvailable(glfw3)
+
 list(APPEND CMAKE_PREFIX_PATH "/usr/local/lib/glfw/")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++20")
-find_package(glfw3 REQUIRED)
 find_package(CGAL REQUIRED)
 
 file(
@@ -19,11 +26,11 @@ foreach(cppfile ${cppfiles})
 endforeach()
 
 set(IMGUI_DIR ${CMAKE_CURRENT_SOURCE_DIR}/extern/imgui)
+set(GLAD_H_DIR ${CMAKE_CURRENT_SOURCE_DIR}/extern/glad)
 set(GLAD_C_DIR ${CMAKE_CURRENT_SOURCE_DIR}/extern/glad)
 set(NLOHMANN_JSON_DIR ${CMAKE_CURRENT_SOURCE_DIR}/extern/nlohmann_json/include)
-set(GLAD_H_DIR /usr/include/glad)
 
-set(HEADER_FILES ${IMGUI_DIR}/imgui.h ${IMGUI_DIR}/imgui_impl_glfw.h ${IMGUI_DIR}/imgui_impl_opengl3.h src/ShaderHandler.hpp src/Buffers.hpp src/Data.hpp src/Application.hpp src/Events.hpp src/MatrixHandler)
+set(HEADER_FILES ${IMGUI_DIR}/imgui.h ${IMGUI_DIR}/imgui_impl_glfw.h ${IMGUI_DIR}/imgui_impl_opengl3.h ${CMAKE_CURRENT_SOURCE_DIR}/src/ShaderHandler.hpp ${CMAKE_CURRENT_SOURCE_DIR}/src/Buffers.hpp ${CMAKE_CURRENT_SOURCE_DIR}/src/Data.hpp ${CMAKE_CURRENT_SOURCE_DIR}/src/Application.hpp ${CMAKE_CURRENT_SOURCE_DIR}/src/Events.hpp ${CMAKE_CURRENT_SOURCE_DIR}/src/MatrixHandler.hpp)
 
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/extern/nlohmann_json)
 
@@ -37,20 +44,20 @@ add_library(imgui_draw ${IMGUI_DIR}/imgui_draw.cpp)
 add_library(imgui_tables ${IMGUI_DIR}/imgui_tables.cpp)
 add_library(imgui_widgets ${IMGUI_DIR}/imgui_widgets.cpp)
 
-add_library(Themes src/Themes.cpp src/Themes.hpp)
-add_library(ShaderHandler src/ShaderHandler.cpp src/ShaderHandler.hpp)
-add_library(Events src/Events.cpp src/Events.hpp)
-add_library(MatrixHandler src/MatrixHandler.cpp src/MatrixHandler.hpp)
-add_library(Buffers src/Buffers.cpp src/Buffers.hpp)
-add_library(Data src/Data.cpp src/Data.hpp)
-add_library(Models src/Models.cpp src/Models.hpp)
-add_library(Strategy src/Strategy.cpp src/Strategy.hpp)
-add_library(Panel src/Panel.cpp src/Panel.hpp)
-add_library(Graphics src/Graphics.cpp src/Graphics.hpp)
-add_library(Application src/Application.cpp ${HEADER_FILES})
-add_library(PricingPolicies src/PricingPolicies.cpp src/PricingPolicies.hpp)
+add_library(Themes ${CMAKE_CURRENT_SOURCE_DIR}/src/Themes.cpp ${CMAKE_CURRENT_SOURCE_DIR}/src/Themes.hpp)
+add_library(ShaderHandler ${CMAKE_CURRENT_SOURCE_DIR}/src/ShaderHandler.cpp ${CMAKE_CURRENT_SOURCE_DIR}/src/ShaderHandler.hpp)
+add_library(Events ${CMAKE_CURRENT_SOURCE_DIR}/src/Events.cpp ${CMAKE_CURRENT_SOURCE_DIR}/src/Events.hpp)
+add_library(MatrixHandler ${CMAKE_CURRENT_SOURCE_DIR}/src/MatrixHandler.cpp ${CMAKE_CURRENT_SOURCE_DIR}/src/MatrixHandler.hpp)
+add_library(Buffers ${CMAKE_CURRENT_SOURCE_DIR}/src/Buffers.cpp ${CMAKE_CURRENT_SOURCE_DIR}/src/Buffers.hpp)
+add_library(Data ${CMAKE_CURRENT_SOURCE_DIR}/src/Data.cpp ${CMAKE_CURRENT_SOURCE_DIR}/src/Data.hpp)
+add_library(Models ${CMAKE_CURRENT_SOURCE_DIR}/src/Models.cpp ${CMAKE_CURRENT_SOURCE_DIR}/src/Models.hpp)
+add_library(Strategy ${CMAKE_CURRENT_SOURCE_DIR}/src/Strategy.cpp ${CMAKE_CURRENT_SOURCE_DIR}/src/Strategy.hpp)
+add_library(Panel ${CMAKE_CURRENT_SOURCE_DIR}/src/Panel.cpp ${CMAKE_CURRENT_SOURCE_DIR}/src/Panel.hpp)
+add_library(Graphics ${CMAKE_CURRENT_SOURCE_DIR}/src/Graphics.cpp ${CMAKE_CURRENT_SOURCE_DIR}/src/Graphics.hpp)
+add_library(Application ${CMAKE_CURRENT_SOURCE_DIR}/src/Application.cpp ${HEADER_FILES})
+add_library(PricingPolicies ${CMAKE_CURRENT_SOURCE_DIR}/src/PricingPolicies.cpp ${CMAKE_CURRENT_SOURCE_DIR}/src/PricingPolicies.hpp)
 
-add_executable(program.out src/main.cpp src/Application.hpp)
+add_executable(program.out ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp ${CMAKE_CURRENT_SOURCE_DIR}/src/Application.hpp)
 
 if(CMAKE_CURRENT_SOURCE_DIR)
   target_compile_definitions(Application PRIVATE CMAKE_CURRENT_SOURCE_DIR=${CMAKE_CURRENT_SOURCE_DIR})

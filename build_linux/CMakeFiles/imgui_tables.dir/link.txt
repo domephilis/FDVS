@@ -1,2 +1,0 @@
-/usr/bin/ar qc libimgui_tables.a CMakeFiles/imgui_tables.dir/extern/imgui/imgui_tables.cpp.o
-/usr/bin/ranlib libimgui_tables.a

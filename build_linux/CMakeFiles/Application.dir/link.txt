@@ -1,2 +1,0 @@
-/usr/bin/ar qc libApplication.a CMakeFiles/Application.dir/src/Application.cpp.o CMakeFiles/Application.dir/src/MatrixHandler.cpp.o
-/usr/bin/ranlib libApplication.a

@@ -1,2 +1,0 @@
-/usr/bin/ar qc libPanel.a CMakeFiles/Panel.dir/src/Panel.cpp.o
-/usr/bin/ranlib libPanel.a

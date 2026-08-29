@@ -1,2 +1,0 @@
-/usr/bin/ar qc libmatrix_handler.a CMakeFiles/matrix_handler.dir/src/matrix_handler.cpp.o
-/usr/bin/ranlib libmatrix_handler.a
