@@ -4,7 +4,7 @@
 #ifndef GL_HEADERS_
 #define GL_HEADERS_
 // GLAD First
-#include <glad/glad.h>
+#include <glad.h>
 
 // GLFW3 Second
 #include <GLFW/glfw3.h>

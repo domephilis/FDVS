@@ -1,12 +1,15 @@
 #include "Application.hpp"
 
+#define STRINGIZE_DETAIL(x) #x
+#define STRINGIZE(x) STRINGIZE_DETAIL(x)
+
 Application::Application() {
   CreateWindow();
   SetupImGui();
 
   // Setup Shaders
 #ifdef CMAKE_CURRENT_SOURCE_DIR
-  std::string root_directory = BOOST_PP_STRINGIZE(CMAKE_CURRENT_SOURCE_DIR);
+  std::string root_directory = STRINGIZE(CMAKE_CURRENT_SOURCE_DIR);
   std::string vPath = root_directory;
   std::string fPath = root_directory;
   vPath.append("/src/shaders/shader.vs");

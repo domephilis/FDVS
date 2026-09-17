@@ -6,7 +6,7 @@
 
 // GLAD First
 
-#include <glad/glad.h>
+#include <glad.h>
 
 // GLFW3 Second
 
@@ -18,7 +18,6 @@
 
 #include <algorithm>
 #include <bits/stdc++.h>
-#include <boost/preprocessor/stringize.hpp>
 #include <ctime>
 #include <iostream>
 #include <map>

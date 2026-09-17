@@ -4,12 +4,6 @@
 // glm
 #include <glm/glm.hpp>
 
-// CGAL
-#include <CGAL/Advancing_front_surface_reconstruction.h>
-#include <CGAL/Simple_cartesian.h>
-#include <CGAL/tuple.h>
-#include <boost/lexical_cast.hpp>
-
 // CPP Libraries
 #include <cmath>
 #include <fstream>
@@ -19,14 +13,18 @@
 #include <string>
 #include <vector>
 #include <concepts>
+#include <charconv>
+#include <iterator>
 
 namespace std {
 std::ostream &operator<<(std::ostream &os, const std::array<std::size_t, 3> &f);
+std::ostream &operator<<(std::ostream &os, const std::array<double, 3> &f);
 } // namespace std
 
 namespace Data {
 
 typedef std::array<double, 2> Point2D;
+typedef std::array<double, 3> Point_3;
 
 struct INVALID_BOUNDS_EXCEPTION {};
 struct Bounds2D {
@@ -39,44 +37,6 @@ double in_step_size_x, double in_step_size_y)
   unsigned int steps_y;
   double step_size_x;
   double step_size_y;
-};
-
-typedef CGAL::Simple_cartesian<double> K;
-typedef K::Point_3 Point_3;
-
-struct Perimeter {
-  double bound;
-
-  Perimeter(double bound) : bound(bound) {}
-
-  template <typename AdvancingFront, typename Cell_handle>
-  double operator()(const AdvancingFront &adv, Cell_handle &c,
-                    const int &index) const {
-    // bound == 0 is better than bound < infinity
-    // as it avoids the distance computations
-    if (bound == 0) {
-      return adv.smallest_radius_delaunay_sphere(c, index);
-    }
-
-    // If perimeter > bound, return infinity so that facet is not used
-    double d = 0;
-    d = sqrt(squared_distance(c->vertex((index + 1) % 4)->point(),
-                              c->vertex((index + 2) % 4)->point()));
-    if (d > bound)
-      return adv.infinity();
-    d += sqrt(squared_distance(c->vertex((index + 2) % 4)->point(),
-                               c->vertex((index + 3) % 4)->point()));
-    if (d > bound)
-      return adv.infinity();
-    d += sqrt(squared_distance(c->vertex((index + 1) % 4)->point(),
-                               c->vertex((index + 3) % 4)->point()));
-    if (d > bound)
-      return adv.infinity();
-
-    // Otherwise, return usual priority value: smallest radius of delaunay
-    // sphere
-    return adv.smallest_radius_delaunay_sphere(c, index);
-  }
 };
 
 struct Grid {
@@ -94,7 +54,7 @@ struct OffMeshData {
               std::vector<unsigned int> in_faces);
   OffMeshData(std::string filename);
   OffMeshData(std::shared_ptr<Data::Bounds2D> b,
-              std::function<float(double, double)> f);
+              std::function<float(double, double)> f) {}
 
   template<typename F>
 	  requires std::invocable<F, double, double>
@@ -121,7 +81,6 @@ struct OffMeshData {
   // Points
   std::vector<float> vertices;
   std::vector<unsigned int> faces;
-  void Meshify(double per = 20.0f, double radius_ratio_bound = 5.0f);
   void ExportToOff(std::string file_name);
   void ScaleZ(double z_scaling);
 

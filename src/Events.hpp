@@ -6,7 +6,7 @@
 
 // GLAD First
 
-#include <glad/glad.h>
+#include <glad.h>
 
 // GLFW3 Second
 

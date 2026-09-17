@@ -6,24 +6,32 @@ project(
   VERSION 1.0
 )
 
+set(GLFW_BUILD_WAYLAND OFF CACHE INTERNAL "")
+set(GLM_BUILD_TESTS OFF CACHE INTERNAL "")
+add_compile_definitions(GLM_ENABLE_EXPERIMENTAL)
+
 FetchContent_Declare(
   glfw3
   GIT_REPOSITORY  https://github.com/glfw/glfw
   GIT_TAG         92dcf4ce74f2e2554a98fea09be7c705c17daa5a
   )
-FetchContent_MakeAvailable(glfw3)
 
-list(APPEND CMAKE_PREFIX_PATH "/usr/local/lib/glfw/")
+FetchContent_Declare(
+	glm
+	GIT_REPOSITORY	https://github.com/g-truc/glm.git
+	GIT_TAG 	    0af55ccecd98d4e5a8d1fad7de25ba429d60e863 #refs/tags/1.0.1
+)
+  
+FetchContent_MakeAvailable(glfw3 glm)
+
+#list(APPEND CMAKE_PREFIX_PATH "/usr/local/lib/glfw/")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++20")
-find_package(CGAL REQUIRED)
+#find_package(CGAL REQUIRED)
 
 file(
   GLOB cppfiles
   RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
   ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
-foreach(cppfile ${cppfiles})
-  create_single_source_cgal_program("${cppfile}")
-endforeach()
 
 set(IMGUI_DIR ${CMAKE_CURRENT_SOURCE_DIR}/extern/imgui)
 set(GLAD_H_DIR ${CMAKE_CURRENT_SOURCE_DIR}/extern/glad)
@@ -64,28 +72,32 @@ if(CMAKE_CURRENT_SOURCE_DIR)
   target_compile_definitions(Panel PRIVATE CMAKE_CURRENT_SOURCE_DIR=${CMAKE_CURRENT_SOURCE_DIR})
 endif()
 
-target_include_directories(program.out PRIVATE ${IMGUI_DIR})
+target_include_directories(program.out PRIVATE ${IMGUI_DIR} ${GLAD_H_DIR} ${glm_SOURCE_DIR})
 target_include_directories(Themes PRIVATE ${IMGUI_DIR})
-target_include_directories(Application PRIVATE ${IMGUI_DIR})
-target_include_directories(Panel PRIVATE ${IMGUI_DIR})
-target_include_directories(Events PRIVATE ${IMGUI_DIR})
-target_include_directories(MatrixHandler PRIVATE ${IMGUI_DIR})
-target_include_directories(Graphics PRIVATE ${IMGUI_DIR})
+target_include_directories(Application PRIVATE ${IMGUI_DIR} ${GLAD_H_DIR})
+target_include_directories(Panel PRIVATE ${IMGUI_DIR} ${GLAD_H_DIR})
+target_include_directories(Buffers PRIVATE ${GLAD_H_DIR} ${glm_SOURCE_DIR})
+target_include_directories(Events PRIVATE ${IMGUI_DIR} ${GLAD_H_DIR})
+target_include_directories(MatrixHandler PRIVATE ${IMGUI_DIR} ${GLAD_H_DIR} ${glm_SOURCE_DIR})
+target_include_directories(ShaderHandler PRIVATE ${GLAD_H_DIR} ${glm_SOURCE_DIR})
+target_include_directories(Data PRIVATE ${glm_SOURCE_DIR})
+target_include_directories(Graphics PRIVATE ${IMGUI_DIR} ${GLAD_H_DIR} ${glm_SOURCE_DIR})
 target_include_directories(Models PRIVATE ${NLOHMANN_JSON_DIR})
 target_include_directories(PricingPolicies PRIVATE ${NLOHMANN_JSON_DIR})
-target_include_directories(Panel PRIVATE ${NLOHMANN_JSON_DIR})
-target_include_directories(Application PRIVATE ${NLOHMANN_JSON_DIR})
+target_include_directories(Panel PRIVATE ${NLOHMANN_JSON_DIR} ${glm_SOURCE_DIR})
+target_include_directories(Application PRIVATE ${NLOHMANN_JSON_DIR} ${glm_SOURCE_DIR})
 target_include_directories(program.out PRIVATE ${NLOHMANN_JSON_DIR})
 
 target_link_libraries(Models PRIVATE nlohmann_json::nlohmann_json)
+target_link_libraries(imgui_backend PRIVATE glfw)
 target_link_libraries(Strategy PRIVATE nlohmann_json::nlohmann_json)
 target_link_libraries(Themes PRIVATE imgui imgui_draw imgui_tables imgui_widgets)
-target_link_libraries(Events PRIVATE glfw3 imgui_backend)
-target_link_libraries(Data PRIVATE CGAL)
-target_link_libraries(Buffers PRIVATE glad Data)
-target_link_libraries(ShaderHandler PRIVATE glad)
-target_link_libraries(MatrixHandler PRIVATE Events ShaderHandler)
-target_link_libraries(Graphics PRIVATE glad Buffers Data ShaderHandler MatrixHandler)
-target_link_libraries(Panel PRIVATE imgui imgui_backend imgui_renderer imgui_demo imgui_draw imgui_tables imgui_widgets Themes ShaderHandler Buffers Data Events Graphics MatrixHandler Models Strategy PricingPolicies ${CMAKE_DL_LIBS})
-target_link_libraries(Application PRIVATE glad glfw3 imgui imgui_backend imgui_renderer imgui_demo imgui_draw imgui_tables imgui_widgets Themes Events ShaderHandler Panel)
-target_link_libraries(program.out PRIVATE Application)
+target_link_libraries(Events PRIVATE glfw imgui_backend)
+target_link_libraries(Data PRIVATE glm::glm-header-only)
+target_link_libraries(Buffers PRIVATE glad Data glm::glm-header-only)
+target_link_libraries(ShaderHandler PRIVATE glad glm::glm-header-only)
+target_link_libraries(MatrixHandler PRIVATE Events ShaderHandler glm::glm-header-only)
+target_link_libraries(Graphics PRIVATE glad Buffers Data ShaderHandler MatrixHandler glm::glm-header-only)
+target_link_libraries(Panel PRIVATE imgui imgui_backend imgui_renderer imgui_demo imgui_draw imgui_tables imgui_widgets Themes ShaderHandler Buffers Data Events Graphics MatrixHandler Models Strategy PricingPolicies ${CMAKE_DL_LIBS} glm::glm-header-only)
+target_link_libraries(Application PRIVATE glad glfw imgui imgui_backend imgui_renderer imgui_demo imgui_draw imgui_tables imgui_widgets Themes Events ShaderHandler Panel glm::glm-header-only)
+target_link_libraries(program.out PRIVATE Application glad glm glfw)

@@ -1,4 +1,3 @@
-#include <boost/lexical_cast.hpp>
 #include <fstream>
 #include <iostream>
 
@@ -77,57 +76,16 @@ Data::OffMeshData::OffMeshData(std::string filename) {
   ComputeProperties();
 }
 
-Data::OffMeshData::OffMeshData(std::shared_ptr<Data::Bounds2D> b,
-                               std::function<float(double, double)> f) {
-  unsigned int size = b->steps_x * b->steps_y;
-  std::vector<std::future<float>> tasks;
-  vertices = std::vector<float>(size * 3);
-  {
-    int index_x = 0, index_y = 0, index_z = 0;
-    float x = b->min[0];
-    float y = b->min[1];
-    for (int i = 0; i < b->steps_x; i++, x += b->step_size_x) {
-      y = b->min[1];
-      for (int j = 0; j < b->steps_y; j++, y += b->step_size_y) {
-        index_x = (i * b->steps_x + j) * 3 + 0;
-        index_y = (i * b->steps_x + j) * 3 + 1;
-        index_z = (i * b->steps_x + j) * 3 + 2;
-        vertices[index_x] = x;
-        vertices[index_y] = y;
-        tasks.push_back(std::async(f, x, y));
-      }
-    }
-    for (int i = 0, counter = 0; i < b->steps_x; i++) {
-      for (int j = 0; j < b->steps_y; j++) {
-        index_x = (i * b->steps_x + j) * 3 + 0;
-        index_y = (i * b->steps_x + j) * 3 + 1;
-        index_z = (i * b->steps_x + j) * 3 + 2;
-        vertices[index_z] = -tasks[counter].get();
-        points.push_back(
-            Point_3(vertices[index_x], vertices[index_y], -vertices[index_z]));
-        counter++;
-      }
-    }
-  }
-  Meshify();
-  ComputeProperties();
-}
-
-void Data::OffMeshData::Meshify(double per, double radius_ratio_bound) {
-  Perimeter perimeter(per);
-  CGAL::advancing_front_surface_reconstruction(points.begin(), points.end(),
-                                               std::back_inserter(facets),
-                                               perimeter, radius_ratio_bound);
-  for (auto facet : facets)
-    for (int i = 0; i < 3; i++)
-      faces.push_back(facet[i]);
-
-  num_of_faces = facets.size();
-}
 
 std::ostream &std::operator<<(std::ostream &os,
                               const std::array<std::size_t, 3> &f) {
   os << "3 " << f[0] << " " << f[1] << " " << f[2];
+  return os;
+}
+
+std::ostream &std::operator<<(std::ostream &os,
+                              const std::array<double, 3> &f) {
+  os << f[0] << " " << f[1] << " " << f[2];
   return os;
 }
 
@@ -150,11 +108,11 @@ void Data::OffMeshData::ReadOffFileAttrib(unsigned int &vertices,
   in >> buffer;
   if (buffer == "OFF") {
     in >> buffer;
-    vertices = boost::lexical_cast<unsigned int>(buffer);
+    std::from_chars(buffer.data(), buffer.data() + buffer.size(), vertices);
     in >> buffer;
-    facets = boost::lexical_cast<unsigned int>(buffer);
+    std::from_chars(buffer.data(), buffer.data() + buffer.size(), facets);
     in >> buffer;
-    edges = boost::lexical_cast<unsigned int>(buffer);
+    std::from_chars(buffer.data(), buffer.data() + buffer.size(), edges);
   }
   in.close();
 }
@@ -172,18 +130,18 @@ void Data::OffMeshData::ReadOffData(std::vector<float> &vertices_arr,
   in >> buffer;
   if (buffer == "OFF") {
     in >> buffer;
-    vertices = boost::lexical_cast<unsigned int>(buffer);
+    std::from_chars(buffer.data(), buffer.data() + buffer.size(), vertices);
     in >> buffer;
-    facets = boost::lexical_cast<unsigned int>(buffer);
+    std::from_chars(buffer.data(), buffer.data() + buffer.size(), facets);
     in >> buffer;
-    edges = boost::lexical_cast<unsigned int>(buffer);
+    std::from_chars(buffer.data(), buffer.data() + buffer.size(), edges);
 
     // Read Vertices
     unsigned int it = 0;
     unsigned int counter_v = 1;
     while (it <= 3 * vertices) {
       in >> buffer;
-      buffer_float = boost::lexical_cast<float>(buffer);
+      std::from_chars(buffer.data(), buffer.data() + buffer.size(), buffer_float);
       if ((counter_v % 3) == 0) {
         vertices_arr.push_back(-buffer_float);
       } else
@@ -196,7 +154,7 @@ void Data::OffMeshData::ReadOffData(std::vector<float> &vertices_arr,
     unsigned int counter = 1; // I don't know why but one makes it work
     while (it <= (3 * vertices + 4 * facets)) {
       in >> buffer;
-      buffer_uint = boost::lexical_cast<unsigned int>(buffer);
+      std::from_chars(buffer.data(), buffer.data() + buffer.size(), buffer_uint);
       if ((counter % 4) != 0) {
         faces_arr.push_back(buffer_uint);
         if (counter < 50)
