@@ -52,6 +52,40 @@ public:
 
 // Todo: Create a ModelFrame class here
 
+// Design wise, here is my feeling:
+// I wasn't able to find out what I'm supposed to do here, so I'm
+// just going to say things:
+// 1. There is a difference between the Camera rotating and the
+//    Model rotating.  When you go to the camera frame, and rotate
+//    the camera, the model is some distance away, and rotation centered
+//    at the camera would feel weird.  What we want is rotation of
+//    model around one of its central axes.  We should create a
+//    ModelFrame and define the up forward and right vectors to
+//    rotate around.
+//
+// 2. Then the what camera should do is movement closer or further away
+//    from the model.  Ideally, there shouldn't be a need to move
+//    the camera in any other direction, but it might happen that
+//    the model is off-centre on the screen, which we could fix
+//    with camera rotation.  It would suffice to use a control mask
+//    and mouse position to specify camera position.
+//
+// 3. The mouse have two degrees of motion, and we have three axes
+//    of rotation.  We would need something like a shift mask to
+//    control rotation on the other axis.  For 3D graphing, it
+//    doesn't seem very important to look underneath a thing.
+//    Frankly, the only two useful things I use is rotate the model
+//    about the z-axis, and rotation about the x-axis so that
+//    I can see the top.  Try to avoid movement of the camera.
+//    The thing is translation and rotation do not commute.  It
+//    is best to separate the two operations.  Leave translation
+//    to the camera and rotation to the model, so that it feels
+//    fairly easy to get back to where one started.
+//
+// 4. Mouse position changes should be projected onto an arcball
+//    like how it is currently written.  Otherwise, it is quite
+//    difficult to get back to where one started.
+
 // We specialize here because the subscriber behavior is different
 class CameraFrame : public RefFrame {
 public:
