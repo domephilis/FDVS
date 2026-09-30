@@ -85,6 +85,12 @@ public:
 // 4. Mouse position changes should be projected onto an arcball
 //    like how it is currently written.  Otherwise, it is quite
 //    difficult to get back to where one started.
+//
+class ModelFrame : public RefFrame {
+public:
+  ModelFrame();
+  ModelFrame(glm::vec3 loc, glm::vec3 up, glm::vec3 forward);
+}
 
 // We specialize here because the subscriber behavior is different
 class CameraFrame : public RefFrame {

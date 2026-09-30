@@ -1,30 +1,3 @@
-// #version 330 core
-// 
-// in float height;
-// 
-// out vec4 FragColor;
-// 
-// uniform float minHeight;
-// uniform float maxHeight;
-// 
-// void main()
-// {
-//   float t = (height - minHeight) / (maxHeight - minHeight);
-//   t = clamp(t, 0.0, 1.0);
-//   vec3 low  = vec3(0.05, 0.15, 0.50);
-//   vec3 mid  = vec3(0.10, 0.75, 0.60);
-//   vec3 high = vec3(0.95, 0.35, 0.10);
-// 
-//   vec3 color;
-// 
-//   if (t < 0.5)
-//       color = mix(low, mid, t * 2.0);
-//   else
-//       color = mix(mid, high, (t - 0.5) * 2.0);
-// 
-//   FragColor = vec4(color, 1.0);
-// }
-
 // Quick and Dirty Lighting Shader by AI
 
 #version 330 core
