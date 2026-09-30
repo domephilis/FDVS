@@ -92,8 +92,17 @@ These dependencies are also automatically handled. Some of them are in the `exte
 mkdir build
 cmake -S . -B ./build --preset=default
 cd build
+cp ../assets/* ./
 ninja
 ```
+
+I am not sure that the .so compiled on my system that you directly copy over from the assets folder will work.  If it doesn't work and you are on linux, run the following in the newly created build directory:
+
+```bash
+rm ./libfunc.so
+gcc -shared -fPIC ../src/toplot.c ./libfunc.so -lm
+```
+Then, run the executable `program.out`.
 
 Note that, as configured, CMake uses Ninja as the generator. So, please feel free to modify the `CMakePresets.json` file to change the generator settings. Also, for some reason (related to a peculiarity with my system), I decided to hard-code the path to GCC in there. That might break things on Windows, so one might have to change the `CMAKE_CXX_COMPILER` settings. To enable debug symbols, use the debug setting. Note that CMake will generate a `compile_commands.json` file that your LSP, such as Clang, can use. I haven't tried any of this on Windows, so I am not sure how to generate a Visual Studio solution file yet; though, I imagine it wouldn't be too difficult.
 
